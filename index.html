@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>抹茶與手沖的原理</title>
+<meta name="description" content="用手繪動畫看懂刷抹茶和手沖咖啡的原理，每一步都能自己動手試。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=LXGW+WenKai+TC:wght@400;700&display=swap">
+<style>
+:root{--paper:#ECE9E1;--paper-2:#E1DDD2;--ink:#2C2925;--ink-soft:#645E56;--matcha:#7C9B3B;--coffee:#C47A2A;
+  --f-hand:"LXGW WenKai TC","Kaiti TC","BiauKai","DFKai-SB","KaiTi",serif;--f-num:"Kalam","LXGW WenKai TC",cursive}
+@media (prefers-color-scheme: dark){:root{--paper:#1B1A17;--paper-2:#25231F;--ink:#E8E4D8;--ink-soft:#A8A296;--matcha:#8BAE47;--coffee:#DB9446;color-scheme:dark}}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-hand);font-size:18px;line-height:1.75}
+main{max-width:740px;margin:0 auto;padding-block:clamp(40px,10vw,96px) 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+h1{font-size:clamp(40px,8vw,60px);line-height:1.1;margin:0;letter-spacing:.04em;text-wrap:balance}
+p{margin:0;max-width:32em}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:560px){.cards{grid-template-columns:minmax(0,1fr)}}
+.card{display:flex;flex-direction:column;gap:6px;padding:22px 22px 20px;background:var(--paper-2);color:inherit;text-decoration:none;border:2px solid var(--ink);border-radius:22px 30px 18px 28px/28px 18px 30px 22px;transition:transform .15s}
+.card:hover{transform:rotate(-.8deg)}
+.card:focus-visible{outline:2.5px dashed var(--ink);outline-offset:4px}
+.card small{font-family:var(--f-num);letter-spacing:.12em;font-size:14px}
+.card.m small{color:var(--matcha)}.card.c small{color:var(--coffee)}
+.card b{font-size:28px;line-height:1.3}
+.card span{color:var(--ink-soft);font-size:16px}
+.note{font-size:14px;color:var(--ink-soft)}
+@media (prefers-reduced-motion: reduce){.card{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>抹茶與手沖的原理</h1>
+  <p>用手繪動畫，看懂一碗抹茶和一杯手沖咖啡背後在發生什麼。每一步都能自己動手試：拉拉看、按按看。</p>
+  <div class="cards">
+    <a class="card m" href="matcha.html"><small>USUCHA</small><b>刷一碗抹茶</b><span>篩粉、水溫、調糊、前後刷、表面輕刷，五個步驟。</span></a>
+    <a class="card c" href="coffee.html"><small>POUR-OVER</small><b>手沖一杯咖啡</b><span>研磨、水溫、悶蒸、味道順序、注水、粉水比，六個步驟。</span></a>
+  </div>
+  <p class="note">動畫是簡化過的示意圖，用來看懂原理，不是精確的物理模擬。</p>
+</main>
+</body>
+</html>

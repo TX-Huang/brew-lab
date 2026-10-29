@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}</style>
+<meta charset="utf-8">
+<title>刷一碗抹茶</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=LXGW+WenKai+TC:wght@400;700&display=swap">
+<style>
+/* Layout: one narrow picture-book column. Each step is a page: number, title, a drawn stage you can play with, then what you saw. */
+:root{
+  --paper:#EDEFE2; --paper-2:#E2E6D2; --ink:#2B2C25; --ink-soft:#626456; --line:#B8BBA6; --shine:#FFFFFF;
+  --matcha:#7C9B3B; --matcha-deep:#4F6A24; --foam:#D0DE98; --water:#9DB6C2;
+  --glaze:#5F7280; --glaze-light:#C3CCCD; --bamboo:#C9B37B;
+  --hot:#C2603A; --sweet:#D4AE33; --bitter:#6E4B2E;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  --f-hand:"LXGW WenKai TC","Kaiti TC","BiauKai","DFKai-SB","KaiTi",serif;
+  --f-num:"Kalam","LXGW WenKai TC","Comic Sans MS",cursive;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1A1D17; --paper-2:#23271F; --ink:#E6E5D6; --ink-soft:#A4A695; --line:#4C5044; --shine:#F4F3EA;
+    --matcha:#8BAE47; --matcha-deep:#5E7E2B; --foam:#C6D78C; --water:#5E7B89;
+    --glaze:#7C91A0; --glaze-light:#3A454B; --bamboo:#B9A068;
+    --hot:#E07C50; --sweet:#E0BF52; --bitter:#B98B62;
+    --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1A1D17; --paper-2:#23271F; --ink:#E6E5D6; --ink-soft:#A4A695; --line:#4C5044; --shine:#F4F3EA;
+  --matcha:#8BAE47; --matcha-deep:#5E7E2B; --foam:#C6D78C; --water:#5E7B89;
+  --glaze:#7C91A0; --glaze-light:#3A454B; --bamboo:#B9A068;
+  --hot:#E07C50; --sweet:#E0BF52; --bitter:#B98B62;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background-color:var(--paper);background-image:var(--grain);color:var(--ink);font-family:var(--f-hand);font-size:clamp(17px,1rem + .25vw,19px);line-height:1.75}
+.wrap{max-width:740px;margin:0 auto;padding-block:clamp(28px,6vw,60px) 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:clamp(56px,10vw,96px)}
+h1,h2{font-weight:700;text-wrap:balance;margin:0}
+p{margin:0}
+
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:20px 28px;align-items:center}
+.hero-text{display:flex;flex-direction:column;gap:14px;min-width:0}
+.kicker{font-family:var(--f-num);color:var(--matcha-deep);font-size:15px;letter-spacing:.12em}
+.hero h1{font-size:clamp(44px,9vw,68px);line-height:1.08;letter-spacing:.04em}
+.hero .lede{max-width:28em}
+.hero-art{margin:0;min-width:0}
+.hero-art canvas{display:block;width:100%;height:auto;aspect-ratio:3/2;max-width:100%}
+@media (max-width:660px){.hero{grid-template-columns:1fr}.hero-art{order:-1}}
+.recipe{display:flex;flex-wrap:wrap;gap:10px 22px;padding:0;margin:4px 0 0;list-style:none}
+.recipe li{display:flex;flex-direction:column;line-height:1.25}
+.recipe b{font-family:var(--f-num);font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.recipe span{font-size:14px;color:var(--ink-soft)}
+.toc{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:15px}
+.toc a{color:var(--ink-soft);text-decoration:none;border-bottom:1.5px dashed var(--line);padding-bottom:1px}
+.toc a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+.step{display:flex;flex-direction:column;gap:16px;scroll-margin-top:24px}
+.step-head{display:flex;align-items:center;gap:14px}
+.num{font-family:var(--f-num);font-weight:700;font-size:22px;line-height:1;width:46px;height:46px;display:grid;place-items:center;border:2px solid var(--ink);border-radius:52% 48% 55% 45%/48% 55% 45% 52%;flex:none}
+.step h2{font-size:clamp(26px,5vw,34px);line-height:1.25}
+.lede{font-size:1.06em;max-width:34em}
+.stage{margin:0;display:flex;flex-direction:column;gap:6px}
+.stage .paper{background-color:var(--paper-2);background-image:var(--grain);border-radius:22px 30px 18px 28px/28px 18px 30px 22px;overflow:hidden}
+.stage canvas{display:block;width:100%;height:auto;aspect-ratio:3/2;max-width:100%}
+#cv5{touch-action:pan-y;cursor:crosshair}
+.stage figcaption{font-size:14px;color:var(--ink-soft);padding-left:6px}
+
+.controls{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center}
+.seg{display:inline-flex;border:1.8px solid var(--ink);border-radius:16px 22px 14px 20px/20px 14px 22px 16px;overflow:hidden}
+.seg button{font:inherit;font-size:16px;line-height:1.3;background:transparent;color:var(--ink);border:0;padding:7px 16px;min-height:42px;cursor:pointer}
+.seg button+button{border-left:1.8px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.btn{font:inherit;font-size:16px;line-height:1.3;color:var(--ink);background:transparent;border:1.8px dashed var(--ink-soft);border-radius:18px 14px 20px 16px/14px 20px 16px 18px;padding:7px 15px;min-height:42px;cursor:pointer;transition:transform .15s}
+.btn:hover{border-style:solid;border-color:var(--ink);transform:rotate(-1.2deg)}
+:focus-visible{outline:2.5px dashed var(--matcha-deep);outline-offset:3px}
+
+.slider{display:flex;flex-direction:column;gap:0;flex:1 1 260px;min-width:0}
+.slider label{display:flex;justify-content:space-between;align-items:baseline;font-size:16px}
+.slider output{font-family:var(--f-num);font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.ticks{display:flex;justify-content:space-between;font-family:var(--f-num);font-size:13px;color:var(--ink-soft);padding:0 4px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px;background:transparent;margin:0;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:4px;background:var(--track,var(--line))}
+input[type=range]::-moz-range-track{height:6px;border-radius:4px;background:var(--track,var(--line))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;margin-top:-9px;border-radius:52% 48% 50% 50%/48% 52% 48% 52%;background:var(--matcha);border:2px solid var(--ink)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--matcha);border:2px solid var(--ink)}
+#s2-temp{--track:linear-gradient(90deg,var(--line) 0 25%,var(--matcha) 25% 50%,var(--line) 50% 100%)}
+
+.meters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 22px}
+.meters.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.meters.one{grid-template-columns:minmax(0,1fr)}
+@media (max-width:520px){.meters,.meters.two{grid-template-columns:minmax(0,1fr)}}
+.meter{display:grid;grid-template-columns:4.5em minmax(0,1fr);gap:10px;align-items:center;font-size:15px}
+.meter i{display:block;height:13px;border:1.6px solid var(--ink);border-radius:8px 11px 7px 10px/10px 7px 11px 8px;overflow:hidden}
+.meter b{display:block;height:100%;width:50%;background:var(--c);transition:width .3s}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend svg{width:14px;height:14px;flex:none}
+
+.said{display:flex;flex-direction:column;gap:4px}
+.said small,.tip small{font-size:13px;letter-spacing:.12em;color:var(--ink-soft)}
+.said p{max-width:36em}
+.tip{display:flex;flex-direction:column;gap:2px;font-size:15px;color:var(--ink-soft);max-width:36em}
+
+.summary{display:flex;flex-direction:column;gap:18px;padding-top:8px;border-top:1.8px dashed var(--line)}
+.summary h2{font-size:clamp(24px,4.6vw,30px);padding-top:28px}
+.summary ol{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.summary li{counter-increment:s;display:flex;gap:14px;align-items:baseline}
+.summary li::before{content:counter(s);font-family:var(--f-num);font-weight:700;font-size:16px;line-height:1;flex:none;width:30px;height:30px;display:inline-grid;place-items:center;border:1.8px solid var(--ink);border-radius:52% 48% 55% 45%/48% 55% 45% 52%;transform:translateY(5px)}
+.note{font-size:14px;color:var(--ink-soft)}
+@media (prefers-reduced-motion: reduce){.btn,.meter b{transition:none}}
+</style>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="hero-text">
+      <p class="kicker">薄茶 · USUCHA</p>
+      <h1>刷一碗抹茶</h1>
+      <p class="lede">好喝的抹茶，上面有一層細細綿綿的泡沫，喝起來甘甜、不苦。秘訣是下面五件小事。每一步都能動手試試：按按看、拉拉看、刷刷看。</p>
+      <ul class="recipe" aria-label="一碗的份量">
+        <li><b>2 g</b><span>抹茶（茶杓 2 匙）</span></li>
+        <li><b>70 ml</b><span>熱水</span></li>
+        <li><b>70–80°C</b><span>水溫</span></li>
+        <li><b>15 秒</b><span>刷的時間</span></li>
+      </ul>
+      <nav class="toc" aria-label="五個步驟">
+        <a href="#s1">1 篩粉</a><a href="#s2">2 水溫</a><a href="#s3">3 調糊</a><a href="#s4">4 刷法</a><a href="#s5">5 收尾</a>
+      </nav>
+    </div>
+    <figure class="hero-art"><canvas id="cv0" role="img" aria-label="從上面看一碗刷好的抹茶，表面是淡綠色的細泡沫，旁邊立著一支茶刷。"></canvas></figure>
+  </header>
+
+  <section class="step" id="s1" aria-labelledby="h1-1">
+    <div class="step-head"><span class="num" aria-hidden="true">1</span><h2 id="h1-1">先篩粉</h2></div>
+    <p class="lede">抹茶粉非常細，很容易黏成一小團一小團。先用篩網篩一次，把它打散。</p>
+    <figure class="stage">
+      <div class="paper"><canvas id="cv1" role="img" aria-label="切開的茶碗。抹茶粉落進碗裡，再倒入熱水。右上角的放大鏡顯示粉有沒有碰到水。"></canvas></div>
+      <figcaption>把碗切開來看裡面。斜線是碗壁的切面。</figcaption>
+    </figure>
+    <div class="controls">
+      <div class="seg" id="s1-mode" role="group" aria-label="倒粉的方式">
+        <button type="button" data-v="sift" aria-pressed="true">先篩過</button>
+        <button type="button" data-v="direct" aria-pressed="false">直接倒</button>
+      </div>
+      <button type="button" class="btn" id="s1-replay">↻ 再看一次</button>
+    </div>
+    <div class="said"><small>你看到的</small><p id="r1" aria-live="polite">篩過的粉鬆鬆的，每一顆都碰得到水，一下就散開，顏色很均勻。</p></div>
+  </section>
+
+  <section class="step" id="s2" aria-labelledby="h1-2">
+    <div class="step-head"><span class="num" aria-hidden="true">2</span><h2 id="h1-2">水不要太燙</h2></div>
+    <p class="lede">用 70–80°C 的水。水太燙，苦味會跑出來，蓋過甜味。</p>
+    <figure class="stage">
+      <div class="paper"><canvas id="cv2" role="img" aria-label="切開的茶碗，茶湯裡有黃色圓點代表甘甜，咖啡色星星代表苦澀。左邊是溫度計，右上角是喝的人的表情。"></canvas></div>
+      <figcaption class="legend">
+        <span><svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="var(--sweet)" stroke="var(--ink)" stroke-width="1"/></svg>甘甜、鮮味（胺基酸）</span>
+        <span><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1l1.5 3.4L12 3.5l-1.6 3.5L12 10.5l-3.5-1L7 13l-1.5-3.5-3.5 1L3.6 7 2 3.5l3.5.9z" fill="var(--bitter)" stroke="var(--ink)" stroke-width=".8"/></svg>苦澀（兒茶素）</span>
+      </figcaption>
+    </figure>
+    <div class="controls">
+      <div class="slider">
+        <label for="s2-temp"><span>水溫</span><output id="s2-out" for="s2-temp">75°C</output></label>
+        <input type="range" id="s2-temp" min="60" max="100" step="1" value="75">
+        <div class="ticks" aria-hidden="true"><span>60</span><span>70</span><span>80</span><span>90</span><span>100</span></div>
+      </div>
+    </div>
+    <div class="meters">
+      <div class="meter"><span>甘甜</span><i><b id="m-sweet" style="--c:var(--sweet)"></b></i></div>
+      <div class="meter"><span>苦澀</span><i><b id="m-bitter" style="--c:var(--bitter)"></b></i></div>
+      <div class="meter"><span>香氣</span><i><b id="m-aroma" style="--c:var(--matcha)"></b></i></div>
+    </div>
+    <div class="said"><small>你看到的</small><p id="r2" aria-live="polite">剛剛好。甜味和香氣都在，苦味很少。</p></div>
+    <p class="tip"><small>小技巧</small>沒有溫度計？把滾水先倒進空杯子，再倒進茶碗。每倒一次，大約降 10°C。</p>
+  </section>
+
+  <section class="step" id="s3" aria-labelledby="h1-3">
+    <div class="step-head"><span class="num" aria-hidden="true">3</span><h2 id="h1-3">先調成糊</h2></div>
+    <p class="lede">先倒一點點水，把粉調成糊，再把剩下的水倒進去。</p>
+    <figure class="stage">
+      <div class="paper"><canvas id="cv3" role="img" aria-label="切開的茶碗。碗底有抹茶粉，倒水後用茶刷攪拌，看粉會不會結塊。"></canvas></div>
+      <figcaption>碗底那層綠點，是篩好的抹茶粉。</figcaption>
+    </figure>
+    <div class="controls">
+      <div class="seg" id="s3-mode" role="group" aria-label="倒水的方式">
+        <button type="button" data-v="paste" aria-pressed="true">先調成糊</button>
+        <button type="button" data-v="all" aria-pressed="false">一次倒完</button>
+      </div>
+      <button type="button" class="btn" id="s3-replay">↻ 再看一次</button>
+    </div>
+    <div class="said"><small>你看到的</small><p id="r3" aria-live="polite">少少的水，先讓每一顆粉都濕透。之後再加水，粉早就化開了，不會結塊。</p></div>
+    <p class="tip"><small>說明</small>這是給新手的保險做法。熟練以後，很多人會一次把水倒完直接刷。</p>
+  </section>
+
+  <section class="step" id="s4" aria-labelledby="h1-4">
+    <div class="step-head"><span class="num" aria-hidden="true">4</span><h2 id="h1-4">前後快刷，不要畫圈</h2></div>
+    <p class="lede">用手腕快速前後刷，像在寫「W」或「M」。不要畫圈。</p>
+    <figure class="stage">
+      <div class="paper"><canvas id="cv4" role="img" aria-label="從上面看茶碗。茶刷在茶湯裡移動，細線是它走過的路，淡色的部分是泡沫。"></canvas></div>
+      <figcaption>從上面往下看。細線是茶刷走過的路，畫面有放慢。</figcaption>
+    </figure>
+    <div class="controls">
+      <div class="seg" id="s4-mode" role="group" aria-label="刷的動作">
+        <button type="button" data-v="zig" aria-pressed="true">前後刷（W 字）</button>
+        <button type="button" data-v="circle" aria-pressed="false">畫圈</button>
+      </div>
+      <div class="slider">
+        <label for="s4-speed"><span>速度</span><output id="s4-out" for="s4-speed">快</output></label>
+        <input type="range" id="s4-speed" min="1" max="8" step="1" value="7">
+        <div class="ticks" aria-hidden="true"><span>慢</span><span>快</span></div>
+      </div>
+      <button type="button" class="btn" id="s4-replay">↻ 重新刷</button>
+    </div>
+    <div class="meters two">
+      <div class="meter"><span>泡沫</span><i><b id="m-foam" style="--c:var(--foam)"></b></i></div>
+      <div class="meter"><span>跟著轉</span><i><b id="m-spin" style="--c:var(--water)"></b></i></div>
+    </div>
+    <div class="said"><small>你看到的</small><p id="r4" aria-live="polite">每次換方向，茶刷都會切開水面，把空氣捲進茶裡。刷得越快，泡泡越細越綿。</p></div>
+    <p class="tip"><small>小技巧</small>動的是手腕，手臂不用大動。茶刷不要用力壓碗底，稍微浮著刷。</p>
+  </section>
+
+  <section class="step" id="s5" aria-labelledby="h1-5">
+    <div class="step-head"><span class="num" aria-hidden="true">5</span><h2 id="h1-5">最後在表面輕刷</h2></div>
+    <p class="lede">泡沫打好以後，把茶刷提到表面，輕輕的刷，把大泡泡切成小泡泡。</p>
+    <figure class="stage">
+      <div class="paper"><canvas id="cv5" role="img" aria-label="從上面看茶碗，表面有很多大泡泡。用滑鼠或手指在上面刷過，大泡泡會變成小泡泡。"></canvas></div>
+      <figcaption>用滑鼠或手指，在泡泡上左右刷刷看。</figcaption>
+    </figure>
+    <div class="controls">
+      <button type="button" class="btn" id="s5-demo">▶ 示範給我看</button>
+      <button type="button" class="btn" id="s5-reset">↻ 再來一次</button>
+    </div>
+    <div class="meters one"><div class="meter"><span>綿密</span><i><b id="m-smooth" style="--c:var(--foam)"></b></i></div></div>
+    <div class="said"><small>你看到的</small><p id="r5" aria-live="polite">還有很多大泡泡。在泡泡上輕輕左右刷。</p></div>
+    <p class="tip"><small>為什麼</small>大泡泡的膜很薄，放一下就破；小泡泡比較穩，喝起來滑順，像奶泡一樣。</p>
+  </section>
+
+  <section class="summary" aria-labelledby="sum-h">
+    <h2 id="sum-h">記住這五句</h2>
+    <ol>
+      <li>粉先篩過。</li>
+      <li>水溫 70–80°C，不要用剛滾的水。</li>
+      <li>先加一點水調成糊，再把水加滿。</li>
+      <li>手腕前後快刷，像寫 W，大約 15 秒。</li>
+      <li>最後在表面輕刷，在中間寫一個「の」，慢慢提起茶刷。</li>
+    </ol>
+    <p class="note">動畫是簡化過的示意圖，用來看懂原理，不是精確的物理模擬。</p>
+    <p class="note"><a href="./" style="color:inherit">回首頁</a> · 另一篇：<a id="other-page" href="coffee.html" style="color:inherit">手沖一杯咖啡</a></p>
+  </section>
+</main>
+
+<script>
+(() => {
+'use strict';
+const W = 600, H = 400, TAU = Math.PI * 2;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FONT = '"LXGW WenKai TC","Kaiti TC","BiauKai","DFKai-SB","KaiTi",serif';
+const NUMF = '"Kalam","LXGW WenKai TC",cursive';
+const $ = id => document.getElementById(id);
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const ss = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+const hsh = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const vn = (x, s) => { const i = Math.floor(x), f = x - i, u = f * f * (3 - 2 * f); return lerp(hsh(i + s * 57.31), hsh(i + 1 + s * 57.31), u) * 2 - 1; };
+
+// ---------- colors from the page tokens ----------
+const TOK = { ink: '--ink', inkSoft: '--ink-soft', paper: '--paper', paper2: '--paper-2', shine: '--shine', matcha: '--matcha', matchaDeep: '--matcha-deep', foam: '--foam', water: '--water', glaze: '--glaze', glazeLight: '--glaze-light', bamboo: '--bamboo', hot: '--hot', sweet: '--sweet', bitter: '--bitter' };
+const C = {};
+function readColors() { const cs = getComputedStyle(document.documentElement); for (const k in TOK) C[k] = cs.getPropertyValue(TOK[k]).trim() || '#888888'; }
+function rgb(hex) { let h = hex.replace('#', ''); if (h.length === 3) h = h.replace(/./g, c => c + c); const n = parseInt(h.slice(0, 6), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
+function mix(a, b, t) { const A = rgb(a), Z = rgb(b); return '#' + A.map((v, i) => Math.round(lerp(v, Z[i], clamp(t, 0, 1))).toString(16).padStart(2, '0')).join(''); }
+
+// ---------- hand-drawn line kit ----------
+let boil = 0; // changes a few times a second so lines shimmer like a pencil animation
+function resample(pts, step = 6) {
+  const out = [pts[0]]; let carry = 0;
+  for (let i = 1; i < pts.length; i++) {
+    const [x0, y0] = pts[i - 1], [x1, y1] = pts[i], d = Math.hypot(x1 - x0, y1 - y0);
+    if (d === 0) continue;
+    let s = step - carry;
+    while (s <= d) { out.push([x0 + (x1 - x0) * s / d, y0 + (y1 - y0) * s / d]); s += step; }
+    carry = d - (s - step);
+  }
+  const e = pts[pts.length - 1], o = out[out.length - 1];
+  if (Math.hypot(e[0] - o[0], e[1] - o[1]) > .5) out.push(e);
+  return out;
+}
+const line = (x0, y0, x1, y1) => resample([[x0, y0], [x1, y1]], 6);
+function ell(cx, cy, rx, ry, a0 = 0, a1 = TAU, n) {
+  n = n || Math.max(12, Math.round(Math.abs(a1 - a0) * Math.max(rx, ry) / 5));
+  const p = []; for (let i = 0; i <= n; i++) { const a = a0 + (a1 - a0) * i / n; p.push([cx + rx * Math.cos(a), cy + ry * Math.sin(a)]); } return p;
+}
+function jit(pts, amp, seed) { const s = seed + boil * 7.3; return pts.map((p, i) => [p[0] + amp * vn(i * .21, s), p[1] + amp * vn(i * .21, s + 3.7)]); }
+function trace(ctx, pts, closed) { ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]); if (closed) ctx.closePath(); }
+function ink(ctx, pts, o = {}) {
+  const { color = C.ink, w = 2, seed = 1, amp = 1.1, closed = false, alpha = 1, pass2 = true } = o;
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = color;
+  ctx.globalAlpha = alpha * .92; ctx.lineWidth = w; trace(ctx, jit(pts, amp, seed), closed); ctx.stroke();
+  if (pass2) { ctx.globalAlpha = alpha * .35; ctx.lineWidth = w * .55; trace(ctx, jit(pts, amp * 1.6, seed + 11), closed); ctx.stroke(); }
+  ctx.globalAlpha = 1;
+}
+function wash(ctx, pts, color, o = {}) {
+  const { alpha = 1, seed = 2, amp = 1.6, edge = true } = o;
+  ctx.fillStyle = color;
+  ctx.globalAlpha = alpha * .55; trace(ctx, jit(pts, amp, seed), true); ctx.fill();
+  ctx.globalAlpha = alpha * .5; trace(ctx, jit(pts, amp, seed + 5), true); ctx.fill();
+  if (edge) { ctx.strokeStyle = color; ctx.lineWidth = 2.2; ctx.globalAlpha = alpha * .55; ctx.stroke(); }
+  ctx.globalAlpha = 1;
+}
+function hatch(ctx, poly, gap, alpha) {
+  ctx.save(); trace(ctx, poly, true); ctx.clip();
+  ctx.strokeStyle = C.ink; ctx.globalAlpha = alpha; ctx.lineWidth = 1; ctx.beginPath();
+  for (let x = -300; x < 700; x += gap) { const o = vn(x * .1, boil + 3) * 1.2; ctx.moveTo(x + o, 400); ctx.lineTo(x + 260 + o, 140); }
+  ctx.stroke(); ctx.restore(); ctx.globalAlpha = 1;
+}
+function text(ctx, s, x, y, o = {}) { const { size = 15, color = C.inkSoft, align = 'center', font = FONT, weight = 400, alpha = 1 } = o; ctx.globalAlpha = alpha; ctx.fillStyle = color; ctx.font = `${weight} ${size}px ${font}`; ctx.textAlign = align; ctx.textBaseline = 'middle'; ctx.fillText(s, x, y); ctx.globalAlpha = 1; }
+
+// ---------- the tea bowl, seen cut in half ----------
+const B = { cx: 300, rimY: 150, inBot: 330, inR: 168, outBot: 348, outR: 184 };
+function bowlCurve(R, bot) {
+  const p = [];
+  for (let i = 0; i <= 120; i++) { const th = Math.PI + Math.PI * i / 120, c = Math.cos(th), s = Math.sin(th), t = Math.pow(Math.abs(s), 2 / 3), a = R - 16 * t; p.push([B.cx + a * Math.sign(c) * Math.pow(Math.abs(c), 2 / 3), B.rimY + (bot - B.rimY) * t]); }
+  return resample(p, 5);
+}
+const INNER = bowlCurve(B.inR, B.inBot), OUTER = bowlCurve(B.outR, B.outBot);
+const BAND = OUTER.concat(INNER.slice().reverse());
+const FOOT = resample([[B.cx - 66, 342], [B.cx - 61, 366], [B.cx + 61, 366], [B.cx + 66, 342]], 6);
+const RIM_OUT = ell(B.cx, B.rimY, B.outR, 20, Math.PI, TAU), RIM_IN = ell(B.cx, B.rimY, B.inR, 15, Math.PI, TAU);
+function inHW(y) { const t = clamp((y - B.rimY) / (B.inBot - B.rimY), 0, 1); return (B.inR - 16 * t) * Math.cbrt(1 - t * t * t); }
+function innerY(dx) { let lo = 0, hi = 1; dx = Math.abs(dx); for (let k = 0; k < 24; k++) { const m = (lo + hi) / 2; if ((B.inR - 16 * m) * Math.cbrt(1 - m * m * m) > dx) lo = m; else hi = m; } return B.rimY + (B.inBot - B.rimY) * lo; }
+function liquidPoly(L) { const w = inHW(L); return [[B.cx - w, L], ...INNER.filter(p => p[1] > L), [B.cx + w, L], ...resample([[B.cx + w, L], [B.cx - w, L]], 6).slice(1, -1)]; }
+function bowlSide(ctx, o) {
+  const L = o.level;
+  wash(ctx, FOOT, C.glaze, { seed: 3, alpha: .95 });
+  ink(ctx, FOOT, { seed: 4, w: 1.8 });
+  wash(ctx, INNER, C.glazeLight, { seed: 5, alpha: .75, edge: false });
+  wash(ctx, RIM_OUT.concat(RIM_IN.slice().reverse()), C.glaze, { seed: 6, alpha: .95 });
+  ink(ctx, RIM_OUT, { seed: 7, w: 1.8 }); ink(ctx, RIM_IN, { seed: 8, w: 1.3, alpha: .8 });
+  if (L < B.inBot - 1) {
+    wash(ctx, liquidPoly(L), o.liquid, { seed: 9, amp: .8, alpha: o.alpha ?? 1 });
+    const w = inHW(L), top = ell(B.cx, L, w, w / B.inR * 14, Math.PI, TAU);
+    wash(ctx, top, o.surface || o.liquid, { seed: 10, amp: .6, edge: false, alpha: o.alpha ?? 1 });
+    ink(ctx, top, { seed: 11, w: 1.1, color: C.inkSoft, alpha: .55, pass2: false });
+  }
+  if (o.inside) o.inside(ctx, L);
+  wash(ctx, BAND, C.glaze, { seed: 12, alpha: .95 });
+  hatch(ctx, BAND, 7, .2);
+  ink(ctx, OUTER, { seed: 13, w: 2.2 }); ink(ctx, INNER, { seed: 14, w: 1.6 });
+  ink(ctx, line(B.cx - B.outR, B.rimY, B.cx - B.inR, B.rimY), { seed: 15, w: 2 });
+  ink(ctx, line(B.cx + B.inR, B.rimY, B.cx + B.outR, B.rimY), { seed: 16, w: 2 });
+}
+function pour(ctx, x, yBot, w, a) {
+  if (a <= 0.01) return;
+  const pts = []; for (let y = -6; y <= yBot; y += 6) pts.push([x + Math.sin(y * .05) * 2.2 * (1 - y / yBot), y]);
+  ink(ctx, pts, { color: C.water, w, seed: 50, amp: .7, alpha: a * .9, pass2: false });
+  ink(ctx, pts.map(p => [p[0] - w * .22, p[1]]), { color: C.shine, w: Math.max(1, w * .16), seed: 51, alpha: a * .55, pass2: false });
+  ink(ctx, ell(x, yBot, w * 1.5 + 5, 3.5, Math.PI, TAU, 12), { color: C.water, w: 1.6, seed: 52, alpha: a * .9, pass2: false });
+}
+function blob(ctx, x, y, r, color, seed, alpha = 1) {
+  const p = ell(x, y, r, r * .86, 0, TAU, 18);
+  wash(ctx, p, color, { seed, amp: r * .12, alpha });
+  ink(ctx, p, { seed: seed + 1, w: 1.1, amp: r * .1, closed: true, alpha: alpha * .75, pass2: false });
+}
+function drawChasen(ctx, x, tip, a) {
+  const top = tip - 175, neck = tip - 92, hp = line(x, top, x, neck);
+  ink(ctx, hp, { w: 15, seed: 90, alpha: a, pass2: false });
+  ink(ctx, hp, { color: C.bamboo, w: 11.5, seed: 91, alpha: a, pass2: false });
+  ink(ctx, line(x - 6, top + 32, x + 6, top + 32), { w: 1.4, seed: 92, alpha: a * .8, pass2: false });
+  for (let i = 0; i < 11; i++) {
+    const u = i / 10 * 2 - 1, pts = [];
+    for (let j = 0; j <= 12; j++) { const v = j / 12, bulge = Math.sin(v * Math.PI * .85) * 30 * u, curl = v > .85 ? (v - .85) / .15 * -6 * u : 0; pts.push([x + u * 5 + bulge + curl, neck + v * (tip - neck)]); }
+    ink(ctx, pts, { color: C.bamboo, w: 2.6, seed: 93 + i, alpha: a, amp: .4, pass2: false });
+    ink(ctx, pts, { w: .8, seed: 110 + i, alpha: a * .55, amp: .4, pass2: false });
+  }
+  for (let i = 0; i < 6; i++) { const u = i / 5 * 2 - 1; ink(ctx, line(x + u * 3, neck, x + u * 9, neck + 45), { color: C.bamboo, w: 2, seed: 130 + i, alpha: a * .9, pass2: false }); }
+}
+
+// ---------- the bowl seen from above (steps 4, 5, hero) ----------
+const RT = 150, CX = 300, CY = 200, NR = 14, NS = 48;
+const cellX = new Float32Array(NR * NS), cellY = new Float32Array(NR * NS), cellW = new Float32Array(NR * NS);
+for (let r = 0; r < NR; r++) for (let s = 0; s < NS; s++) { const k = r * NS + s, rr = (r + .5) / NR * RT, a = (s + .5) / NS * TAU; cellX[k] = rr * Math.cos(a); cellY[k] = rr * Math.sin(a); cellW[k] = r + .5; }
+const cellWsum = cellW.reduce((a, b) => a + b, 0);
+function foamAt(F, r, a) {
+  const ri = clamp(r / RT * NR - .5, 0, NR - 1), r0 = Math.floor(ri), r1 = Math.min(NR - 1, r0 + 1), fr = ri - r0;
+  let si = (a / TAU * NS - .5) % NS; if (si < 0) si += NS;
+  const s0 = Math.floor(si) % NS, s1 = (s0 + 1) % NS, fs = si - Math.floor(si);
+  return lerp(lerp(F[r0 * NS + s0], F[r0 * NS + s1], fs), lerp(F[r1 * NS + s0], F[r1 * NS + s1], fs), fr);
+}
+function deposit(F, lx, ly, amt, rad) { for (let k = 0; k < F.length; k++) { const d = Math.hypot(cellX[k] - lx, cellY[k] - ly); if (d < rad) { const f = 1 - d / rad; F[k] = Math.min(1, F[k] + amt * f * f); } } }
+const tmpF = new Float32Array(NR * NS);
+function diffuse(F, rate) {
+  for (let r = 0; r < NR; r++) for (let s = 0; s < NS; s++) {
+    const k = r * NS + s, up = r < NR - 1 ? F[k + NS] : F[k], dn = r > 0 ? F[k - NS] : F[k];
+    tmpF[k] = F[k] + rate * ((up + dn + F[r * NS + (s + NS - 1) % NS] + F[r * NS + (s + 1) % NS]) / 4 - F[k]);
+  }
+  F.set(tmpF);
+}
+function coverage(F) { let s = 0; for (let k = 0; k < F.length; k++) s += F[k] * cellW[k]; return s / cellWsum; }
+const OFF = document.createElement('canvas'); OFF.width = OFF.height = 64;
+const OFX = OFF.getContext('2d'), IMG = OFX.createImageData(64, 64);
+function drawFoam(ctx, F, phase, cx, cy) {
+  const [fr, fg, fb] = rgb(C.foam), d = IMG.data;
+  for (let j = 0; j < 64; j++) for (let i = 0; i < 64; i++) {
+    const x = ((i + .5) / 32 - 1) * RT, y = ((j + .5) / 32 - 1) * RT, r = Math.hypot(x, y), k = (j * 64 + i) * 4;
+    d[k] = fr; d[k + 1] = fg; d[k + 2] = fb;
+    d[k + 3] = r > RT + 4 ? 0 : Math.pow(clamp(foamAt(F, Math.min(r, RT), Math.atan2(y, x) - phase), 0, 1), .8) * 238;
+  }
+  OFX.putImageData(IMG, 0, 0);
+  ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, RT - 1, 0, TAU); ctx.clip(); ctx.imageSmoothingEnabled = true; ctx.drawImage(OFF, cx - RT, cy - RT, RT * 2, RT * 2); ctx.restore();
+}
+const STIP = Array.from({ length: 650 }, (_, i) => ({ r: RT * .97 * Math.sqrt(hsh(i + 3000)), a: hsh(i + 3100) * TAU, s: .8 + hsh(i + 3200) * 1.1 }));
+const stipV = new Float32Array(STIP.length);
+function stipple(ctx, F, phase, cx, cy) {
+  STIP.forEach((p, i) => { stipV[i] = foamAt(F, p.r, p.a); });
+  ctx.strokeStyle = C.matchaDeep; ctx.lineWidth = .8;
+  for (let lvl = 0; lvl < 3; lvl++) {
+    const lo = .3 + lvl * .23, hi = lvl === 2 ? 9 : lo + .23;
+    ctx.globalAlpha = .2 + lvl * .1; ctx.beginPath();
+    STIP.forEach((p, i) => { const v = stipV[i]; if (v < lo || v >= hi) return; const a = p.a + phase, x = cx + p.r * Math.cos(a), y = cy + p.r * Math.sin(a); ctx.moveTo(x + p.s, y); ctx.arc(x, y, p.s, 0, TAU); });
+    ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+}
+function bowlTop(ctx, cx, cy, tea) {
+  const outer = ell(cx, cy, 178, 178), inner = ell(cx, cy, 163, 163);
+  wash(ctx, outer.concat(inner.slice().reverse()), C.glaze, { seed: 31, edge: false });
+  wash(ctx, inner, C.glazeLight, { seed: 32, edge: false });
+  wash(ctx, ell(cx, cy, RT, RT), tea, { seed: 35, amp: 1 });
+  ink(ctx, outer, { seed: 33, w: 2.2, closed: true }); ink(ctx, inner, { seed: 34, w: 1.4, closed: true, alpha: .8 });
+}
+function teaEdge(ctx, cx, cy) { ink(ctx, ell(cx, cy, RT, RT), { seed: 36, w: 1.1, color: C.inkSoft, alpha: .55, pass2: false, closed: true }); }
+function whiskTop(ctx, x, y, a = 1, s = 1) {
+  ctx.globalAlpha = a; ctx.strokeStyle = C.bamboo; ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.beginPath();
+  for (let i = 0; i < 20; i++) { const t = i / 20 * TAU; ctx.moveTo(x + 9 * s * Math.cos(t), y + 9 * s * Math.sin(t)); ctx.lineTo(x + 20 * s * Math.cos(t), y + 20 * s * Math.sin(t)); }
+  ctx.stroke(); ctx.globalAlpha = 1;
+  ink(ctx, ell(x, y, 20 * s, 20 * s, 0, TAU, 20), { w: 1, alpha: a * .6, closed: true, pass2: false, seed: 140 });
+  wash(ctx, ell(x, y, 8 * s, 8 * s, 0, TAU, 14), C.bamboo, { alpha: a, seed: 141 });
+  ink(ctx, ell(x, y, 8 * s, 8 * s, 0, TAU, 14), { w: 1.4, alpha: a, closed: true, pass2: false, seed: 142 });
+}
+function drawBubbles(ctx, list) {
+  for (const b of list) {
+    const a = b.max ? clamp((b.max - b.life) / .25, 0, 1) : 1;
+    ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, TAU);
+    ctx.globalAlpha = .55 * a; ctx.fillStyle = C.foam; ctx.fill();
+    ctx.globalAlpha = .8 * a; ctx.strokeStyle = C.inkSoft; ctx.lineWidth = 1; ctx.stroke();
+    if (b.r > 2.5) { ctx.globalAlpha = .85 * a; ctx.strokeStyle = C.shine; ctx.lineWidth = 1.1; ctx.beginPath(); ctx.arc(b.x, b.y, b.r * .6, Math.PI * 1.05, Math.PI * 1.45); ctx.stroke(); }
+  }
+  ctx.globalAlpha = 1;
+}
+function drawPops(ctx, pops, dt) {
+  for (const p of pops) { p.t += dt; const k = p.t / .22; if (k >= 1) continue; ctx.globalAlpha = 1 - k; ctx.strokeStyle = C.inkSoft; ctx.lineWidth = 1; ctx.beginPath(); for (let i = 0; i < 6; i++) { const a = i / 6 * TAU + p.r, r0 = p.r * (.6 + k), r1 = p.r * (1 + k * 1.2); ctx.moveTo(p.x + r0 * Math.cos(a), p.y + r0 * Math.sin(a)); ctx.lineTo(p.x + r1 * Math.cos(a), p.y + r1 * Math.sin(a)); } ctx.stroke(); }
+  ctx.globalAlpha = 1;
+  return pops.filter(p => p.t < .22);
+}
+
+// ---------- scenes ----------
+const scenes = [];
+function scene(id, draw, onFirst) { const cv = $(id); const sc = { cv, ctx: cv.getContext('2d'), draw, onFirst, visible: false, seen: false }; scenes.push(sc); return sc; }
+function render(sc, dt) {
+  const cv = sc.cv, cw = cv.clientWidth; if (!cw) return;
+  const dpr = Math.min(2, window.devicePixelRatio || 1), w = Math.round(cw * dpr);
+  if (w !== cv.width) { cv.width = w; cv.height = Math.round(w * H / W); }
+  const k = cv.width / W; sc.ctx.setTransform(k, 0, 0, k, 0, 0); sc.ctx.clearRect(0, 0, W, H);
+  sc.draw(sc.ctx, dt);
+}
+
+// 0 — hero: a finished bowl
+const heroF = new Float32Array(NR * NS);
+for (let r = 0; r < NR; r++) for (let s = 0; s < NS; s++) heroF[r * NS + s] = (r > NR - 3 ? .45 : .82) + .14 * hsh(r * 97 + s);
+scene('cv0', ctx => {
+  const cx = 240, cy = 200;
+  bowlTop(ctx, cx, cy, C.matcha); drawFoam(ctx, heroF, 0, cx, cy); stipple(ctx, heroF, 0, cx, cy); teaEdge(ctx, cx, cy);
+  ink(ctx, ell(cx + 4, cy - 3, 15, 12), { color: C.shine, w: 2, alpha: .75, closed: true, pass2: false, seed: 150 });
+  ink(ctx, line(450, 375, 552, 375), { w: 1.6, alpha: .45, seed: 151, pass2: false });
+  drawChasen(ctx, 500, 372, 1);
+});
+
+// 1 — sift or not
+const s1 = { mode: 'sift', t: 7.4, T: 7.4 };
+const G = 900;
+const clumps = Array.from({ length: 8 }, (_, i) => { const r = 7 + hsh(i + 1) * 6, x = B.cx - 85 + hsh(i + 20) * 170; return { r, x, x0: 234 + (hsh(i + 60) - .5) * 16, start: .3 + i * .14, yLand: innerY(x - B.cx) - r * .75, floats: i % 3 !== 0, s: 20 + i * 3 }; });
+const dust = Array.from({ length: 150 }, (_, i) => { const x = B.cx + (hsh(i + 100) - .5) * 210, my = 265 + hsh(i + 1300) * 50; return { x, x0: B.cx + (hsh(i + 300) - .5) * 100, start: .25 + hsh(i + 500) * 1.9, yLand: innerY(x - B.cx) - 1.5 - hsh(i + 700) * 3, r: .9 + hsh(i + 900) * 1.1, my, mx: B.cx + (hsh(i + 1100) - .5) * 1.6 * inHW(my), d: hsh(i + 1500) }; });
+function fallPos(x0, y0, x1, y1, t) { if (t < 0) return null; const y = y0 + .5 * G * t * t; if (y >= y1) return [x1, y1, true]; return [lerp(x0, x1, (y - y0) / (y1 - y0)), y, false]; }
+function clumpPos(c, t, L) { const f = fallPos(c.x0, 96, c.x, c.yLand, t - c.start); if (!f) return null; let [x, y] = f; if (f[2] && c.floats) y = Math.min(c.yLand, L + c.r * .3); return [x, y]; }
+function sieve(ctx, x, a, heap) {
+  const body = [...line(x - 66, 60, x - 60, 102), ...ell(x, 102, 60, 9, Math.PI, 0, 24), ...line(x + 60, 102, x + 66, 60)];
+  wash(ctx, body, C.glazeLight, { seed: 41, alpha: a * .8, edge: false });
+  if (heap > .02) wash(ctx, ell(x, 96, 44 * heap + 6, 8 * heap + 2, Math.PI, TAU, 16), C.matcha, { seed: 42, alpha: a });
+  ctx.save(); trace(ctx, ell(x, 102, 60, 9), true); ctx.clip(); ctx.globalAlpha = a * .5; ctx.strokeStyle = C.ink; ctx.lineWidth = .8; ctx.beginPath();
+  for (let k = -80; k < 80; k += 5) { ctx.moveTo(x + k, 90); ctx.lineTo(x + k + 20, 114); ctx.moveTo(x + k + 20, 90); ctx.lineTo(x + k, 114); }
+  ctx.stroke(); ctx.restore(); ctx.globalAlpha = 1;
+  ink(ctx, ell(x, 60, 66, 10), { seed: 43, w: 1.8, alpha: a, closed: true });
+  ink(ctx, line(x - 66, 60, x - 60, 102), { seed: 44, w: 1.8, alpha: a }); ink(ctx, line(x + 66, 60, x + 60, 102), { seed: 45, w: 1.8, alpha: a });
+  ink(ctx, ell(x, 102, 60, 9, 0, Math.PI, 24), { seed: 46, w: 1.8, alpha: a });
+}
+function scoop(ctx, a, heap) {
+  const pts = resample([[112, 40], [176, 64], [232, 88], [254, 94]], 6);
+  ink(ctx, pts, { w: 9, seed: 47, alpha: a, pass2: false }); ink(ctx, pts, { color: C.bamboo, w: 6, seed: 48, alpha: a, pass2: false });
+  for (let i = 0; i < heap; i++) blob(ctx, 238 + (i % 4) * 5 - 6, 86 - Math.floor(i / 4) * 5, 4, C.matchaDeep, 60 + i, a);
+}
+function magnifier(ctx, a, sift, t, L) {
+  const mx = 530, my = 80, r = 54;
+  const tp = sift ? [338, 292] : (clumpPos(clumps[1], t, L) || [338, 292]);
+  const ang = Math.atan2(tp[1] - my, tp[0] - mx);
+  ink(ctx, line(mx + r * Math.cos(ang), my + r * Math.sin(ang), tp[0], tp[1]), { w: 1.2, color: C.inkSoft, alpha: a * .8, pass2: false, seed: 60 });
+  ctx.save(); ctx.beginPath(); ctx.arc(mx, my, r, 0, TAU); ctx.clip();
+  ctx.globalAlpha = a; ctx.fillStyle = C.paper2; ctx.fillRect(mx - r, my - r, r * 2, r * 2);
+  ctx.globalAlpha = a * .55; ctx.fillStyle = sift ? mix(C.water, C.matcha, .45) : C.water; ctx.fillRect(mx - r, my - r, r * 2, r * 2); ctx.globalAlpha = 1;
+  if (!sift) {
+    wash(ctx, ell(mx, my, 27, 25), C.foam, { seed: 61, alpha: a });
+    ctx.globalAlpha = a; ctx.fillStyle = C.inkSoft; for (let i = 0; i < 26; i++) { const rr = 19 * Math.sqrt(hsh(i + 1700)), q = hsh(i + 1800) * TAU; ctx.fillRect(mx + rr * Math.cos(q) - .8, my + rr * Math.sin(q) * .9 - .8, 1.6, 1.6); } ctx.globalAlpha = 1;
+    ink(ctx, ell(mx, my, 28, 26), { color: C.matchaDeep, w: 8, closed: true, alpha: a, seed: 62, pass2: false });
+    for (let i = 0; i < 4; i++) {
+      const q = i / 4 * TAU + .6 + Math.sin(t * 3 + i) * .05, c = Math.cos(q), s = Math.sin(q);
+      ink(ctx, line(mx + 52 * c, my + 50 * s, mx + 38 * c, my + 36 * s), { color: C.water, w: 2.4, alpha: a, seed: 63 + i, pass2: false });
+      ink(ctx, line(mx + 38 * c - 4 * s, my + 36 * s + 4 * c, mx + 38 * c + 4 * s, my + 36 * s - 4 * c), { color: C.inkSoft, w: 1.6, alpha: a, seed: 70 + i, pass2: false });
+    }
+    text(ctx, '乾粉', mx, my, { size: 15, color: C.ink, weight: 700, alpha: a });
+  } else {
+    for (let i = 0; i < 9; i++) {
+      const q = i / 8 * TAU + t * .25, rr = i === 8 ? 0 : 27 + Math.sin(t + i) * 2, x = mx + rr * Math.cos(q), y = my + rr * Math.sin(q);
+      ink(ctx, ell(x, y, 8.5, 8.5, 0, TAU, 14), { color: C.water, w: 3, alpha: a * .8, closed: true, seed: 75 + i, pass2: false });
+      wash(ctx, ell(x, y, 4.5, 4.2, 0, TAU, 12), C.matchaDeep, { seed: 85 + i, alpha: a, amp: .5 });
+    }
+  }
+  ctx.restore();
+  ink(ctx, ell(mx, my, r, r), { w: 2, closed: true, seed: 66, alpha: a });
+  text(ctx, '放大看', mx - r - 8, my - r + 16, { align: 'right', alpha: a });
+}
+scene('cv1', (ctx, dt) => {
+  if (s1.t < s1.T) s1.t = Math.min(s1.T, s1.t + dt);
+  const t = s1.t, sift = s1.mode === 'sift';
+  const L = t < 2.4 ? B.inBot : lerp(B.inBot, 255, ss(2.4, 4.4, t));
+  const k = sift ? ss(3.2, 5.8, t) : 0;
+  const liquid = sift ? mix(C.water, C.matcha, k) : mix(C.water, C.matcha, .22 * ss(3, 5, t));
+  bowlSide(ctx, { level: L, liquid, inside: () => {
+    if (sift) {
+      ctx.fillStyle = C.matchaDeep;
+      for (const d of dust) {
+        const f = fallPos(d.x0, 104, d.x, d.yLand, t - d.start); if (!f) continue;
+        let [x, y, landed] = f;
+        if (landed && L < d.yLand - 2) { const p = ss(0, 1.3, t - 2.6 - d.d * .8); x = lerp(x, d.mx, p); y = lerp(y, d.my, p); }
+        const a = 1 - k * .97; if (a < .03) continue;
+        ctx.globalAlpha = a; ctx.beginPath(); ctx.arc(x, y, d.r, 0, TAU); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    } else for (const c of clumps) { const p = clumpPos(c, t, L); if (p) blob(ctx, p[0], p[1], c.r, C.matchaDeep, c.s); }
+  } });
+  if (sift) { const a = 1 - ss(2.3, 2.8, t); if (a > 0) sieve(ctx, B.cx + (t < 2.3 && !reduced ? 4 * Math.sin(t * 34) : 0), a, 1 - ss(.2, 2.2, t)); }
+  else { const a = 1 - ss(2.2, 2.7, t); if (a > 0) scoop(ctx, a, clumps.filter(c => t < c.start).length); }
+  pour(ctx, 392, L - 2, 7, ss(2.3, 2.5, t) * (1 - ss(4.2, 4.5, t)));
+  const ma = ss(4.9, 5.5, t); if (ma > 0) magnifier(ctx, ma, sift, t, L);
+}, () => { if (!reduced) s1.t = 0; });
+
+// 2 — water temperature
+const s2 = { T: 75, time: 0 };
+const sweetMol = Array.from({ length: 18 }, (_, i) => ({ u: hsh(i + 2000), v: hsh(i + 2100), s: i + 1 }));
+const bitterMol = Array.from({ length: 30 }, (_, i) => ({ u: hsh(i + 2200), v: hsh(i + 2300), s: i + 40 }));
+function model(T) { const b = 1 / (1 + Math.exp(-(T - 86) / 3.2)), a = 1 / (1 + Math.exp(-(T - 66) / 3.2)); return { b, a, sp: .85 * (1 - .65 * b) * (.6 + .4 * a) }; }
+function mood(T) { return T < 66 ? 0 : T <= 82 ? 1 : T <= 88 ? 2 : 3; }
+function molPos(m, L, tm) { const y = lerp(L + 16, B.inBot - 12, m.v) + 5 * vn(tm * .35, m.s); const x = B.cx + (m.u * 2 - 1) * inHW(y) * .8 + 6 * vn(tm * .3, m.s + 50); return [x, y]; }
+function thermo(ctx, T) {
+  const x = 52, yT = v => lerp(300, 92, (v - 60) / 40);
+  wash(ctx, [[30, yT(80)], [37, yT(80)], [37, yT(70)], [30, yT(70)]], C.matcha, { seed: 300, amp: .5 });
+  const my = yT(T); ctx.fillStyle = C.hot; ctx.globalAlpha = .9; ctx.fillRect(x - 3.5, my, 7, 340 - my); ctx.beginPath(); ctx.arc(x, 344, 11, 0, TAU); ctx.fill(); ctx.globalAlpha = 1;
+  ink(ctx, [...line(x - 8, 331, x - 8, 72), ...ell(x, 72, 8, 8, Math.PI, TAU, 10), ...line(x + 8, 72, x + 8, 331)], { seed: 301, w: 1.6 });
+  ink(ctx, ell(x, 344, 15, 15, -1.009, 4.15, 26), { seed: 302, w: 1.6 });
+  for (let v = 60; v <= 100; v += 10) { const y = yT(v); ink(ctx, line(x + 8, y, x + 15, y), { seed: 303 + v, w: 1.2, pass2: false }); text(ctx, String(v), x + 20, y + 1, { size: 14, align: 'left', font: NUMF }); }
+  text(ctx, '°C', x + 20, 64, { size: 14, align: 'left', font: NUMF });
+}
+function face(ctx, T) {
+  const x = 528, y = 72, r = 32, md = mood(T);
+  wash(ctx, ell(x, y, r, r), C.paper, { seed: 320, edge: false });
+  ink(ctx, ell(x, y, r, r), { seed: 321, w: 1.8, closed: true });
+  if (md === 3) { ink(ctx, [[x - 16, y - 11], [x - 8, y - 6], [x - 16, y - 1]], { seed: 322, w: 1.8, pass2: false }); ink(ctx, [[x + 16, y - 11], [x + 8, y - 6], [x + 16, y - 1]], { seed: 323, w: 1.8, pass2: false }); }
+  else { ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(x - 10, y - 6, 2.6, 0, TAU); ctx.arc(x + 10, y - 6, 2.6, 0, TAU); ctx.fill(); }
+  const m = []; for (let i = 0; i <= 12; i++) { const u = i / 6 - 1; m.push([x + 12 * u, md === 1 ? y + 9 + 6 * (1 - u * u) : md === 0 ? y + 12 : md === 2 ? y + 12 + 2.5 * Math.sin(u * 3 * Math.PI) : y + 16 - 6 * (1 - u * u)]); }
+  ink(ctx, m, { seed: 324, w: 1.8, pass2: false });
+  if (md === 1) { ctx.globalAlpha = .45; ctx.fillStyle = C.sweet; ctx.beginPath(); ctx.ellipse(x - 19, y + 5, 5, 3, 0, 0, TAU); ctx.ellipse(x + 19, y + 5, 5, 3, 0, 0, TAU); ctx.fill(); ctx.globalAlpha = 1; }
+  if (md === 3) wash(ctx, [[x + 27, y - 24], [x + 31, y - 15], [x + 27, y - 11], [x + 23, y - 15]], C.water, { seed: 325, amp: .4 });
+  text(ctx, ['淡淡的', '好喝', '有點苦', '好苦！'][md], x, y + r + 20, { size: 17, color: C.ink, weight: 700 });
+}
+function steam(ctx, L, tm, k) {
+  if (k <= 0) return;
+  ctx.strokeStyle = C.inkSoft; ctx.lineWidth = 1.6; ctx.lineCap = 'round';
+  for (let w = 0; w < 3; w++) {
+    const bx = 255 + w * 45, n = 22, xf = j => bx + 9 * Math.sin(j * .38 - tm * 2.2 + w * 2) * (.4 + j / n);
+    for (let j = 0; j < n - 1; j++) { const y0 = L - 16 - j * 5.5; ctx.globalAlpha = k * .6 * (1 - j / n); ctx.beginPath(); ctx.moveTo(xf(j), y0); ctx.lineTo(xf(j + 1), y0 - 5.5); ctx.stroke(); }
+  }
+  ctx.globalAlpha = 1;
+}
+function star(ctx, x, y, r, rot) { ctx.beginPath(); for (let i = 0; i < 12; i++) { const a = rot + i / 12 * TAU, rr = i % 2 ? r * .45 : r; ctx.lineTo(x + rr * Math.cos(a), y + rr * Math.sin(a)); } ctx.closePath(); }
+scene('cv2', (ctx, dt) => {
+  if (!reduced) s2.time += dt;
+  const T = s2.T, m = model(T), L = 248, tm = s2.time;
+  const tea = mix(mix(C.matcha, C.bitter, .3 * m.b), C.water, .35 * (1 - m.a));
+  bowlSide(ctx, { level: L, liquid: tea, inside: () => {
+    const sed = clamp((68 - T) / 8, 0, 1);
+    for (let i = 0; i < Math.round(sed * 7); i++) { const x = B.cx - 75 + i * 25 + (hsh(i + 6000) - .5) * 10; blob(ctx, x, innerY(x - B.cx) - 4, 4 + hsh(i + 6100) * 3, C.matchaDeep, 200 + i); }
+    for (const mo of sweetMol) { const [x, y] = molPos(mo, L, tm); ctx.beginPath(); ctx.arc(x, y, 3.6, 0, TAU); ctx.fillStyle = C.sweet; ctx.fill(); ctx.globalAlpha = .6; ctx.strokeStyle = C.ink; ctx.lineWidth = .8; ctx.stroke(); ctx.globalAlpha = 1; }
+    const nb = bitterMol.length * m.b;
+    bitterMol.forEach((mo, i) => { if (i >= nb) return; const a = clamp(nb - i, 0, 1), [x, y] = molPos(mo, L, tm); star(ctx, x, y, 5.5, tm * .5 + i); ctx.globalAlpha = a; ctx.fillStyle = C.bitter; ctx.fill(); ctx.globalAlpha = a * .5; ctx.strokeStyle = C.ink; ctx.lineWidth = .8; ctx.stroke(); ctx.globalAlpha = 1; });
+  } });
+  steam(ctx, L, tm, clamp((T - 55) / 40, 0, 1));
+  thermo(ctx, T);
+  face(ctx, T);
+});
+const TXT2 = ['太涼了。香氣出不來，粉也容易沉在碗底。', '剛剛好。甜味和香氣都在，苦味很少。', '開始變苦了。苦味多了，甜味被蓋掉一些。', '太燙了。苦澀味大量跑出來，把甜味蓋掉。'];
+function ui2() {
+  const T = s2.T, m = model(T);
+  $('s2-out').textContent = T + '°C';
+  $('m-sweet').style.width = Math.round(m.sp * 100) + '%';
+  $('m-bitter').style.width = Math.round(m.b * 100) + '%';
+  $('m-aroma').style.width = Math.round(m.a * 100) + '%';
+  const s = TXT2[mood(T)]; if ($('r2').textContent !== s) $('r2').textContent = s;
+}
+
+// 3 — paste first, or all the water at once
+const s3 = { mode: 'paste', t: 8, T: 8 };
+const L3 = 255;
+const dust3 = Array.from({ length: 160 }, (_, i) => { const x = B.cx + (hsh(i + 5000) - .5) * 210, my = 262 + hsh(i + 5300) * 50; return { x, y: innerY(x - B.cx) - 1.5 - hsh(i + 5100) * 3, r: .9 + hsh(i + 5200) * 1.1, ci: hsh(i + 5400) < .6 ? Math.floor(hsh(i + 5500) * 7) : -1, s0: 1 + hsh(i + 5600) * .6, my, mx: B.cx + (hsh(i + 5700) - .5) * 1.6 * inHW(my) }; });
+const targets3 = Array.from({ length: 7 }, (_, c) => c === 0 ? [B.cx - inHW(L3 + 8) + 9, L3 + 8] : c === 6 ? [B.cx + inHW(L3 + 10) - 9, L3 + 10] : [B.cx - 100 + c * 40 + (hsh(c + 5800) - .5) * 14, L3 + 3]);
+const counts3 = targets3.map((_, c) => dust3.filter(d => d.ci === c).length);
+const arrived3 = new Array(7).fill(0);
+scene('cv3', (ctx, dt) => {
+  if (s3.t < s3.T) s3.t = Math.min(s3.T, s3.t + dt);
+  const t = s3.t, paste = s3.mode === 'paste';
+  let L, liquid, chasen = null; const streams = [];
+  if (!paste) {
+    L = lerp(B.inBot, L3, ss(.3, 1.6, t));
+    liquid = mix(C.water, C.matcha, .4 * ss(1.4, 4.5, t));
+    streams.push([ss(.2, .35, t) * (1 - ss(1.5, 1.7, t)), 12]);
+    if (t > 2.5 && t < 6.4) chasen = { x: B.cx + 70 * Math.sin((t - 2.6) * TAU * 1.5), tip: 300, a: ss(2.5, 2.8, t) * (1 - ss(6.1, 6.4, t)) };
+  } else {
+    L = t < 3.8 ? lerp(B.inBot, 316, ss(.3, 1, t)) : lerp(316, L3, ss(3.8, 5.4, t));
+    liquid = t < 3.8 ? mix(C.water, C.matchaDeep, ss(1.3, 3.2, t)) : mix(C.matchaDeep, C.matcha, ss(3.9, 6.6, t));
+    streams.push([ss(.2, .35, t) * (1 - ss(.9, 1.05, t)), 4], [ss(3.7, 3.85, t) * (1 - ss(5.3, 5.5, t)), 9]);
+    if (t > 1.1 && t < 3.5) chasen = { x: B.cx + 42 * Math.sin((t - 1.2) * TAU * 1.8), tip: 322, a: ss(1.1, 1.4, t) * (1 - ss(3.2, 3.5, t)) };
+    if (t > 5.4 && t < 7.8) chasen = { x: B.cx + 70 * Math.sin((t - 5.6) * TAU * 1.5), tip: 300, a: ss(5.4, 5.7, t) * (1 - ss(7.5, 7.8, t)) };
+  }
+  bowlSide(ctx, { level: L, liquid, inside: () => {
+    arrived3.fill(0);
+    ctx.fillStyle = C.matchaDeep;
+    for (const d of dust3) {
+      let x = d.x, y = d.y, a = 1;
+      if (L < d.y - 1) {
+        if (paste) a = 1 - ss(1.3, 3.2, t);
+        else if (d.ci >= 0) { const p = ss(d.s0, d.s0 + 1, t); if (p >= 1) { arrived3[d.ci]++; continue; } const [tx, ty] = targets3[d.ci]; x = lerp(x, tx, p); y = lerp(y, ty, p) - Math.sin(p * Math.PI) * 10; }
+        else { const p = ss(1.4, 3.4, t); x = lerp(x, d.mx, p); y = lerp(y, d.my, p); a = 1 - ss(2, 4.5, t); }
+      }
+      if (a < .03) continue;
+      ctx.globalAlpha = a; ctx.beginPath(); ctx.arc(x, y, d.r, 0, TAU); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    if (paste && t > 3.8) { const a = 1 - ss(4.6, 7.2, t); if (a > 0) wash(ctx, liquidPoly(316), C.matchaDeep, { alpha: a * .9, seed: 70, amp: .8 }); }
+    if (!paste) targets3.forEach(([x, y], c) => { if (!arrived3[c]) return; const r = (3 + 8.5 * Math.sqrt(arrived3[c] / counts3[c])) * (1 - .22 * ss(2.6, 6, t)); const jx = chasen ? 3 * Math.sin(t * 11 + c) * chasen.a : 0; blob(ctx, x + jx, y, r, C.matchaDeep, 80 + c * 2); });
+    if (chasen && chasen.a > 0) {
+      drawChasen(ctx, chasen.x, chasen.tip, chasen.a);
+      if (L < chasen.tip) { ctx.globalAlpha = .45 * chasen.a; ctx.fillStyle = liquid; trace(ctx, liquidPoly(L), true); ctx.fill(); ctx.globalAlpha = 1; }
+    }
+  } });
+  for (const [a, w] of streams) pour(ctx, 392, L - 2, w, a);
+}, () => { if (!reduced) s3.t = 0; });
+
+// 4 — back-and-forth vs circles (top view, a tiny simulation)
+const s4 = { mode: 'zig', N: 7, running: false, dur: 10 };
+const SPECKS = Array.from({ length: 34 }, (_, i) => ({ r: 20 + 122 * Math.sqrt(hsh(i + 3300)), a: hsh(i + 3400) * TAU }));
+function reset4() { Object.assign(s4, { t: 0, Om: 0, w: 0, phase: 0, ph: 0, ang: 0, vl: [0, 0], prev: null, acc: 0, bub: [], trail: [], wp: null, F: new Float32Array(NR * NS) }); }
+function step4(dt) {
+  const f = .35 + s4.N * .3; let wx, wy, vrel;
+  if (s4.mode === 'circle') {
+    const w = TAU * f * .55; s4.ang += w * dt;
+    wx = CX + 72 * Math.cos(s4.ang); wy = CY + 72 * Math.sin(s4.ang);
+    s4.Om += (w - s4.Om) * Math.min(1, .9 * dt); s4.w = w; vrel = 72 * Math.abs(w - s4.Om);
+  } else {
+    s4.ph += TAU * f * dt;
+    wx = CX + 95 * Math.sin(s4.ph * .2); wy = CY + 100 * Math.sin(s4.ph);
+    const rr = Math.hypot(wx - CX, wy - CY); if (rr > 126) { wx = CX + (wx - CX) * 126 / rr; wy = CY + (wy - CY) * 126 / rr; }
+    const vw = s4.prev ? [(wx - s4.prev[0]) / dt, (wy - s4.prev[1]) / dt] : [0, 0];
+    s4.vl[0] += (vw[0] - s4.vl[0]) * Math.min(1, .9 * dt); s4.vl[1] += (vw[1] - s4.vl[1]) * Math.min(1, .9 * dt);
+    vrel = Math.hypot(vw[0] - s4.vl[0], vw[1] - s4.vl[1]); s4.Om *= Math.max(0, 1 - 1.5 * dt); s4.w = 0;
+  }
+  s4.prev = [wx, wy]; s4.wp = [wx, wy]; s4.phase += s4.Om * dt;
+  s4.trail.push([wx, wy]); if (s4.trail.length > 46) s4.trail.shift();
+  const p = clamp((vrel - 120) / 800, 0, 1.2), fine = ss(2, 7, s4.N);
+  const dx = wx - CX, dy = wy - CY, c = Math.cos(s4.phase), sn = Math.sin(s4.phase);
+  deposit(s4.F, dx * c + dy * sn, -dx * sn + dy * c, p * fine * dt * 4, 44);
+  diffuse(s4.F, Math.min(1, 4 * dt));
+  const decay = 1 - .012 * dt; for (let k = 0; k < s4.F.length; k++) s4.F[k] *= decay;
+  s4.acc += p * (1 - fine * .8) * 40 * dt;
+  while (s4.acc >= 1) { s4.acc -= 1; const a = Math.random() * TAU, d = Math.random() * 24; s4.bub.push({ x: wx + d * Math.cos(a), y: wy + d * Math.sin(a), r: lerp(7, 3.2, fine) * (.7 + Math.random() * .6), life: 0, max: .7 + Math.random() * 2.2 }); }
+  const rot = s4.Om * dt, cr = Math.cos(rot), sr = Math.sin(rot), pull = s4.mode === 'circle' ? 1 - .08 * dt : 1;
+  s4.bub = s4.bub.filter(b => { b.life += dt; const bx = b.x - CX, by = b.y - CY; b.x = CX + (bx * cr - by * sr) * pull; b.y = CY + (bx * sr + by * cr) * pull; return b.life < b.max; });
+  if (s4.bub.length > 260) s4.bub.splice(0, s4.bub.length - 260);
+  s4.t += dt;
+}
+let ui4Clock = 0;
+scene('cv4', (ctx, dt) => {
+  if (s4.running) {
+    let left = dt; while (left > 1e-4) { const h = Math.min(left, 1 / 60); step4(h); left -= h; }
+    if (s4.t >= s4.dur) s4.running = false;
+  }
+  bowlTop(ctx, CX, CY, C.matcha);
+  ctx.strokeStyle = C.matchaDeep; ctx.lineWidth = 1.6; ctx.globalAlpha = .55; ctx.beginPath();
+  for (const s of SPECKS) { const a = s.a + s4.phase; ctx.moveTo(CX + s.r * Math.cos(a), CY + s.r * Math.sin(a)); ctx.arc(CX, CY, s.r, a, a + 7 / s.r); }
+  ctx.stroke(); ctx.globalAlpha = 1;
+  drawFoam(ctx, s4.F, s4.phase, CX, CY); stipple(ctx, s4.F, s4.phase, CX, CY);
+  drawBubbles(ctx, s4.bub); teaEdge(ctx, CX, CY);
+  if (s4.running && s4.trail.length > 2) { ink(ctx, s4.trail, { w: 1.4, alpha: .45, amp: .4, pass2: false, seed: 160 }); }
+  if (s4.running && s4.wp) whiskTop(ctx, s4.wp[0], s4.wp[1]);
+  ui4Clock += dt; if (ui4Clock > .12 || dt === 0) { ui4Clock = 0; ui4meters(); }
+}, () => { if (!reduced) { reset4(); s4.running = true; } });
+function ui4meters() {
+  $('m-foam').style.width = Math.round(clamp(coverage(s4.F) * 1.6, 0, 1) * 100) + '%';
+  $('m-spin').style.width = Math.round(s4.mode === 'circle' && s4.w ? clamp(s4.Om / s4.w, 0, 1) * 100 : 0) + '%';
+}
+function ui4text() {
+  $('s4-out').textContent = s4.N <= 3 ? '慢' : s4.N <= 5 ? '中' : '快';
+  const s = s4.mode === 'circle' ? '茶湯跟著茶刷一起轉。茶刷和水一起跑，切不開水面，空氣進不去，只冒出幾顆大泡泡，一下就破了。'
+    : s4.N <= 3 ? '方向對了，但是太慢。捲進去的空氣都是大泡泡，很快就破。把速度拉快試試看。'
+    : s4.N <= 5 ? '有泡沫了，但泡泡還有點粗。再快一點，泡泡會更細。'
+    : '每次換方向，茶刷都會切開水面，把空氣捲進茶裡。刷得越快，泡泡越細越綿。';
+  if ($('r4').textContent !== s) $('r4').textContent = s;
+}
+
+// 5 — polish the surface by hand
+const s5 = { F: new Float32Array(NR * NS), bub: [], pops: [], done: false, doneT: 0, demo: -1, ptr: null, last: null, init: 1 };
+const NO = (() => { const p = []; for (let i = 0; i <= 12; i++) { const u = i / 12; p.push([lerp(6, -20, u), lerp(-30, 30, u)]); } for (let i = 0; i <= 60; i++) { const a = lerp(Math.PI * .78, Math.PI * 2.55, i / 60), rr = lerp(40, 36, i / 60); p.push([rr * Math.cos(a) * 1.1 + 2, rr * Math.sin(a)]); } return resample(p, 4); })();
+function reset5() {
+  for (let k = 0; k < s5.F.length; k++) s5.F[k] = .4 + .25 * hsh(k * 1.7 + 4000);
+  s5.bub = [];
+  for (let i = 0; i < 75; i++) { const r = 4.5 + hsh(i + 4100) * 7.5, rr = (RT - r - 6) * Math.sqrt(hsh(i + 4200)), a = hsh(i + 4300) * TAU; s5.bub.push({ x: CX + rr * Math.cos(a), y: CY + rr * Math.sin(a), r, cool: 0 }); }
+  s5.init = s5.bub.reduce((s, b) => s + b.r * b.r, 0);
+  Object.assign(s5, { pops: [], done: false, doneT: 0, demo: -1 });
+  ui5();
+}
+function bigCount() { return s5.bub.filter(b => b.r >= 4).length; }
+function brush5(x, y) {
+  if (s5.done) return;
+  let changed = false; const out = [];
+  for (const b of s5.bub) {
+    if (b.cool > 0 || Math.hypot(b.x - x, b.y - y) > 20 + b.r) { out.push(b); continue; }
+    changed = true; s5.pops.push({ x: b.x, y: b.y, r: b.r, t: 0 });
+    const nr = b.r * .52;
+    if (nr >= 2.4) for (let j = 0; j < 3; j++) { const a = Math.random() * TAU, d = b.r * .55; let cx = b.x + d * Math.cos(a), cy = b.y + d * Math.sin(a); const rr = Math.hypot(cx - CX, cy - CY), lim = RT - nr - 2; if (rr > lim) { cx = CX + (cx - CX) * lim / rr; cy = CY + (cy - CY) * lim / rr; } out.push({ x: cx, y: cy, r: nr * (.85 + Math.random() * .3), cool: .18 }); }
+    else deposit(s5.F, b.x - CX, b.y - CY, .2, 16);
+  }
+  s5.bub = out; deposit(s5.F, x - CX, y - CY, .02, 22);
+  if (changed) { if (bigCount() === 0) { s5.done = true; s5.doneT = 0; s5.demo = -1; } ui5(); }
+}
+function brushLine(a, b) { const d = Math.hypot(b[0] - a[0], b[1] - a[1]), n = Math.max(1, Math.ceil(d / 6)); for (let i = 1; i <= n; i++) { const x = lerp(a[0], b[0], i / n), y = lerp(a[1], b[1], i / n); if (Math.hypot(x - CX, y - CY) < RT) brush5(x, y); } }
+function demoPos(t) { const y = CY - 115 * Math.cos(t / 4 * TAU), half = Math.sqrt(Math.max(0, 135 * 135 - (y - CY) ** 2)) * .9; return [CX + half * Math.sin(t * TAU * 1.3), y]; }
+scene('cv5', (ctx, dt) => {
+  for (const b of s5.bub) if (b.cool > 0) b.cool -= dt;
+  let brushAt = s5.ptr && Math.hypot(s5.ptr[0] - CX, s5.ptr[1] - CY) < RT ? s5.ptr : null;
+  if (s5.demo >= 0 && !s5.done) { const p0 = demoPos(s5.demo); s5.demo += dt; if (s5.demo > 4) s5.demo = 0; const p1 = demoPos(s5.demo); brushLine(p0, p1); brushAt = p1; }
+  bowlTop(ctx, CX, CY, C.matcha);
+  drawFoam(ctx, s5.F, 0, CX, CY); stipple(ctx, s5.F, 0, CX, CY);
+  drawBubbles(ctx, s5.bub); s5.pops = drawPops(ctx, s5.pops, dt); teaEdge(ctx, CX, CY);
+  if (s5.done) {
+    s5.doneT += dt;
+    const k = reduced ? 1 : ss(.4, 2, s5.doneT), n = Math.max(2, Math.round(NO.length * k)), pts = NO.slice(0, n).map(p => [CX + p[0], CY + p[1]]);
+    ink(ctx, pts, { color: C.matchaDeep, w: 2, alpha: .5, amp: .5, pass2: false, seed: 170 });
+    const lift = reduced ? 1 : ss(2.1, 2.8, s5.doneT);
+    if (lift < 1) { const e = pts[pts.length - 1]; whiskTop(ctx, e[0], e[1], 1 - lift, 1 - lift * .5); }
+    else ink(ctx, ell(CX + 3, CY - 2, 13, 10), { color: C.shine, w: 2, alpha: .8, closed: true, pass2: false, seed: 171 });
+  } else if (brushAt) whiskTop(ctx, brushAt[0], brushAt[1], .9);
+});
+function ui5() {
+  const big = bigCount(), area = s5.bub.filter(b => b.r >= 4).reduce((s, b) => s + b.r * b.r, 0);
+  $('m-smooth').style.width = Math.round((1 - area / s5.init) * 100) + '%';
+  const s = s5.done ? '完成！表面細細綿綿的，像奶泡一樣。最後在正中間寫一個「の」，慢慢把茶刷提起來。'
+    : big > 50 ? '還有很多大泡泡。在泡泡上輕輕左右刷。'
+    : `還有 ${big} 顆大泡泡。大泡泡要刷過兩三次才會變細。`;
+  if ($('r5').textContent !== s) $('r5').textContent = s;
+}
+const cv5 = $('cv5');
+const toCanvas = e => { const r = cv5.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * W, (e.clientY - r.top) / r.height * H]; };
+cv5.addEventListener('pointerdown', e => { s5.demo = -1; const p = toCanvas(e); s5.ptr = p; s5.last = p; brushLine(p, p); });
+cv5.addEventListener('pointermove', e => { const p = toCanvas(e); s5.ptr = p; brushLine(s5.last || p, p); s5.last = p; });
+['pointerup', 'pointercancel', 'pointerleave'].forEach(n => cv5.addEventListener(n, e => { s5.last = null; if (n !== 'pointerup' || e.pointerType !== 'mouse') s5.ptr = null; }));
+
+// ---------- controls ----------
+function bindSeg(id, fn) { const g = $(id); g.addEventListener('click', e => { const b = e.target.closest('button'); if (!b || !g.contains(b)) return; g.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); fn(b.dataset.v); }); }
+const TXT1 = { sift: '篩過的粉鬆鬆的，每一顆都碰得到水，一下就散開，顏色很均勻。', direct: '結塊的粉一碰到水，外面先濕成一層黏黏的膜，把裡面的乾粉包住。水進不去，刷再久也打不散，喝的時候會吃到一顆一顆的粉。' };
+const TXT3 = { paste: '少少的水，先讓每一顆粉都濕透。之後再加水，粉早就化開了，不會結塊。', all: '水一下子太多，乾粉來不及濕，就浮到水面上黏成一團一團。刷了還是有顆粒。' };
+bindSeg('s1-mode', v => { s1.mode = v; s1.t = reduced ? s1.T : 0; $('r1').textContent = TXT1[v]; });
+$('s1-replay').addEventListener('click', () => { s1.t = 0; });
+$('s2-temp').addEventListener('input', e => { s2.T = +e.target.value; ui2(); });
+bindSeg('s3-mode', v => { s3.mode = v; s3.t = reduced ? s3.T : 0; $('r3').textContent = TXT3[v]; });
+$('s3-replay').addEventListener('click', () => { s3.t = 0; });
+bindSeg('s4-mode', v => { s4.mode = v; reset4(); s4.running = true; ui4text(); });
+$('s4-speed').addEventListener('input', e => { s4.N = +e.target.value; ui4text(); if (!s4.running) { reset4(); s4.running = true; } });
+$('s4-replay').addEventListener('click', () => { reset4(); s4.running = true; });
+$('s5-demo').addEventListener('click', () => { if (s5.done) reset5(); s5.demo = 0; });
+$('s5-reset').addEventListener('click', reset5);
+
+// ---------- start ----------
+readColors();
+reset4(); for (let i = 0; i < 600; i++) step4(1 / 60); s4.wp = null; s4.trail = [];
+reset5(); ui2(); ui4text();
+const io = new IntersectionObserver(es => { for (const e of es) { const sc = scenes.find(s => s.cv === e.target); sc.visible = e.isIntersecting; if (e.intersectionRatio >= .35 && !sc.seen) { sc.seen = true; if (sc.onFirst) sc.onFirst(); } } }, { threshold: [0, .35] });
+const refresh = () => { readColors(); scenes.forEach(sc => render(sc, 0)); };
+scenes.forEach(sc => { io.observe(sc.cv); render(sc, 0); });
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', refresh);
+new MutationObserver(refresh).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+if (document.fonts) Promise.all([document.fonts.load(`16px ${FONT}`, '放大看乾粉淡淡的好喝有點苦好苦！'), document.fonts.load(`14px ${NUMF}`, '0123456789°C')]).then(refresh, () => {});
+let last = performance.now();
+function loop(now) {
+  const dt = Math.min(.05, (now - last) / 1000); last = now;
+  if (!reduced) boil = Math.floor(now / 170) % 3;
+  for (const sc of scenes) if (sc.visible) render(sc, dt);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+})();
+</script>

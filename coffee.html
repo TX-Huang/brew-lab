@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}</style>
+<meta charset="utf-8">
+<title>手沖一杯咖啡</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=LXGW+WenKai+TC:wght@400;700&display=swap">
+<style>
+/* Layout: same picture-book column as the matcha page. Each step: number, title, a cut-open dripper you can play with, then what you saw. */
+:root{
+  --paper:#ECE9E1; --paper-2:#E1DDD2; --ink:#2C2925; --ink-soft:#645E56; --line:#BBB5A9; --shine:#FFFFFF;
+  --filter:#F8F6EF; --water:#9DB6C2; --glaze:#5F7280; --glaze-light:#C6CDCF;
+  --grounds:#3E2818; --grounds-dry:#A57D57; --brew:#5A3820; --brew-light:#B98A5C;
+  --acid:#D6B12F; --sweet:#C47A2A; --bitter:#3B2A20; --ok:#8FA862; --hot:#C2603A;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  --f-hand:"LXGW WenKai TC","Kaiti TC","BiauKai","DFKai-SB","KaiTi",serif;
+  --f-num:"Kalam","LXGW WenKai TC","Comic Sans MS",cursive;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1B1A17; --paper-2:#25231F; --ink:#E8E4D8; --ink-soft:#A8A296; --line:#4E4A43; --shine:#F4F2EA;
+    --filter:#CFC9BC; --water:#5E7B89; --glaze:#7C91A0; --glaze-light:#3A454B;
+    --grounds:#2A1B10; --grounds-dry:#8F6B49; --brew:#6B4528; --brew-light:#A87C52;
+    --acid:#E2C455; --sweet:#DB9446; --bitter:#A9805E; --ok:#7E9A55; --hot:#E07C50;
+    --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1B1A17; --paper-2:#25231F; --ink:#E8E4D8; --ink-soft:#A8A296; --line:#4E4A43; --shine:#F4F2EA;
+  --filter:#CFC9BC; --water:#5E7B89; --glaze:#7C91A0; --glaze-light:#3A454B;
+  --grounds:#2A1B10; --grounds-dry:#8F6B49; --brew:#6B4528; --brew-light:#A87C52;
+  --acid:#E2C455; --sweet:#DB9446; --bitter:#A9805E; --ok:#7E9A55; --hot:#E07C50;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background-color:var(--paper);background-image:var(--grain);color:var(--ink);font-family:var(--f-hand);font-size:clamp(17px,1rem + .25vw,19px);line-height:1.75}
+.wrap{max-width:740px;margin:0 auto;padding-block:clamp(28px,6vw,60px) 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:clamp(56px,10vw,96px)}
+h1,h2{font-weight:700;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:20px 28px;align-items:center}
+.hero-text{display:flex;flex-direction:column;gap:14px;min-width:0}
+.kicker{font-family:var(--f-num);color:var(--sweet);font-size:15px;letter-spacing:.12em}
+.hero h1{font-size:clamp(44px,9vw,68px);line-height:1.08;letter-spacing:.04em}
+.hero .lede{max-width:28em}
+.hero-art{margin:0;min-width:0}
+.hero-art canvas{display:block;width:100%;height:auto;aspect-ratio:3/2;max-width:100%}
+@media (max-width:660px){.hero{grid-template-columns:1fr}.hero-art{order:-1}}
+.recipe{display:flex;flex-wrap:wrap;gap:10px 22px;padding:0;margin:4px 0 0;list-style:none}
+.recipe li{display:flex;flex-direction:column;line-height:1.25}
+.recipe b{font-family:var(--f-num);font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.recipe span{font-size:14px;color:var(--ink-soft)}
+.toc{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:15px}
+.toc a{color:var(--ink-soft);text-decoration:none;border-bottom:1.5px dashed var(--line);padding-bottom:1px}
+.toc a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+.step{display:flex;flex-direction:column;gap:16px;scroll-margin-top:24px}
+.step-head{display:flex;align-items:center;gap:14px}
+.num{font-family:var(--f-num);font-weight:700;font-size:22px;line-height:1;width:46px;height:46px;display:grid;place-items:center;border:2px solid var(--ink);border-radius:52% 48% 55% 45%/48% 55% 45% 52%;flex:none}
+.step h2{font-size:clamp(26px,5vw,34px);line-height:1.25}
+.lede{font-size:1.06em;max-width:34em}
+.stage{margin:0;display:flex;flex-direction:column;gap:6px}
+.stage .paper{background-color:var(--paper-2);background-image:var(--grain);border-radius:22px 30px 18px 28px/28px 18px 30px 22px;overflow:hidden}
+.stage canvas{display:block;width:100%;height:auto;aspect-ratio:3/2;max-width:100%}
+.stage figcaption{font-size:14px;color:var(--ink-soft);padding-left:6px}
+
+.controls{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center}
+.seg{display:inline-flex;border:1.8px solid var(--ink);border-radius:16px 22px 14px 20px/20px 14px 22px 16px;overflow:hidden}
+.seg button{font:inherit;font-size:16px;line-height:1.3;background:transparent;color:var(--ink);border:0;padding:7px 16px;min-height:42px;cursor:pointer}
+.seg button+button{border-left:1.8px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.btn{font:inherit;font-size:16px;line-height:1.3;color:var(--ink);background:transparent;border:1.8px dashed var(--ink-soft);border-radius:18px 14px 20px 16px/14px 20px 16px 18px;padding:7px 15px;min-height:42px;cursor:pointer;transition:transform .15s}
+.btn:hover{border-style:solid;border-color:var(--ink);transform:rotate(-1.2deg)}
+:focus-visible{outline:2.5px dashed var(--sweet);outline-offset:3px}
+
+.slider{display:flex;flex-direction:column;gap:0;flex:1 1 260px;min-width:0}
+.slider label{display:flex;justify-content:space-between;align-items:baseline;font-size:16px;gap:12px}
+.slider output{font-family:var(--f-num);font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.ticks{display:flex;justify-content:space-between;font-family:var(--f-num);font-size:13px;color:var(--ink-soft);padding:0 4px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px;background:transparent;margin:0;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:4px;background:var(--track,var(--line))}
+input[type=range]::-moz-range-track{height:6px;border-radius:4px;background:var(--track,var(--line))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;margin-top:-9px;border-radius:52% 48% 50% 50%/48% 52% 48% 52%;background:var(--sweet);border:2px solid var(--ink)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--sweet);border:2px solid var(--ink)}
+#s1-grind{--track:linear-gradient(90deg,var(--line) 0 37.5%,var(--ok) 37.5% 62.5%,var(--line) 62.5% 100%)}
+#s2-temp{--track:linear-gradient(90deg,var(--line) 0 50%,var(--ok) 50% 80%,var(--line) 80% 100%)}
+#s4-time{--track:linear-gradient(90deg,var(--line) 0 30%,var(--ok) 30% 50%,var(--line) 50% 100%)}
+#s6-ratio{--track:linear-gradient(90deg,var(--line) 0 30%,var(--ok) 30% 70%,var(--line) 70% 100%)}
+
+.meters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 22px}
+.meters.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.meters.one{grid-template-columns:minmax(0,1fr)}
+@media (max-width:520px){.meters,.meters.two{grid-template-columns:minmax(0,1fr)}}
+.meter{display:grid;grid-template-columns:4.5em minmax(0,1fr);gap:10px;align-items:center;font-size:15px}
+.meter.wide{grid-template-columns:8.5em minmax(0,1fr)}
+.meter i{display:block;height:13px;border:1.6px solid var(--ink);border-radius:8px 11px 7px 10px/10px 7px 11px 8px;overflow:hidden}
+.meter b{display:block;height:100%;width:50%;background:var(--c);transition:width .3s}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend svg{width:14px;height:14px;flex:none}
+
+.said{display:flex;flex-direction:column;gap:4px}
+.said small,.tip small{font-size:13px;letter-spacing:.12em;color:var(--ink-soft)}
+.said p{max-width:36em}
+.tip{display:flex;flex-direction:column;gap:2px;font-size:15px;color:var(--ink-soft);max-width:36em}
+
+.summary{display:flex;flex-direction:column;gap:18px;border-top:1.8px dashed var(--line)}
+.summary h2{font-size:clamp(24px,4.6vw,30px);padding-top:36px}
+.summary h3{font-size:20px;margin:14px 0 0}
+.summary ol{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.summary li{counter-increment:s;display:flex;gap:14px;align-items:baseline}
+.summary li::before{content:counter(s);font-family:var(--f-num);font-weight:700;font-size:16px;line-height:1;flex:none;width:30px;height:30px;display:inline-grid;place-items:center;border:1.8px solid var(--ink);border-radius:52% 48% 55% 45%/48% 55% 45% 52%;transform:translateY(5px)}
+.fix{margin:0;display:flex;flex-direction:column;border:1.8px solid var(--ink);border-radius:18px 24px 16px 22px/22px 16px 24px 18px;overflow:hidden}
+.fix div{display:grid;grid-template-columns:minmax(0,8em) minmax(0,1fr);gap:12px;padding:10px 16px}
+.fix div+div{border-top:1.4px dashed var(--line)}
+.fix dt{font-weight:700}
+.fix dd{margin:0}
+@media (max-width:460px){.fix div{grid-template-columns:minmax(0,1fr);gap:0}}
+.note{font-size:14px;color:var(--ink-soft)}
+@media (prefers-reduced-motion: reduce){.btn,.meter b{transition:none}}
+</style>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="hero-text">
+      <p class="kicker">手沖 · POUR-OVER</p>
+      <h1>手沖一杯咖啡</h1>
+      <p class="lede">同一包豆子，有人沖得香甜，有人沖得又酸又苦。差別在下面六件小事。每一步都能動手試試：拉拉看、按按看。</p>
+      <ul class="recipe" aria-label="一杯的份量">
+        <li><b>15 g</b><span>咖啡粉（中細，像砂糖）</span></li>
+        <li><b>225 g</b><span>熱水</span></li>
+        <li><b>92°C</b><span>水溫</span></li>
+        <li><b>3 分鐘</b><span>總時間</span></li>
+      </ul>
+      <nav class="toc" aria-label="六個步驟">
+        <a href="#s1">1 研磨</a><a href="#s2">2 水溫</a><a href="#s3">3 悶蒸</a><a href="#s4">4 味道順序</a><a href="#s5">5 注水</a><a href="#s6">6 粉水比</a>
+      </nav>
+    </div>
+    <figure class="hero-art"><canvas id="cv0" role="img" aria-label="切開的濾杯，裡面是咖啡粉，細口壺正在注水，咖啡一滴一滴落進下面的分享壺。"></canvas></figure>
+  </header>
+
+  <section class="step" id="s1" aria-labelledby="h2-1">
+    <div class="step-head"><span class="num" aria-hidden="true">1</span><h2 id="h2-1">研磨：粗細決定快慢</h2></div>
+    <p class="lede">粉磨越細，味道跑出來越快，水也流得越慢。從「中細」開始，大約像砂糖。</p>
+    <figure class="stage">
+      <div class="paper"><canvas id="cv1" role="img" aria-label="切開的濾杯，倒水後看水多快流過咖啡粉。右上角的放大鏡顯示同一顆粉切碎後，表面變多。"></canvas></div>
+      <figcaption>把濾杯切開來看。斜線是濾杯的切面，白色是濾紙。</figcaption>
+    </figure>
+    <div class="controls">
+      <div class="slider">
+        <label for="s1-grind"><span>研磨</span><output id="s1-out" for="s1-grind">中細</output></label>
+        <input type="range" id="s1-grind" min="1" max="5" step="1" value="3">
+        <div class="ticks" aria-hidden="true"><span>極細</span><span>細</span><span>中細</span><span>中粗</span><span>粗</span></div>
+      </div>
+    </div>
+    <div class="meters">
+      <div class="meter"><span>酸</span><i><b id="m1-sour" style="--c:var(--acid)"></b></i></div>
+      <div class="meter"><span>甜</span><i><b id="m1-sweet" style="--c:var(--sweet)"></b></i></div>
+      <div class="meter"><span>苦</span><i><b id="m1-bitter" style="--c:var(--bitter)"></b></i></div>
+    </div>
+    <div class="said"><small>你看到的</small><p id="r1" aria-live="polite">剛好。水大約 3:00 流完，酸、甜都出來了，苦味還很少。</p></div>
+  </section>
+
+  <section class="step" id="s2" aria-labelledby="h2-2">
+    <div class="step-head"><span class="num" aria-hidden="true">2</span><h2 id="h2-2">水溫：90–96°C</h2></div>
+    <p class="lede">水越熱，味道跑出來越快。太涼會酸，太燙容易苦。</p>
+    <figure class="stage">
+      <div class="paper"><canvas id="cv2" role="img" aria-label="放大的一顆咖啡粉泡在熱水裡，彩色小點是味道，正從粉裡跑出來。左邊是溫度計，右上角是喝的人的表情。"></canvas></div>
+      <figcaption class="legend">
+        <span><svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="var(--acid)" stroke="var(--ink)" stroke-width="1"/></svg>酸</span>
+        <span><svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="var(--sweet)" stroke="var(--ink)" stroke-width="1"/></svg>甜</span>
+        <span><svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="var(--bitter)" stroke="var(--ink)" stroke-width="1"/></svg>苦</span>
+        <span>藍色小點是水，水越熱動得越快</span>
+      </figcaption>
+    </figure>
+    <div class="controls">
+      <div class="slider">
+        <label for="s2-temp"><span>水溫</span><output id="s2-out" for="s2-temp">93°C</output></label>
+        <input type="range" id="s2-temp" min="80" max="100" step="1" value="93">
+        <div class="ticks" aria-hidden="true"><span>80</span><span>85</span><span>90</span><span>95</span><span>100</span></div>
+      </div>
+    </div>
+    <div class="meters">
+      <div class="meter"><span>酸</span><i><b id="m2-sour" style="--c:var(--acid)"></b></i></div>
+      <div class="meter"><span>甜</span><i><b id="m2-sweet" style="--c:var(--sweet)"></b></i></div>
+      <div class="meter"><span>苦</span><i><b id="m2-bitter" style="--c:var(--bitter)"></b></i></div>
+    </div>
+    <div class="said"><small>你看到的</small><p id="r2" aria-live="polite">剛好。酸和甜都出來了，苦味還很少。</p></div>
+    <p class="tip"><small>小技巧</small>淺焙豆可以用高一點（92–96°C），深焙豆用低一點（85–90°C）。深焙本來就比較容易苦。</p>
+  </section>
+
+  <section class="step" id="s3" aria-labelledby="h2-3">
+    <div class="step-head"><span class="num" aria-hidden="true">3</span><h2 id="h2-3">悶蒸：先讓氣跑掉</h2></div>
+    <p class="lede">先倒一點點水（粉重的 2 倍，約 30 g），等 30 秒，再開始注水。</p>
+    <figure class="stage">
+      <div class="paper"><canvas id="cv3" role="img" aria-label="切開的濾杯。倒水後咖啡粉冒出氣泡，看有沒有等氣泡跑完再注水。"></canvas></div>
+      <figcaption>淺色的粉是乾的，深色的是已經吸到水的。白色小圈是氣泡。</figcaption>
+    </figure>
+    <div class="controls">
+      <div class="seg" id="s3-mode" role="group" aria-label="要不要悶蒸">
+        <button type="button" data-v="bloom" aria-pressed="true">先悶蒸 30 秒</button>
+        <button type="button" data-v="direct" aria-pressed="false">直接沖</button>
+      </div>
+      <button type="button" class="btn" id="s3-replay">↻ 再看一次</button>
+    </div>
+    <div class="said"><small>你看到的</small><p id="r3" aria-live="polite">粉吸到水，膨起來、冒泡。那是豆子裡的二氧化碳在跑出來。等 30 秒氣跑完，再注水，水就能均勻流過每一顆粉。</p></div>
+    <p class="tip"><small>小技巧</small>越新鮮的豆子，膨得越高、氣泡越多。如果完全不膨，可能是豆子放太久了。</p>
+  </section>
+
+  <section class="step" id="s4" aria-labelledby="h2-4">
+    <div class="step-head"><span class="num" aria-hidden="true">4</span><h2 id="h2-4">味道有先後順序</h2></div>
+    <p class="lede">粉裡的味道不是一起跑出來的：酸最快，甜第二，苦最慢。所以泡多久，決定喝起來是酸還是苦。</p>
+    <figure class="stage">
+      <div class="paper"><canvas id="cv4" role="img" aria-label="左邊是滴濾中的濾杯和分享壺，右邊是一張圖：橫軸是時間，三條線是酸、甜、苦跑出來的量。"></canvas></div>
+      <figcaption>右邊的圖：線越高，那個味道跑出來越多。綠色區域是好喝的時間。</figcaption>
+    </figure>
+    <div class="controls">
+      <div class="slider">
+        <label for="s4-time"><span>在這個時間停下來</span><output id="s4-out" for="s4-time">3:00</output></label>
+        <input type="range" id="s4-time" min="60" max="360" step="15" value="180">
+        <div class="ticks" aria-hidden="true"><span>1 分</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6 分</span></div>
+      </div>
+      <button type="button" class="btn" id="s4-play">▶ 從頭播一次</button>
+    </div>
+    <div class="meters">
+      <div class="meter"><span>酸</span><i><b id="m4-sour" style="--c:var(--acid)"></b></i></div>
+      <div class="meter"><span>甜</span><i><b id="m4-sweet" style="--c:var(--sweet)"></b></i></div>
+      <div class="meter"><span>苦</span><i><b id="m4-bitter" style="--c:var(--bitter)"></b></i></div>
+    </div>
+    <div class="said"><small>你看到的</small><p id="r4" aria-live="polite">剛好。酸先出來，甜接著出來，苦味還很少。這就是好喝的時候。</p></div>
+    <p class="tip"><small>小技巧</small>從倒第一滴水到滴完，大約 2:30–3:30。研磨、水溫，其實都是在調這個速度。</p>
+  </section>
+
+  <section class="step" id="s5" aria-labelledby="h2-5">
+    <div class="step-head"><span class="num" aria-hidden="true">5</span><h2 id="h2-5">注水：從中間繞小圈</h2></div>
+    <p class="lede">從中間開始，繞小圈慢慢倒。不要沖到濾紙上。</p>
+    <figure class="stage">
+      <div class="paper"><canvas id="cv5" role="img" aria-label="切開的濾杯，水滴從注水的地方往下走。右上角從上面看注水的路線。"></canvas></div>
+      <figcaption>藍色小點是水。穿過咖啡粉的水會變成咖啡色。</figcaption>
+    </figure>
+    <div class="controls">
+      <div class="seg" id="s5-mode" role="group" aria-label="注水的位置">
+        <button type="button" data-v="center" aria-pressed="true">中間繞小圈</button>
+        <button type="button" data-v="edge" aria-pressed="false">沖到濾紙邊</button>
+      </div>
+    </div>
+    <div class="meters two">
+      <div class="meter"><span>濃度</span><i><b id="m5-strength" style="--c:var(--brew)"></b></i></div>
+      <div class="meter wide"><span>有穿過粉的水</span><i><b id="m5-through" style="--c:var(--water)"></b></i></div>
+    </div>
+    <div class="said"><small>你看到的</small><p id="r5" aria-live="polite">水從中間進去，一路穿過咖啡粉才流下去。每一滴水都泡到粉，味道濃。</p></div>
+    <p class="tip"><small>小技巧</small>用細口壺，水柱細細的，慢慢倒。水位保持穩定，不要忽高忽低。</p>
+  </section>
+
+  <section class="step" id="s6" aria-labelledby="h2-6">
+    <div class="step-head"><span class="num" aria-hidden="true">6</span><h2 id="h2-6">粉水比：1 比 15</h2></div>
+    <p class="lede">1 g 粉配 15 g 水。比例決定咖啡是濃還是淡。</p>
+    <figure class="stage">
+      <div class="paper"><canvas id="cv6" role="img" aria-label="左邊一顆咖啡豆，中間是一顆一顆的水滴，右邊是一杯咖啡，顏色會隨比例變深或變淺。"></canvas></div>
+      <figcaption>一顆豆子代表 1 g 粉，一滴水代表 1 g 水。</figcaption>
+    </figure>
+    <div class="controls">
+      <div class="slider">
+        <label for="s6-ratio"><span>粉水比</span><output id="s6-out" for="s6-ratio">1:15</output></label>
+        <input type="range" id="s6-ratio" min="10" max="20" step="1" value="15">
+        <div class="ticks" aria-hidden="true"><span>1:10</span><span>1:15</span><span>1:20</span></div>
+      </div>
+    </div>
+    <div class="meters one"><div class="meter"><span>濃度</span><i><b id="m6-strength" style="--c:var(--brew)"></b></i></div></div>
+    <div class="said"><small>你看到的</small><p id="r6" aria-live="polite">剛好。15 g 粉配 225 g 水。大部分人從這裡開始試。</p></div>
+  </section>
+
+  <section class="summary" aria-labelledby="sum-h">
+    <h2 id="sum-h">記住這六句</h2>
+    <ol>
+      <li>豆子現磨，中細，像砂糖。</li>
+      <li>水溫 90–96°C。</li>
+      <li>先倒 30 g 水悶蒸 30 秒。</li>
+      <li>總時間大約 3 分鐘：太短會酸，太久會苦。</li>
+      <li>從中間繞小圈注水，不要沖到濾紙。</li>
+      <li>粉水比 1:15，15 g 粉配 225 g 水。</li>
+    </ol>
+    <h3>喝起來不對？一次只改一件事</h3>
+    <dl class="fix">
+      <div><dt>太酸、太淡</dt><dd>磨細一點，或水溫高一點</dd></div>
+      <div><dt>太苦、太澀</dt><dd>磨粗一點，或水溫低一點</dd></div>
+      <div><dt>太濃</dt><dd>水多一點，例如 1:16</dd></div>
+      <div><dt>太稀</dt><dd>粉多一點，例如 1:14</dd></div>
+    </dl>
+    <p class="note">動畫是簡化過的示意圖，用來看懂原理，不是精確的物理模擬。</p>
+    <p class="note"><a href="./" style="color:inherit">回首頁</a> · 另一篇：<a id="other-page" href="matcha.html">刷一碗抹茶</a></p>
+  </section>
+</main>
+
+<script>
+(() => {
+'use strict';
+const W = 600, H = 400, TAU = Math.PI * 2;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FONT = '"LXGW WenKai TC","Kaiti TC","BiauKai","DFKai-SB","KaiTi",serif';
+const NUMF = '"Kalam","LXGW WenKai TC",cursive';
+const $ = id => document.getElementById(id);
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const ss = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+const hsh = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const vn = (x, s) => { const i = Math.floor(x), f = x - i, u = f * f * (3 - 2 * f); return lerp(hsh(i + s * 57.31), hsh(i + 1 + s * 57.31), u) * 2 - 1; };
+const pct = v => Math.round(clamp(v, 0, 1) * 100) + '%';
+const fmt = sec => `${Math.floor(sec / 60)}:${String(Math.round(sec % 60)).padStart(2, '0')}`;
+
+// ---------- colors from the page tokens ----------
+const TOK = { ink: '--ink', inkSoft: '--ink-soft', paper: '--paper', paper2: '--paper-2', shine: '--shine', filter: '--filter', water: '--water', glaze: '--glaze', glazeLight: '--glaze-light', grounds: '--grounds', groundsDry: '--grounds-dry', brew: '--brew', brewLight: '--brew-light', acid: '--acid', sweet: '--sweet', bitter: '--bitter', ok: '--ok', hot: '--hot' };
+const C = {};
+function readColors() { const cs = getComputedStyle(document.documentElement); for (const k in TOK) C[k] = cs.getPropertyValue(TOK[k]).trim() || '#888888'; }
+function rgb(hex) { let h = hex.replace('#', ''); if (h.length === 3) h = h.replace(/./g, c => c + c); const n = parseInt(h.slice(0, 6), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
+const hex = a => '#' + a.map(v => Math.round(clamp(v, 0, 255)).toString(16).padStart(2, '0')).join('');
+function mix(a, b, t) { const A = rgb(a), Z = rgb(b); return hex(A.map((v, i) => lerp(v, Z[i], clamp(t, 0, 1)))); }
+function mixW(cols, ws) { const tot = ws.reduce((a, b) => a + b, 0) || 1, acc = [0, 0, 0]; cols.forEach((c, i) => { const v = rgb(c); for (let k = 0; k < 3; k++) acc[k] += v[k] * ws[i] / tot; }); return hex(acc); }
+
+// ---------- the flavor model: t is "effective minutes" (time × speed) ----------
+const acidX = t => 1 - Math.exp(-t / .7);
+const sweetX = t => 1 / (1 + Math.exp(-(t - 1.9) / .4));
+const bitterX = t => 1 / (1 + Math.exp(-(t - 4.2) / .45));
+function taste(t) { const a = acidX(t), s = sweetX(t), b = bitterX(t); return { sour: a * (1 - .55 * s), sweet: s * (1 - .75 * b), bitter: b }; }
+const verdict = t => t < 1.5 ? 0 : t < 2.2 ? 1 : t <= 3.6 ? 2 : t <= 4.4 ? 3 : 4;
+const MOOD = ['sour', 'sour', 'good', 'meh', 'bitter'], WORD = ['好酸', '偏酸', '好喝', '偏苦', '好苦'];
+function setTaste(p, t) { const q = taste(t); $(p + '-sour').style.width = pct(q.sour); $(p + '-sweet').style.width = pct(q.sweet); $(p + '-bitter').style.width = pct(q.bitter); }
+const say = (id, s) => { if ($(id).textContent !== s) $(id).textContent = s; };
+
+// ---------- hand-drawn line kit (same as the matcha page) ----------
+let boil = 0;
+function resample(pts, step = 6) {
+  const out = [pts[0]]; let carry = 0;
+  for (let i = 1; i < pts.length; i++) {
+    const [x0, y0] = pts[i - 1], [x1, y1] = pts[i], d = Math.hypot(x1 - x0, y1 - y0);
+    if (d === 0) continue;
+    let s = step - carry;
+    while (s <= d) { out.push([x0 + (x1 - x0) * s / d, y0 + (y1 - y0) * s / d]); s += step; }
+    carry = d - (s - step);
+  }
+  const e = pts[pts.length - 1], o = out[out.length - 1];
+  if (Math.hypot(e[0] - o[0], e[1] - o[1]) > .5) out.push(e);
+  return out;
+}
+const line = (x0, y0, x1, y1) => resample([[x0, y0], [x1, y1]], 6);
+function ell(cx, cy, rx, ry, a0 = 0, a1 = TAU, n) {
+  n = n || Math.max(12, Math.round(Math.abs(a1 - a0) * Math.max(rx, ry) / 5));
+  const p = []; for (let i = 0; i <= n; i++) { const a = a0 + (a1 - a0) * i / n; p.push([cx + rx * Math.cos(a), cy + ry * Math.sin(a)]); } return p;
+}
+function jit(pts, amp, seed) { const s = seed + boil * 7.3; return pts.map((p, i) => [p[0] + amp * vn(i * .21, s), p[1] + amp * vn(i * .21, s + 3.7)]); }
+function trace(ctx, pts, closed) { ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]); if (closed) ctx.closePath(); }
+function ink(ctx, pts, o = {}) {
+  const { color = C.ink, w = 2, seed = 1, amp = 1.1, closed = false, alpha = 1, pass2 = true } = o;
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = color;
+  ctx.globalAlpha = alpha * .92; ctx.lineWidth = w; trace(ctx, jit(pts, amp, seed), closed); ctx.stroke();
+  if (pass2) { ctx.globalAlpha = alpha * .35; ctx.lineWidth = w * .55; trace(ctx, jit(pts, amp * 1.6, seed + 11), closed); ctx.stroke(); }
+  ctx.globalAlpha = 1;
+}
+function wash(ctx, pts, color, o = {}) {
+  const { alpha = 1, seed = 2, amp = 1.6, edge = true } = o;
+  ctx.fillStyle = color;
+  ctx.globalAlpha = alpha * .55; trace(ctx, jit(pts, amp, seed), true); ctx.fill();
+  ctx.globalAlpha = alpha * .5; trace(ctx, jit(pts, amp, seed + 5), true); ctx.fill();
+  if (edge) { ctx.strokeStyle = color; ctx.lineWidth = 2.2; ctx.globalAlpha = alpha * .55; ctx.stroke(); }
+  ctx.globalAlpha = 1;
+}
+function hatch(ctx, poly, gap, alpha) {
+  ctx.save(); trace(ctx, poly, true); ctx.clip();
+  ctx.strokeStyle = C.ink; ctx.globalAlpha = alpha; ctx.lineWidth = 1; ctx.beginPath();
+  for (let x = -500; x < 700; x += gap) { const o = vn(x * .1, boil + 3) * 1.2; ctx.moveTo(x + o, 420); ctx.lineTo(x + 400 + o, 20); }
+  ctx.stroke(); ctx.restore(); ctx.globalAlpha = 1;
+}
+function text(ctx, s, x, y, o = {}) { const { size = 15, color = C.inkSoft, align = 'center', font = FONT, weight = 400, alpha = 1 } = o; ctx.globalAlpha = alpha; ctx.fillStyle = color; ctx.font = `${weight} ${size}px ${font}`; ctx.textAlign = align; ctx.textBaseline = 'middle'; ctx.fillText(s, x, y); ctx.globalAlpha = 1; }
+function drawPops(ctx, pops, dt) {
+  for (const p of pops) { p.t += dt; const k = p.t / .22; if (k >= 1) continue; ctx.globalAlpha = 1 - k; ctx.strokeStyle = C.shine; ctx.lineWidth = 1; ctx.beginPath(); for (let i = 0; i < 6; i++) { const a = i / 6 * TAU + p.r, r0 = p.r * (.6 + k), r1 = p.r * (1 + k * 1.2); ctx.moveTo(p.x + r0 * Math.cos(a), p.y + r0 * Math.sin(a)); ctx.lineTo(p.x + r1 * Math.cos(a), p.y + r1 * Math.sin(a)); } ctx.stroke(); }
+  ctx.globalAlpha = 1;
+  return pops.filter(p => p.t < .22);
+}
+function face(ctx, x, y, r, mood, word) {
+  const k = r / 32, ex = 10 * k, ey = y - 6 * k;
+  wash(ctx, ell(x, y, r, r), C.paper, { seed: 320, edge: false });
+  ink(ctx, ell(x, y, r, r), { seed: 321, w: 1.8, closed: true });
+  const o = { seed: 322, w: 1.8, pass2: false };
+  if (mood === 'bitter') { ink(ctx, [[x - 16 * k, ey - 5 * k], [x - 8 * k, ey], [x - 16 * k, ey + 5 * k]], o); ink(ctx, [[x + 16 * k, ey - 5 * k], [x + 8 * k, ey], [x + 16 * k, ey + 5 * k]], o); }
+  else if (mood === 'sour') { ink(ctx, line(x - ex - 6 * k, ey - 4 * k, x - ex + 5 * k, ey + 1 * k), o); ink(ctx, line(x + ex + 6 * k, ey - 4 * k, x + ex - 5 * k, ey + 1 * k), o); }
+  else if (mood === 'strong') { ink(ctx, ell(x - ex, ey, 4.5 * k, 4.5 * k, 0, TAU, 10), { ...o, closed: true }); ink(ctx, ell(x + ex, ey, 4.5 * k, 4.5 * k, 0, TAU, 10), { ...o, closed: true }); ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(x - ex, ey, 1.6 * k, 0, TAU); ctx.arc(x + ex, ey, 1.6 * k, 0, TAU); ctx.fill(); }
+  else { ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(x - ex, ey, 2.6 * k, 0, TAU); ctx.arc(x + ex, ey, 2.6 * k, 0, TAU); ctx.fill(); }
+  if (mood === 'sour') ink(ctx, ell(x, y + 12 * k, 4.5 * k, 5 * k, 0, TAU, 12), { ...o, closed: true });
+  else {
+    const m = []; for (let i = 0; i <= 12; i++) { const u = i / 6 - 1; m.push([x + 12 * k * u, y + k * (mood === 'good' ? 9 + 6 * (1 - u * u) : mood === 'weak' ? 12 : mood === 'meh' ? 12 + 2.5 * Math.sin(u * 3 * Math.PI) : mood === 'strong' ? 15 - 4 * (1 - u * u) : 16 - 6 * (1 - u * u))]); }
+    ink(ctx, m, o);
+  }
+  if (mood === 'good') { ctx.globalAlpha = .45; ctx.fillStyle = C.sweet; ctx.beginPath(); ctx.ellipse(x - 19 * k, y + 5 * k, 5 * k, 3 * k, 0, 0, TAU); ctx.ellipse(x + 19 * k, y + 5 * k, 5 * k, 3 * k, 0, 0, TAU); ctx.fill(); ctx.globalAlpha = 1; }
+  if (mood === 'bitter' || mood === 'strong') wash(ctx, [[x + 27 * k, y - 24 * k], [x + 31 * k, y - 15 * k], [x + 27 * k, y - 11 * k], [x + 23 * k, y - 15 * k]], C.water, { seed: 325, amp: .4 });
+  text(ctx, word, x, y + r + 18, { size: 17, color: C.ink, weight: 700 });
+}
+function thermo(ctx, T, lo, hi, band) {
+  const x = 52, yT = v => lerp(300, 92, (v - lo) / (hi - lo));
+  wash(ctx, [[30, yT(band[1])], [37, yT(band[1])], [37, yT(band[0])], [30, yT(band[0])]], C.ok, { seed: 300, amp: .5 });
+  const my = yT(T); ctx.fillStyle = C.hot; ctx.globalAlpha = .9; ctx.fillRect(x - 3.5, my, 7, 340 - my); ctx.beginPath(); ctx.arc(x, 344, 11, 0, TAU); ctx.fill(); ctx.globalAlpha = 1;
+  ink(ctx, [...line(x - 8, 331, x - 8, 72), ...ell(x, 72, 8, 8, Math.PI, TAU, 10), ...line(x + 8, 72, x + 8, 331)], { seed: 301, w: 1.6 });
+  ink(ctx, ell(x, 344, 15, 15, -1.009, 4.15, 26), { seed: 302, w: 1.6 });
+  for (let v = lo; v <= hi; v += 5) { const y = yT(v); ink(ctx, line(x + 8, y, x + 15, y), { seed: 303 + v, w: 1.2, pass2: false }); text(ctx, String(v), x + 20, y + 1, { size: 14, align: 'left', font: NUMF }); }
+  text(ctx, '°C', x + 20, 64, { size: 14, align: 'left', font: NUMF });
+}
+
+// ---------- the dripper, cut in half ----------
+const CXD = 300, BT = 185;
+const hwIn = y => lerp(138, 10, clamp((y - 78) / 214, 0, 1));
+const hwF = y => Math.max(0, 135 * (290 - y) / 212);
+function wallPoly(s) {
+  const p = [[CXD + s * 138, 78], [CXD + s * 166, 78], [CXD + s * 166, 87]];
+  for (let y = 87; y <= 286; y += 6) p.push([CXD + s * (hwIn(y) + 14), y]);
+  p.push([CXD + s * 24, 296], [CXD + s * 90, 296], [CXD + s * 90, 306], [CXD + s * 10, 306]);
+  for (let y = 292; y >= 82; y -= 6) p.push([CXD + s * hwIn(y), y]);
+  return resample(p, 5);
+}
+const WALL_L = wallPoly(-1), WALL_R = wallPoly(1);
+const RIM_O = ell(CXD, 78, 166, 16, Math.PI, TAU), RIM_I = ell(CXD, 78, 138, 13, Math.PI, TAU);
+const PAPER_TOP = ell(CXD, 62, 145, 12, Math.PI, TAU), PAPER_BACK = PAPER_TOP.concat([[CXD, 290]]);
+const PAPER_L = line(CXD - 145, 62, CXD, 290), PAPER_R = line(CXD + 145, 62, CXD, 290);
+function bedPoly(bt, dome) { const w = hwF(bt), p = []; for (let i = 0; i <= 24; i++) { const u = i / 12 - 1; p.push([CXD + u * w, bt - dome * (1 - u * u)]); } return [...p, ...line(CXD + w, bt, CXD, 289).slice(1), ...line(CXD, 289, CXD - w, bt).slice(1, -1)]; }
+function waterPoly(L, bt) { const a = hwF(L), b = hwF(bt); return [...line(CXD - a, L, CXD + a, L), ...line(CXD + a, L, CXD + b, bt).slice(1), ...line(CXD + b, bt, CXD - b, bt).slice(1), ...line(CXD - b, bt, CXD - a, L).slice(1, -1)]; }
+const SV_T = 310, SV_B = 394;
+const hwS = y => 60 + 50 * Math.sin(clamp((y - SV_T) / (SV_B - SV_T), 0, 1) * Math.PI * .72);
+function servPoly(y0) { const L = [], R = []; for (let y = y0; y < SV_B; y += 5) { L.push([CXD - hwS(y), y]); R.push([CXD + hwS(y), y]); } L.push([CXD - hwS(SV_B) + 6, SV_B]); R.push([CXD + hwS(SV_B) - 6, SV_B]); return [...L, ...R.reverse()]; }
+const SERVER = servPoly(SV_T), HANDLE = resample([[CXD + hwS(330), 330], [CXD + 128, 334], [CXD + 142, 354], [CXD + hwS(378) + 4, 378]], 5);
+function drawServer(ctx, level, color) {
+  wash(ctx, SERVER, C.glazeLight, { seed: 500, alpha: .45, edge: false });
+  if (level < SV_B - 3) { wash(ctx, servPoly(level), color, { seed: 501, amp: .8 }); const w = hwS(level); wash(ctx, ell(CXD, level, w, w * .1, Math.PI, TAU, 20), mix(color, C.shine, .15), { seed: 502, amp: .5, edge: false }); }
+  ink(ctx, HANDLE, { seed: 503, w: 2, color: C.inkSoft });
+  ink(ctx, SERVER, { seed: 504, w: 1.8, closed: true, color: C.inkSoft });
+  ink(ctx, ell(CXD, SV_T, 60, 7), { seed: 505, w: 1.6, closed: true, color: C.inkSoft });
+}
+function dripperSide(ctx, o) {
+  const bt = BT, dome = o.dome || 0;
+  drawServer(ctx, o.serverLevel ?? SV_B, o.serverColor || C.brew);
+  wash(ctx, RIM_O.concat(RIM_I.slice().reverse()), C.glaze, { seed: 510 });
+  ink(ctx, RIM_O, { seed: 511, w: 1.8 });
+  wash(ctx, PAPER_BACK, C.filter, { seed: 512, edge: false });
+  ink(ctx, PAPER_TOP, { seed: 513, w: 1.2, color: C.inkSoft, alpha: .8 });
+  const bedColor = o.bedColor || C.grounds;
+  wash(ctx, bedPoly(bt, dome), bedColor, { seed: 514, amp: 1, alpha: .95 });
+  if (o.grains) o.grains(ctx);
+  const bw = hwF(bt), btop = ell(CXD, bt - dome, bw, bw / 138 * 11, Math.PI, TAU, 24);
+  wash(ctx, btop, bedColor, { seed: 515, amp: .6, edge: false });
+  ink(ctx, btop, { seed: 516, w: 1, color: C.inkSoft, alpha: .5, pass2: false });
+  if (o.level != null && o.level < bt - 1) {
+    const wc = o.waterColor || C.water;
+    wash(ctx, waterPoly(o.level, bt), wc, { seed: 517, amp: .8, alpha: .5 });
+    const w = hwF(o.level), top = ell(CXD, o.level, w, w / 138 * 11, Math.PI, TAU, 24);
+    wash(ctx, top, wc, { seed: 518, alpha: .45, edge: false });
+    ink(ctx, top, { seed: 519, w: 1, color: C.inkSoft, alpha: .6, pass2: false });
+  }
+  if (o.inside) o.inside(ctx);
+  for (const wp of [WALL_L, WALL_R]) { wash(ctx, wp, C.glaze, { seed: 520, alpha: .95 }); hatch(ctx, wp, 7, .2); ink(ctx, wp, { seed: 521, w: 1.8, closed: true }); }
+  for (const [pl, s] of [[PAPER_L, 530], [PAPER_R, 532]]) { ink(ctx, pl, { color: C.filter, w: 3.4, seed: s, pass2: false, amp: .5 }); ink(ctx, pl, { w: .9, seed: s + 1, alpha: .45, pass2: false, amp: .5 }); }
+}
+function packBed(rs, seed) {
+  const out = [], sp = rs * 2.15; let row = 0;
+  for (let y = BT + rs * .9; y < 288; y += sp * .87, row++) {
+    const w = hwF(y) - rs * .6;
+    for (let x = -w + (row % 2) * sp * .5; x <= w; x += sp) {
+      const k = out.length + seed, px = CXD + x + (hsh(k * 3.1) - .5) * sp * .35, py = y + (hsh(k * 7.7) - .5) * sp * .35;
+      if (Math.abs(px - CXD) < hwF(py) - rs * .4) out.push({ x: px, y: py, r: rs * (.7 + hsh(k * 1.3) * .5) });
+    }
+  }
+  return out;
+}
+function grains(ctx, parts, wetOf) {
+  const cols = [0, 1, 2, 3, 4].map(i => mix(C.groundsDry, mix(C.grounds, C.groundsDry, .42), i / 4));
+  const buckets = [[], [], [], [], []];
+  for (const p of parts) buckets[Math.round(clamp(typeof wetOf === 'number' ? wetOf : wetOf(p), 0, 1) * 4)].push(p);
+  ctx.lineWidth = .7;
+  buckets.forEach((b, i) => { if (!b.length) return; ctx.fillStyle = cols[i]; ctx.beginPath(); for (const p of b) { ctx.moveTo(p.x + p.r, p.y); ctx.arc(p.x, p.y, p.r, 0, TAU); } ctx.fill(); ctx.globalAlpha = .35; ctx.strokeStyle = C.ink; ctx.stroke(); ctx.globalAlpha = 1; });
+}
+function drips(ctx, t, spacing, color, yEnd, a = 1) {
+  if (a <= .01) return;
+  ctx.fillStyle = color; ctx.globalAlpha = a;
+  for (let y = 308 + (t * 170) % spacing; y < yEnd - 3; y += spacing) { ctx.beginPath(); ctx.moveTo(CXD, y - 5); ctx.quadraticCurveTo(CXD + 3.4, y + 1, CXD, y + 3); ctx.quadraticCurveTo(CXD - 3.4, y + 1, CXD, y - 5); ctx.fill(); }
+  ctx.globalAlpha = 1;
+}
+function kettle(ctx, sx, yBot, w, a) {
+  if (a <= .01) return;
+  const pts = []; for (let y = 48; y <= yBot; y += 6) pts.push([sx + Math.sin(y * .06) * 1.2, y]);
+  if (pts.length > 1) { ink(ctx, pts, { color: C.water, w, seed: 540, amp: .5, alpha: a * .9, pass2: false }); ink(ctx, pts.map(p => [p[0] - w * .2, p[1]]), { color: C.shine, w: Math.max(1, w * .18), seed: 541, alpha: a * .5, pass2: false }); }
+  const sp = resample([[sx - 175, -10], [sx - 110, 0], [sx - 52, 16], [sx - 16, 34], [sx, 46]], 5);
+  ink(ctx, sp, { w: 11, seed: 542, alpha: a, pass2: false }); ink(ctx, sp, { color: C.glaze, w: 7, seed: 543, alpha: a, pass2: false });
+}
+function magnifier(ctx, label, inner) {
+  const mx = 530, my = 80, r = 54;
+  ctx.save(); ctx.beginPath(); ctx.arc(mx, my, r, 0, TAU); ctx.clip(); ctx.fillStyle = C.paper2; ctx.fillRect(mx - r, my - r, 2 * r, 2 * r); inner(mx, my, r); ctx.restore();
+  ink(ctx, ell(mx, my, r, r), { w: 2, closed: true, seed: 66 });
+  text(ctx, label, mx - r - 8, my - r + 14, { align: 'right' });
+}
+
+// ---------- scenes ----------
+const scenes = [];
+function scene(id, draw, onFirst) { const cv = $(id); const sc = { cv, ctx: cv.getContext('2d'), draw, onFirst, visible: false, seen: false }; scenes.push(sc); return sc; }
+function render(sc, dt) {
+  const cv = sc.cv, cw = cv.clientWidth; if (!cw) return;
+  const dpr = Math.min(2, window.devicePixelRatio || 1), w = Math.round(cw * dpr);
+  if (w !== cv.width) { cv.width = w; cv.height = Math.round(w * H / W); }
+  const k = cv.width / W; sc.ctx.setTransform(k, 0, 0, k, 0, 0); sc.ctx.clearRect(0, 0, W, H);
+  sc.draw(sc.ctx, dt);
+}
+
+// 0 — hero
+const PH = packBed(3, 4242);
+let heroT = 0;
+scene('cv0', (ctx, dt) => {
+  if (!reduced) heroT += dt;
+  dripperSide(ctx, { level: 128, serverLevel: 360, grains: c => grains(c, PH, 1) });
+  drips(ctx, heroT, 18, C.brew, 360);
+  kettle(ctx, CXD + 18 * Math.sin(heroT * 2.2), 128, 3.5, 1);
+});
+
+// 1 — grind size
+const GR = [
+  { n: '極細', rs: 1.6, tm: 5.5, sf: 1.45, cut: 5, say: '太細了。水卡在粉裡流不下去，泡太久，苦味跑出來。太細還可能把濾紙塞住。' },
+  { n: '細', rs: 2.3, tm: 4.0, sf: 1.08, cut: 4, say: '有點細。水流得慢，開始帶一點苦。' },
+  { n: '中細', rs: 3.0, tm: 3.0, sf: 1, cut: 3, say: '剛好。酸、甜都出來了，苦味還很少。' },
+  { n: '中粗', rs: 4.0, tm: 2.3, sf: .8, cut: 2, say: '有點粗。水流得太快，甜味還沒出來就結束了，偏酸。' },
+  { n: '粗', rs: 5.2, tm: 1.7, sf: .65, cut: 1, say: '太粗了。水一下就流光，味道只出來一點點，又酸又淡。' }
+];
+const PACK1 = GR.map((g, i) => packBed(g.rs, 50 + i * 31));
+const s1 = { g: 2, c: 0, dots: Array.from({ length: 16 }, (_, i) => ({ u: hsh(i + 9100), p: hsh(i + 9200) })) };
+scene('cv1', (ctx, dt) => {
+  const g = GR[s1.g], dur = g.tm * 1.25, period = 1.9 + dur;
+  s1.c = reduced ? 1 + dur * .4 : (s1.c + dt) % period;
+  const c = s1.c, te = g.tm * g.sf;
+  const level = c < 1 ? lerp(BT, 100, ss(0, .9, c)) : c < 1 + dur ? lerp(100, BT, (c - 1) / dur) : BT;
+  const draining = c > .4 && c < 1.3 + dur;
+  const brew = mix(C.brewLight, C.brew, clamp(te / 5, .15, 1));
+  dripperSide(ctx, { level, serverLevel: 368, serverColor: brew, grains: x => grains(x, PACK1[s1.g], 1), inside: x => {
+    if (!draining) return;
+    for (let i = 0; i < s1.dots.length; i++) {
+      const d = s1.dots[i]; if (!reduced) { d.p += dt / (g.tm * .55); if (d.p > 1) d.p -= 1; }
+      const y = BT + 4 + d.p * 98, xx = CXD + (d.u * 2 - 1) * hwF(y) * .8 + 1.5 * Math.sin(y * .3 + i);
+      x.beginPath(); x.arc(xx, y, 2.2, 0, TAU); x.fillStyle = C.water; x.fill(); x.globalAlpha = .7; x.strokeStyle = C.shine; x.lineWidth = .8; x.stroke(); x.globalAlpha = 1;
+    }
+  } });
+  if (draining) drips(ctx, c, 12 + g.tm * 5, brew, 368);
+  kettle(ctx, CXD + 22 * Math.sin(c * 6), level, 5, ss(0, .12, c) * (1 - ss(.85, 1, c)));
+  magnifier(ctx, '放大一顆粉', (mx, my) => {
+    const n = g.cut, size = 64, gap = 4, ps = (size - gap * (n - 1)) / n;
+    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
+      const x = mx - size / 2 + i * (ps + gap), y = my - size / 2 - 6 + j * (ps + gap), sq = resample([[x, y], [x + ps, y], [x + ps, y + ps], [x, y + ps], [x, y]], 4);
+      wash(ctx, sq, C.groundsDry, { seed: 560 + i * 7 + j, amp: .5 }); ink(ctx, sq, { seed: 580 + i * 7 + j, w: 1.3, amp: .5, pass2: false, closed: true });
+    }
+    text(ctx, `表面 ×${n}`, mx, my + 40, { size: 14, color: C.ink, weight: 700 });
+  });
+});
+function ui1() { const g = GR[s1.g]; $('s1-out').textContent = g.n; setTaste('m1', g.tm * g.sf); say('r1', `${g.say}（大約 ${fmt(g.tm * 60)} 滴完）`); }
+
+// 2 — water temperature, one grain under the magnifier
+const s2 = { T: 93, time: 0 };
+const kT = T => Math.exp((T - 93.8) / 12.2);
+const PC = [300, 222];
+const BLOB = (() => { const p = []; for (let i = 0; i < 28; i++) { const a = i / 28 * TAU, r = 88 * (1 + .14 * vn(i * .8, 9)); p.push([PC[0] + r * Math.cos(a), PC[1] + r * Math.sin(a) * .85]); } p.push(p[0]); return resample(p, 6); })();
+const PORES = Array.from({ length: 9 }, (_, i) => [PC[0] + (hsh(i + 7000) - .5) * 110, PC[1] + (hsh(i + 7100) - .5) * 80, 3 + hsh(i + 7200) * 4]);
+const FLV = Array.from({ length: 36 }, (_, i) => ({ type: i % 3, out: false, x: 0, y: 0, vx: 0, vy: 0, life: 0 }));
+function placeIn(d) { const a = Math.random() * TAU, r = Math.sqrt(Math.random()) * 60; d.x = PC[0] + r * Math.cos(a); d.y = PC[1] + r * Math.sin(a) * .8; d.out = false; d.life = 0; }
+FLV.forEach(placeIn);
+const WMOL = Array.from({ length: 46 }, (_, i) => { let x = 0, y = 0; for (let k = 0; k < 20; k++) { const a = hsh(i * 31 + k + 8000) * TAU, r = Math.sqrt(hsh(i * 37 + k + 8100)) * 160; x = 300 + r * Math.cos(a); y = 205 + r * Math.sin(a); if (Math.hypot(x - PC[0], (y - PC[1]) / .85) > 100) break; } return [x, y]; });
+function escRate(type, T) { return Math.pow(kT(T), 1.5) * [.38, .17, .045][type] * (type === 2 ? 1 + 4 * ss(94, 100, T) : 1); }
+const FCOL = () => [C.acid, C.sweet, C.bitter];
+scene('cv2', (ctx, dt) => {
+  const T = s2.T, te = 3 * kT(T);
+  if (!reduced) {
+    s2.time += dt;
+    for (const d of FLV) {
+      if (!d.out) { if (Math.random() < escRate(d.type, T) * dt) { const dx = d.x - PC[0], dy = d.y - PC[1], m = Math.hypot(dx, dy) || 1; d.out = true; d.vx = dx / m * 45; d.vy = dy / m * 45; } continue; }
+      d.x += d.vx * dt; d.y += d.vy * dt; d.life += dt;
+      if (Math.hypot(d.x - PC[0], (d.y - PC[1]) / .85) > 100) { d.vx *= 1 - 1.5 * dt; d.vy = d.vy * (1 - 1.5 * dt) - 14 * dt; }
+      if (d.life > 3.5 || Math.hypot(d.x - 300, d.y - 205) > 168) placeIn(d);
+    }
+  }
+  const sp = .6 + 2.6 * ss(80, 100, T), amp = 2 + 5 * ss(80, 100, T), tm = s2.time;
+  ctx.save(); ctx.beginPath(); ctx.arc(300, 205, 172, 0, TAU); ctx.clip();
+  ctx.globalAlpha = .22; ctx.fillStyle = C.water; ctx.fillRect(120, 25, 360, 360); ctx.globalAlpha = 1;
+  ctx.fillStyle = C.water; ctx.beginPath();
+  WMOL.forEach(([x, y], i) => { const px = x + amp * vn(tm * sp, i), py = y + amp * vn(tm * sp, i + 9); ctx.moveTo(px + 2.4, py); ctx.arc(px, py, 2.4, 0, TAU); });
+  ctx.fill();
+  wash(ctx, BLOB, C.groundsDry, { seed: 600 });
+  for (const [x, y, r] of PORES) wash(ctx, ell(x, y, r, r * .8, 0, TAU, 10), C.grounds, { seed: 610 + x, amp: .5, edge: false, alpha: .7 });
+  ink(ctx, BLOB, { seed: 601, w: 1.8, closed: true });
+  const cols = FCOL();
+  for (const d of FLV) {
+    const a = d.out ? 1 - ss(2.6, 3.5, d.life) : 1;
+    ctx.globalAlpha = a; ctx.beginPath(); ctx.arc(d.x, d.y, 4.2, 0, TAU); ctx.fillStyle = cols[d.type]; ctx.fill();
+    ctx.globalAlpha = a * .7; ctx.strokeStyle = C.ink; ctx.lineWidth = .9; ctx.stroke(); ctx.globalAlpha = 1;
+  }
+  ctx.restore();
+  ink(ctx, ell(300, 205, 172, 172), { seed: 602, w: 2.2, closed: true });
+  thermo(ctx, T, 80, 100, [90, 96]);
+  const v = verdict(te); face(ctx, 530, 72, 32, MOOD[v], WORD[v]);
+});
+const TXT2 = ['水太涼，味道跑得太慢。時間到了，甜味還沒出來，喝起來又酸又淡。', '水溫有點低，甜味出來得不夠，偏酸。', '剛好。酸和甜都出來了，苦味還很少。', '水溫偏高，味道跑得快，苦味開始出來了。', '水太燙，苦味跑得太快，蓋過甜味。'];
+function ui2() { const te = 3 * kT(s2.T); $('s2-out').textContent = s2.T + '°C'; setTaste('m2', te); say('r2', TXT2[verdict(te)]); }
+
+// 3 — bloom
+const s3 = { mode: 'bloom', t: 9.5, T: 9.5, bub: [], pops: [], acc: 0 };
+const P3 = packBed(3, 900);
+const POCK = [[CXD - 24, 228, 14], [CXD + 28, 210, 12], [CXD + 4, 256, 10]];
+P3.forEach(p => { p.pocket = POCK.some(([x, y, r]) => Math.hypot(p.x - x, p.y - y) < r); });
+const CH3 = [CXD - 40, CXD + 8, CXD + 44];
+function st3(t) {
+  if (s3.mode === 'bloom') return { dome: 9 * ss(1.2, 3, t) * (1 - .55 * ss(5.4, 6.6, t)), wf: lerp(170, 292, ss(.3, 2.2, t)), level: t < 5.4 ? null : t < 6.6 ? lerp(BT, 104, ss(5.4, 6.6, t)) : lerp(104, 140, ss(6.6, 9.5, t)) };
+  return { dome: 0, wf: lerp(170, 292, ss(.4, 1.8, t)), level: lerp(BT, 100, ss(.2, 2.4, t)) + lerp(0, 60, ss(2.4, 7, t)) };
+}
+function step3(dt, st) {
+  const t = s3.t, bloom = s3.mode === 'bloom';
+  s3.acc += (bloom ? (t > 1.2 && t < 5.2 ? 16 : 0) : (t > .5 && t < 4.5 ? 45 : 0)) * dt;
+  while (s3.acc >= 1) { s3.acc -= 1; const p = P3[Math.floor(Math.random() * P3.length)]; if (!bloom && p.pocket) continue; s3.bub.push({ x: p.x, y: p.y, r: bloom ? 1.5 + Math.random() * 2 : 2 + Math.random() * 3.5, vy: bloom ? 22 + Math.random() * 14 : 55 + Math.random() * 45 }); }
+  const bw = hwF(BT);
+  s3.bub = s3.bub.filter(b => {
+    b.y -= b.vy * dt; b.x += Math.sin(b.y * .2) * .3;
+    const u = clamp((b.x - CXD) / bw, -1, 1), surf = st.level != null && st.level < BT - 1 ? st.level : BT - st.dome * (1 - u * u);
+    if (b.y <= surf) { s3.pops.push({ x: b.x, y: surf, r: b.r * 1.6, t: 0 }); return false; }
+    return true;
+  });
+}
+function replay3() { Object.assign(s3, { t: 0, bub: [], pops: [], acc: 0 }); }
+scene('cv3', (ctx, dt) => {
+  if (s3.t < s3.T) s3.t = Math.min(s3.T, s3.t + dt);
+  const t = s3.t, bloom = s3.mode === 'bloom', st = st3(t);
+  if (!reduced) step3(dt, st);
+  const wetOf = p => (bloom || !p.pocket) ? clamp((st.wf - p.y) / 14, 0, 1) : 0;
+  const bedColor = mix(mix(C.groundsDry, C.grounds, .4), C.grounds, ss(.3, 2, t));
+  const brew = bloom ? C.brew : mix(C.water, C.brewLight, .55);
+  const sl = bloom ? lerp(SV_B, 382, ss(2.2, 5, t)) - lerp(0, 24, ss(5.8, 9.5, t)) : lerp(SV_B, 352, ss(1.2, 7, t));
+  dripperSide(ctx, { dome: st.dome, bedColor, level: st.level, serverLevel: sl, serverColor: brew,
+    grains: x => {
+      grains(x, P3, wetOf);
+      if (!bloom) { const a = ss(.8, 1.6, t); if (a > 0) CH3.forEach((x0, i) => { const pts = []; for (let y = BT; y <= 288; y += 5) pts.push([CXD + (x0 - CXD) * hwF(y) / hwF(BT) + 2.5 * Math.sin(y * .25 + i * 2), y]); ink(x, pts, { color: mix(C.water, C.brewLight, .35), w: 3.6, alpha: a * .8, seed: 620 + i, pass2: false, amp: .6 }); }); }
+    },
+    inside: x => {
+      for (const b of s3.bub) { x.beginPath(); x.arc(b.x, b.y, b.r, 0, TAU); x.strokeStyle = C.shine; x.lineWidth = 1.1; x.globalAlpha = .9; x.stroke(); }
+      x.globalAlpha = 1; s3.pops = drawPops(x, s3.pops, dt);
+    } });
+  if (bloom) { kettle(ctx, CXD + 40 * Math.sin(t * 5), BT - 4, 3, ss(.15, .3, t) * (1 - ss(1.3, 1.5, t))); kettle(ctx, CXD + 22 * Math.sin(t * 6), st.level ?? BT, 6, ss(5.3, 5.45, t) * (1 - ss(6.6, 6.8, t))); drips(ctx, t, t < 5.6 ? 60 : 18, brew, sl, ss(2.2, 2.6, t)); }
+  else { kettle(ctx, CXD + 10 * Math.sin(t * 4), st.level, 8, ss(.15, .3, t) * (1 - ss(2.3, 2.5, t))); drips(ctx, t, 14, brew, sl, ss(1.1, 1.4, t)); }
+  if (bloom) { const secs = Math.round(clamp((t - 1.2) / 4, 0, 1) * 30); text(ctx, t < 5.3 ? '悶蒸計時' : '悶蒸完成，開始注水', 24, 26, { align: 'left' }); text(ctx, `0:${String(secs).padStart(2, '0')}`, 24, 56, { align: 'left', size: 28, font: NUMF, color: C.ink, weight: 700 }); }
+  else text(ctx, '沒等，直接沖', 24, 26, { align: 'left' });
+}, () => { if (!reduced) replay3(); });
+const TXT3 = { bloom: '粉吸到水，膨起來、冒泡。那是豆子裡的二氧化碳在跑出來。等 30 秒氣跑完，再注水，水就能均勻流過每一顆粉。', direct: '沒等氣跑完就大量注水：氣泡一直往上衝，把水推開。有幾塊粉沒泡到水（淺色那幾塊），水從旁邊的縫鑽下去，咖啡變淡、變酸。' };
+
+// 4 — flavors come out in order
+const s4 = { t: 180, playing: false, time: 0 };
+const X0 = 330, X1 = 566, YB = 318, YT = 72;
+const xm = m => lerp(X0, X1, m / 6), yv = v => lerp(YB, YT, v);
+function rateColor(m) { const s = sweetX(m), b = bitterX(m); return mixW([C.acid, C.sweet, C.bitter], [Math.exp(-m / .7) / .7, s * (1 - s) / .4, b * (1 - b) / .45 * 1.3]); }
+function chart(ctx, m) {
+  wash(ctx, [[xm(2.5), YT], [xm(3.5), YT], [xm(3.5), YB], [xm(2.5), YB]], C.ok, { alpha: .35, edge: false, seed: 700, amp: .6 });
+  text(ctx, '剛好', xm(3), YT - 14, { size: 14, color: C.ink });
+  text(ctx, '跑出來的量', X0 + 6, YT - 14, { size: 13, align: 'left' });
+  ink(ctx, line(X0, YB, X1 + 10, YB), { seed: 701, w: 1.6 }); ink(ctx, line(X0, YB, X0, YT - 4), { seed: 702, w: 1.6 });
+  ink(ctx, [[X0 - 4, YT + 4], [X0, YT - 4], [X0 + 4, YT + 4]], { seed: 703, w: 1.6, pass2: false });
+  for (let k = 0; k <= 6; k++) { ink(ctx, line(xm(k), YB, xm(k), YB + 5), { seed: 704 + k, w: 1.2, pass2: false }); text(ctx, k === 6 ? '6 分' : String(k), xm(k), YB + 17, { size: 14, font: NUMF }); }
+  [[acidX, C.acid, 710], [sweetX, C.sweet, 711], [bitterX, C.bitter, 712]].forEach(([f, col, sd]) => { const pts = []; for (let i = 0; i <= 60; i++) pts.push([xm(i / 10), yv(f(i / 10))]); ink(ctx, pts, { color: col, w: 3.2, seed: sd, amp: .6, pass2: false }); });
+  text(ctx, '酸', xm(1) - 12, yv(acidX(1)) - 14, { size: 16, color: C.ink, weight: 700 });
+  text(ctx, '甜', xm(1.9) + 16, yv(.5), { size: 16, color: C.ink, weight: 700 });
+  text(ctx, '苦', xm(4.2) + 16, yv(.5), { size: 16, color: C.ink, weight: 700 });
+  const xc = xm(m); ctx.setLineDash([4, 5]); ctx.strokeStyle = C.ink; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(xc, YT - 2); ctx.lineTo(xc, YB); ctx.stroke(); ctx.setLineDash([]);
+  [[acidX, C.acid], [sweetX, C.sweet], [bitterX, C.bitter]].forEach(([f, col]) => { ctx.beginPath(); ctx.arc(xc, yv(f(m)), 5, 0, TAU); ctx.fillStyle = col; ctx.fill(); ctx.strokeStyle = C.ink; ctx.lineWidth = 1.2; ctx.stroke(); });
+  text(ctx, fmt(m * 60), xc, YB + 38, { size: 16, font: NUMF, color: C.ink, weight: 700 });
+}
+scene('cv4', (ctx, dt) => {
+  if (!reduced) s4.time += dt;
+  if (s4.playing) { s4.t = Math.min(360, s4.t + dt * 55); $('s4-time').value = Math.max(60, Math.round(s4.t / 15) * 15); ui4(); if (s4.t >= 360) s4.playing = false; }
+  const m = s4.t / 60, v = verdict(m);
+  const cup = mixW([C.acid, C.sweet, C.bitter], [acidX(m) * .55, sweetX(m), bitterX(m) * 1.6]), sl = lerp(SV_B - 4, 350, clamp(m / 6, 0, 1));
+  ctx.save(); ctx.translate(150 - 300 * .58, 4); ctx.scale(.58, .58);
+  dripperSide(ctx, { level: 140, serverLevel: sl, serverColor: cup, grains: x => grains(x, PH, 1) });
+  drips(ctx, s4.time, 20, rateColor(m), sl);
+  ctx.restore();
+  face(ctx, 150, 292, 28, MOOD[v], WORD[v]);
+  chart(ctx, m);
+});
+const TXT4 = ['太早停了。只有酸味出來，甜味還在粉裡。', '有點早。酸味比較多，甜味還不夠。', '剛好。酸先出來，甜接著出來，苦味還很少。這就是好喝的時候。', '有點久了。苦味開始變多。', '太久了。苦味全出來了，把甜味蓋掉。'];
+function ui4() { const m = s4.t / 60; $('s4-out').textContent = fmt(s4.t); setTaste('m4', m); say('r4', TXT4[verdict(m)]); }
+
+// 5 — where you pour
+const s5 = { mode: 'center', time: 0, parts: [], acc: 0, mix: 1, trail: [] };
+const L5 = 118, P5 = packBed(3, 1300);
+function pourPos5(time) {
+  const th = time * TAU * .55;
+  if (s5.mode === 'center') { const rr = 6 + 14 * (.5 + .5 * Math.sin(time * .9)); return { side: CXD + rr * 2.4 * Math.cos(th), tx: rr * Math.cos(th), ty: rr * Math.sin(th) }; }
+  return { side: CXD + (hwF(L5) - 5) * Math.cos(th), tx: 41 * Math.cos(th), ty: 41 * Math.sin(th) };
+}
+function step5(dt) {
+  s5.time += dt; s5.mix += ((s5.mode === 'center' ? 1 : 0) - s5.mix) * Math.min(1, 2.5 * dt);
+  const pp = pourPos5(s5.time);
+  s5.trail.push([pp.tx, pp.ty]); if (s5.trail.length > 70) s5.trail.shift();
+  s5.acc += 24 * dt;
+  while (s5.acc >= 1) { s5.acc -= 1; const wall = s5.mode === 'edge' && Math.abs(pp.side - CXD) > hwF(L5) * .55 && Math.random() < .8; s5.parts.push({ x: pp.side, y: L5, xe: pp.side, route: wall ? 'wall' : 'bed', s: Math.sign(pp.side - CXD) || 1, id: Math.random() * 9 }); }
+  s5.parts = s5.parts.filter(p => {
+    if (p.route === 'wall') { p.y += 150 * dt; p.x = CXD + p.s * (hwF(p.y) - 2.5); }
+    else if (p.y < BT) { p.y += 100 * dt; if (p.y >= BT) p.xe = clamp(p.x, CXD - hwF(BT) + 4, CXD + hwF(BT) - 4); }
+    else { p.y += 30 * dt; p.x = CXD + (p.xe - CXD) * hwF(p.y) / hwF(BT) + 2 * Math.sin(p.y * .3 + p.id); }
+    return p.y < 287;
+  });
+}
+let ui5Clock = 0;
+scene('cv5', (ctx, dt) => {
+  if (!reduced) step5(dt);
+  const pp = pourPos5(s5.time), k = s5.mix, brew = mix(mix(C.water, C.brewLight, .55), C.brew, k);
+  dripperSide(ctx, { level: L5, serverLevel: 366, serverColor: brew, grains: x => grains(x, P5, 1), inside: x => {
+    const cols = [0, 1, 2, 3].map(i => mix(C.water, C.brew, i / 3));
+    for (const p of s5.parts) { const d = p.route === 'wall' || p.y < BT ? 0 : Math.round(clamp((p.y - BT) / (287 - BT), 0, 1) * 3); x.beginPath(); x.arc(p.x, p.y, 2.6, 0, TAU); x.fillStyle = cols[d]; x.fill(); x.globalAlpha = .6; x.strokeStyle = C.shine; x.lineWidth = .7; x.stroke(); x.globalAlpha = 1; }
+  } });
+  drips(ctx, s5.time, 16, brew, 366);
+  kettle(ctx, pp.side, L5, 4, 1);
+  magnifier(ctx, '從上面看', (mx, my) => {
+    wash(ctx, ell(mx, my, 48, 48), C.glaze, { seed: 640, edge: false }); wash(ctx, ell(mx, my, 44, 44), C.filter, { seed: 641, edge: false }); wash(ctx, ell(mx, my, 36, 36), C.grounds, { seed: 642, edge: false });
+    ink(ctx, ell(mx, my, 48, 48), { seed: 643, w: 1.4, closed: true, pass2: false }); ink(ctx, ell(mx, my, 36, 36), { seed: 644, w: 1, color: C.inkSoft, closed: true, pass2: false });
+    if (s5.trail.length > 2) ink(ctx, s5.trail.map(([x, y]) => [mx + x, my + y]), { color: C.water, w: 2, alpha: .9, amp: .3, pass2: false, seed: 645 });
+    ctx.beginPath(); ctx.arc(mx + pp.tx, my + pp.ty, 4, 0, TAU); ctx.fillStyle = C.water; ctx.fill(); ctx.strokeStyle = C.ink; ctx.lineWidth = 1.2; ctx.stroke();
+  });
+  ui5Clock += dt; if (ui5Clock > .15 || dt === 0) { ui5Clock = 0; $('m5-strength').style.width = pct(.35 + .55 * k); $('m5-through').style.width = pct(.3 + .7 * k); }
+});
+const TXT5 = { center: '水從中間進去，一路穿過咖啡粉才流下去。每一滴水都泡到粉，味道濃。', edge: '水沖到濾紙上，順著紙直接滑下去，根本沒經過咖啡粉。這些水只會把咖啡沖淡。' };
+
+// 6 — ratio
+const s6 = { N: 15, shown: 15, time: 0 };
+function drop(ctx, x, y, s, a) {
+  if (s <= .02) return;
+  ctx.globalAlpha = a; ctx.beginPath(); ctx.moveTo(x, y - 15 * s); ctx.quadraticCurveTo(x + 10 * s, y - 2 * s, x + 9 * s, y + 4 * s); ctx.arc(x, y + 4 * s, 9 * s, 0, Math.PI); ctx.quadraticCurveTo(x - 10 * s, y - 2 * s, x, y - 15 * s);
+  ctx.fillStyle = C.water; ctx.fill(); ctx.strokeStyle = C.ink; ctx.lineWidth = 1.3; ctx.stroke();
+  ctx.globalAlpha = a * .8; ctx.strokeStyle = C.shine; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.arc(x - 3 * s, y + 3 * s, 4.5 * s, Math.PI * .95, Math.PI * 1.4); ctx.stroke(); ctx.globalAlpha = 1;
+}
+const BEAN = (() => { const p = ell(0, 0, 30, 40, 0, TAU, 40); return p.map(([x, y]) => [88 + x * Math.cos(-.35) - y * Math.sin(-.35), 186 + x * Math.sin(-.35) + y * Math.cos(-.35)]); })();
+const CREASE = (() => { const p = []; for (let i = 0; i <= 12; i++) { const v = i / 12 * 2 - 1, x = 5 * Math.sin(v * Math.PI), y = v * 32; p.push([88 + x * Math.cos(-.35) - y * Math.sin(-.35), 186 + x * Math.sin(-.35) + y * Math.cos(-.35)]); } return p; })();
+const MUG = resample([[452, 196], [456, 318], [470, 332], [540, 332], [554, 318], [558, 196]], 5);
+scene('cv6', (ctx, dt) => {
+  if (!reduced) s6.time += dt;
+  s6.shown += (s6.N - s6.shown) * Math.min(1, 8 * dt); if (reduced) s6.shown = s6.N;
+  const N = s6.N, mood = N < 13 ? 'strong' : N <= 17 ? 'good' : 'weak';
+  wash(ctx, BEAN, mix(C.groundsDry, C.grounds, .35), { seed: 650 }); ink(ctx, BEAN, { seed: 651, w: 1.8, closed: true }); ink(ctx, CREASE, { seed: 652, w: 1.8, pass2: false });
+  text(ctx, '1 g 粉', 88, 258, { size: 17, color: C.ink, weight: 700 });
+  ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(164, 174, 4.5, 0, TAU); ctx.arc(164, 200, 4.5, 0, TAU); ctx.fill();
+  for (let i = 0; i < 20; i++) { const s = clamp(s6.shown - i, 0, 1), bob = reduced ? 0 : 2 * Math.sin(s6.time * 2 + i); drop(ctx, 214 + (i % 5) * 34, 116 + Math.floor(i / 5) * 46 + bob, s, 1); }
+  text(ctx, `${N} g 水`, 282, 318, { size: 17, color: C.ink, weight: 700 });
+  const st = clamp((20 - N) / 10, 0, 1), col = mix(mix(C.water, C.brewLight, .6), C.brew, st);
+  wash(ctx, MUG, C.glazeLight, { seed: 653, edge: false, alpha: .7 });
+  wash(ctx, resample([[455, 214], [456, 318], [470, 330], [540, 330], [554, 318], [555, 214]], 5), col, { seed: 654 });
+  wash(ctx, ell(505, 214, 50, 7, Math.PI, TAU, 18), mix(col, C.shine, .15), { seed: 655, edge: false });
+  ink(ctx, MUG, { seed: 656, w: 2 }); ink(ctx, ell(505, 196, 53, 8), { seed: 657, w: 1.8, closed: true });
+  ink(ctx, resample([[558, 220], [584, 226], [586, 270], [556, 284]], 4), { seed: 658, w: 2.2 });
+  face(ctx, 505, 92, 30, mood, mood === 'strong' ? '太濃' : mood === 'good' ? '剛好' : '太淡');
+});
+function ui6() {
+  const N = s6.N; $('s6-out').textContent = '1:' + N; $('m6-strength').style.width = pct(clamp((21 - N) / 11, 0, 1));
+  say('r6', N < 13 ? `太濃了。15 g 粉只配 ${15 * N} g 水，喝起來很重，甚至有點苦。` : N <= 17 ? `剛好。15 g 粉配 ${15 * N} g 水。大部分人從 1:15 開始試。` : `太淡了。15 g 粉配了 ${15 * N} g 水，像有咖啡味的水。`);
+}
+
+// ---------- controls ----------
+function bindSeg(id, fn) { const g = $(id); g.addEventListener('click', e => { const b = e.target.closest('button'); if (!b || !g.contains(b)) return; g.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); fn(b.dataset.v); }); }
+$('s1-grind').addEventListener('input', e => { s1.g = +e.target.value - 1; s1.c = 0; ui1(); });
+$('s2-temp').addEventListener('input', e => { s2.T = +e.target.value; ui2(); });
+bindSeg('s3-mode', v => { s3.mode = v; replay3(); if (reduced) s3.t = s3.T; say('r3', TXT3[v]); });
+$('s3-replay').addEventListener('click', replay3);
+$('s4-time').addEventListener('input', e => { s4.playing = false; s4.t = +e.target.value; ui4(); });
+$('s4-play').addEventListener('click', () => { s4.t = 30; s4.playing = true; });
+bindSeg('s5-mode', v => { s5.mode = v; s5.trail = []; say('r5', TXT5[v]); });
+$('s6-ratio').addEventListener('input', e => { s6.N = +e.target.value; ui6(); });
+
+// ---------- start ----------
+readColors();
+ui1(); ui2(); ui4(); ui6();
+for (let i = 0; i < 120; i++) step5(1 / 60);
+const io = new IntersectionObserver(es => { for (const e of es) { const sc = scenes.find(s => s.cv === e.target); sc.visible = e.isIntersecting; if (e.intersectionRatio >= .35 && !sc.seen) { sc.seen = true; if (sc.onFirst) sc.onFirst(); } } }, { threshold: [0, .35] });
+const refresh = () => { readColors(); scenes.forEach(sc => render(sc, 0)); };
+scenes.forEach(sc => { io.observe(sc.cv); render(sc, 0); });
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', refresh);
+new MutationObserver(refresh).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+if (document.fonts) Promise.all([document.fonts.load(`16px ${FONT}`, '放大一顆粉表面從上面看悶蒸計時完成開始注水沒等直接沖好酸偏酸好喝偏苦好苦太濃剛好太淡跑出來的量分甜苦水'), document.fonts.load(`14px ${NUMF}`, '0123456789°C:')]).then(refresh, () => {});
+let last = performance.now();
+function loop(now) {
+  const dt = Math.min(.05, (now - last) / 1000); last = now;
+  if (!reduced) boil = Math.floor(now / 170) % 3;
+  for (const sc of scenes) if (sc.visible) render(sc, dt);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+})();
+</script>
