@@ -14,6 +14,7 @@
   --paper:#EDEFE2; --paper-2:#E2E6D2; --ink:#2B2C25; --ink-soft:#626456; --line:#B8BBA6; --shine:#FFFFFF;
   --matcha:#7C9B3B; --matcha-deep:#4F6A24; --foam:#D0DE98; --water:#9DB6C2;
   --glaze:#5F7280; --glaze-light:#C3CCCD; --bamboo:#C9B37B; --bamboo-wet:#A08650; --cloth:#FBFAF3;
+  --tatami:#D8D2A6; --heri:#2E3A48; --iron:#46443F; --lacquer:#2B2421;
   --hot:#C2603A; --sweet:#D4AE33; --bitter:#6E4B2E;
   --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   --f-hand:"LXGW WenKai TC","Kaiti TC","BiauKai","DFKai-SB","KaiTi",serif;
@@ -24,6 +25,7 @@
     --paper:#1A1D17; --paper-2:#23271F; --ink:#E6E5D6; --ink-soft:#A4A695; --line:#4C5044; --shine:#F4F3EA;
     --matcha:#8BAE47; --matcha-deep:#5E7E2B; --foam:#C6D78C; --water:#5E7B89;
     --glaze:#7C91A0; --glaze-light:#3A454B; --bamboo:#B9A068; --bamboo-wet:#958049; --cloth:#D9D6CB;
+    --tatami:#4B4A37; --heri:#1D2630; --iron:#7A766E; --lacquer:#14100E;
     --hot:#E07C50; --sweet:#E0BF52; --bitter:#B98B62;
     --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
     color-scheme:dark;
@@ -33,6 +35,7 @@
   --paper:#1A1D17; --paper-2:#23271F; --ink:#E6E5D6; --ink-soft:#A4A695; --line:#4C5044; --shine:#F4F3EA;
   --matcha:#8BAE47; --matcha-deep:#5E7E2B; --foam:#C6D78C; --water:#5E7B89;
   --glaze:#7C91A0; --glaze-light:#3A454B; --bamboo:#B9A068; --bamboo-wet:#958049; --cloth:#D9D6CB;
+    --tatami:#4B4A37; --heri:#1D2630; --iron:#7A766E; --lacquer:#14100E;
   --hot:#E07C50; --sweet:#E0BF52; --bitter:#B98B62;
   --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   color-scheme:dark;
@@ -111,6 +114,14 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .chips button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .chips button b{font-family:var(--f-num);margin-right:6px}
 #cvp1{cursor:pointer}
+.gloss{display:flex;flex-direction:column;gap:22px}
+.gloss h3{font-size:20px;margin:0}
+.gloss dl{margin:6px 0 0;display:flex;flex-direction:column;border-top:1.4px dashed var(--line)}
+.gloss dl div{display:grid;grid-template-columns:minmax(0,9.5em) minmax(0,1fr);gap:2px 16px;padding:9px 0;border-bottom:1.4px dashed var(--line)}
+.gloss dt{font-weight:700;line-height:1.4}
+.gloss dt span{display:block;font-weight:400;font-size:13px;color:var(--ink-soft)}
+.gloss dd{margin:0}
+@media (max-width:460px){.gloss dl div{grid-template-columns:minmax(0,1fr)}}
 
 .summary{display:flex;flex-direction:column;gap:18px;padding-top:8px;border-top:1.8px dashed var(--line)}
 .summary h2{font-size:clamp(24px,4.6vw,30px);padding-top:28px}
@@ -136,7 +147,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
         <li><b>15 秒</b><span>刷的時間</span></li>
       </ul>
       <nav class="toc" aria-label="五個步驟">
-        <a href="#s0">0 準備</a><a href="#s1">1 篩粉</a><a href="#s2">2 水溫</a><a href="#s3">3 調糊</a><a href="#s4">4 刷法</a><a href="#s5">5 收尾</a>
+        <a href="#s0">0 準備</a><a href="#s1">1 篩粉</a><a href="#gloss">名詞小字典</a><a href="#s2">2 水溫</a><a href="#s3">3 調糊</a><a href="#s4">4 刷法</a><a href="#s5">5 收尾</a>
       </nav>
     </div>
     <figure class="hero-art"><canvas id="cv0" role="img" aria-label="從上面看一碗刷好的抹茶，表面是淡綠色的細泡沫，旁邊立著一支茶刷。"></canvas></figure>
@@ -147,8 +158,13 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
     <p class="lede">先把東西擺好，一伸手就拿得到。再用熱水溫碗、泡茶筅，最後把碗擦乾。</p>
 
     <h3>茶具怎麼擺</h3>
+    <div class="chips" id="p1-mode" role="group" aria-label="擺法">
+      <button type="button" data-v="home" aria-pressed="true">在家擺法</button>
+      <button type="button" data-v="set" aria-pressed="false">茶道：剛擺好</button>
+      <button type="button" data-v="temae" aria-pressed="false">茶道：點茶時</button>
+    </div>
     <figure class="stage">
-      <div class="paper"><canvas id="cvp1" role="img" aria-label="從上面看擺好的茶具：中間是茶碗，右邊是茶筅和熱水壺，左邊是抹茶罐、篩網和建水，前面是茶巾。"></canvas></div>
+      <div class="paper"><canvas id="cvp1" role="img" aria-label="從上面看茶具的擺法。在家擺法：中間是茶碗，右邊是茶筅和熱水壺，左邊是抹茶罐、篩網和建水。茶道擺法：榻榻米上有炉和釜、水指、茶碗、棗、建水、蓋置和柄杓。"></canvas></div>
       <figcaption>從上面往下看，你坐在下方。點畫面裡的東西或下面的按鈕，看它是什麼、為什麼放那裡。</figcaption>
     </figure>
     <div class="chips" id="p1-items" role="group" aria-label="茶具">
@@ -162,7 +178,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
       <button type="button" data-v="kensui" aria-pressed="false">建水</button>
     </div>
     <div class="said"><small>這是什麼</small><p id="rp1" aria-live="polite">茶筅放在茶碗右邊，插在「茶筅直し」（白色的座）上。右手一伸就拿得到，穗也不會被壓壞。</p></div>
-    <p class="tip"><small>小提醒</small>這是在家喝茶的實用擺法，不是正式茶道的點前。慣用左手的話，左右對調就好。</p>
+    <p class="tip"><small>小提醒</small>「在家擺法」是實用版，慣用左手的話左右對調就好。「茶道」以裏千家冬天的「炉・薄茶運び点前」為例（參考：<a href="https://ocha-dangi.hatenablog.com/entry/ro-ousu-hiratemae" style="color:inherit">ミッチとしずばぁばのお茶談義</a>）。表千家等其他流派、夏天的風炉，位置都不一樣；客人坐哪一側也要看茶室。正式學習請以老師教的為準。看不懂的名詞，最下面有<a href="#gloss" style="color:inherit">名詞小字典</a>。</p>
 
     <h3>溫碗、泡茶筅、擦乾</h3>
     <figure class="stage">
@@ -291,6 +307,63 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
     <p class="tip"><small>為什麼</small>大泡泡的膜很薄，放一下就破；小泡泡比較穩，喝起來滑順，像奶泡一樣。</p>
   </section>
 
+  <section class="step gloss" id="gloss" aria-labelledby="gloss-h">
+    <div class="step-head"><h2 id="gloss-h">名詞小字典</h2></div>
+    <p class="lede">茶道的名詞大多是日文。每個詞都附上日文讀音，和一句白話說明。</p>
+    <div>
+      <h3>人和地方</h3>
+      <dl>
+        <div><dt>亭主<span>ていしゅ · teishu</span></dt><dd>泡茶招待客人的主人。在這頁就是你。</dd></div>
+        <div><dt>点前<span>てまえ · temae</span></dt><dd>在客人面前泡茶的一整套動作和順序。</dd></div>
+        <div><dt>点前畳<span>てまえだたみ · temae-datami</span></dt><dd>亭主坐著泡茶的那一張榻榻米。</dd></div>
+        <div><dt>客付・勝手付<span>きゃくつき · かってつき</span></dt><dd>點前疊上靠客人的那一側叫客付；靠準備室的那一側叫勝手付。</dd></div>
+        <div><dt>水屋<span>みずや · mizuya</span></dt><dd>茶室旁邊的準備間，洗茶具、備茶具的地方。</dd></div>
+      </dl>
+    </div>
+    <div>
+      <h3>茶和動作</h3>
+      <dl>
+        <div><dt>薄茶<span>うすちゃ · usucha</span></dt><dd>抹茶少、水多，用刷的，有泡沫。這頁教的就是薄茶。</dd></div>
+        <div><dt>濃茶<span>こいちゃ · koicha</span></dt><dd>抹茶很多、水很少，用「揉」的，像濃稠的糊，不打泡。</dd></div>
+        <div><dt>運び点前<span>はこびてまえ · hakobi-temae</span></dt><dd>茶具一件一件從水屋端進來的點前，不用茶棚。</dd></div>
+        <div><dt>置き合わせ<span>おきあわせ · okiawase</span></dt><dd>把茶碗和棗並排擺在水指前面。</dd></div>
+        <div><dt>茶筅通し<span>ちゃせんとおし · chasen-tōshi</span></dt><dd>把茶筅放進熱水裡：溫碗、讓穗變軟、檢查有沒有斷。就是第 0 步的「泡茶筅」。</dd></div>
+      </dl>
+    </div>
+    <div>
+      <h3>燒水、舀水的</h3>
+      <dl>
+        <div><dt>炉<span>ろ · ro</span></dt><dd>挖在地板裡的地爐，冬天用（大約 11–4 月）。</dd></div>
+        <div><dt>風炉<span>ふろ · furo</span></dt><dd>放在榻榻米上的爐子，夏天用（大約 5–10 月）。</dd></div>
+        <div><dt>釜<span>かま · kama</span></dt><dd>燒水的鐵鍋，放在炉或風炉上。</dd></div>
+        <div><dt>柄杓<span>ひしゃく · hishaku</span></dt><dd>竹子做的長柄水杓，從釜裡舀熱水、從水指舀冷水。</dd></div>
+        <div><dt>蓋置<span>ふたおき · futaoki</span></dt><dd>放釜蓋和柄杓的小座。</dd></div>
+        <div><dt>湯冷まし<span>ゆざまし · yuzamashi</span></dt><dd>把熱水倒進來降溫的容器。在家常用「公道杯」代替。</dd></div>
+      </dl>
+    </div>
+    <div>
+      <h3>裝水、裝茶的</h3>
+      <dl>
+        <div><dt>水指<span>みずさし · mizusashi</span></dt><dd>裝乾淨冷水的容器，用來補釜裡的水、洗茶筅。</dd></div>
+        <div><dt>建水<span>けんすい · kensui</span></dt><dd>裝廢水的碗。溫碗、洗茶筅的水都倒這裡。</dd></div>
+        <div><dt>棗<span>なつめ · natsume</span></dt><dd>裝薄茶的漆器小罐，形狀像紅棗。</dd></div>
+        <div><dt>茶入<span>ちゃいれ · chaire</span></dt><dd>裝濃茶的陶瓷小罐。薄茶用棗，濃茶用茶入。</dd></div>
+      </dl>
+    </div>
+    <div>
+      <h3>刷茶、擦拭的</h3>
+      <dl>
+        <div><dt>茶碗<span>ちゃわん · chawan</span></dt><dd>喝抹茶的碗，又寬又深，好刷。</dd></div>
+        <div><dt>茶筅<span>ちゃせん · chasen</span></dt><dd>竹子做的茶刷。一節竹子切成很多細細的「穗」。</dd></div>
+        <div><dt>茶筅直し<span>くせなおし · kusenaoshi</span></dt><dd>茶筅的座。插著晾乾，穗才不會變形。</dd></div>
+        <div><dt>茶杓<span>ちゃしゃく · chashaku</span></dt><dd>竹子做的細長茶匙，舀抹茶用。一匙大約 1 g。</dd></div>
+        <div><dt>茶巾<span>ちゃきん · chakin</span></dt><dd>擦茶碗用的白色麻布。</dd></div>
+        <div><dt>帛紗<span>ふくさ · fukusa</span></dt><dd>絲綢方巾。亭主用它「清潔」棗和茶杓，是一種禮節動作。</dd></div>
+        <div><dt>篩<span>ふるい · furui</span></dt><dd>篩網，把抹茶粉篩細、打散結塊。</dd></div>
+      </dl>
+    </div>
+  </section>
+
   <section class="summary" aria-labelledby="sum-h">
     <h2 id="sum-h">記住這六句</h2>
     <ol>
@@ -328,7 +401,7 @@ const hsh = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x 
 const vn = (x, s) => { const i = Math.floor(x), f = x - i, u = f * f * (3 - 2 * f); return lerp(hsh(i + s * 57.31), hsh(i + 1 + s * 57.31), u) * 2 - 1; };
 
 // ---------- colors from the page tokens ----------
-const TOK = { ink: '--ink', inkSoft: '--ink-soft', paper: '--paper', paper2: '--paper-2', shine: '--shine', matcha: '--matcha', matchaDeep: '--matcha-deep', foam: '--foam', water: '--water', glaze: '--glaze', glazeLight: '--glaze-light', bamboo: '--bamboo', bambooWet: '--bamboo-wet', cloth: '--cloth', hot: '--hot', sweet: '--sweet', bitter: '--bitter' };
+const TOK = { ink: '--ink', inkSoft: '--ink-soft', paper: '--paper', paper2: '--paper-2', shine: '--shine', matcha: '--matcha', matchaDeep: '--matcha-deep', foam: '--foam', water: '--water', glaze: '--glaze', glazeLight: '--glaze-light', bamboo: '--bamboo', bambooWet: '--bamboo-wet', cloth: '--cloth', tatami: '--tatami', heri: '--heri', iron: '--iron', lacquer: '--lacquer', hot: '--hot', sweet: '--sweet', bitter: '--bitter' };
 const C = {};
 function readColors() { const cs = getComputedStyle(document.documentElement); for (const k in TOK) C[k] = cs.getPropertyValue(TOK[k]).trim() || '#888888'; }
 function rgb(hex) { let h = hex.replace('#', ''); if (h.length === 3) h = h.replace(/./g, c => c + c); const n = parseInt(h.slice(0, 6), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
@@ -865,7 +938,7 @@ const FLOWS = {
   cloth: [[[226, 326], [262, 292], .2]],
   whisk: [[[414, 252], [372, 240], .15]]
 };
-const p1 = { sel: 'whisk' };
+const p1 = { mode: 'home', sel: 'whisk' };
 const TRAY = resample([[24, 24], [576, 24], [576, 364], [24, 364], [24, 24]], 6);
 function arrow(ctx, a, b, bend) {
   const mx = (a[0] + b[0]) / 2 - (b[1] - a[1]) * bend, my = (a[1] + b[1]) / 2 + (b[0] - a[0]) * bend, ang = Math.atan2(b[1] - my, b[0] - mx);
@@ -901,6 +974,7 @@ function drawItem(ctx, it) {
   else if (it.k === 'kensui') ring(ctx, x, y, 32, 24, 870);
 }
 scene('cvp1', ctx => {
+  if (p1.mode !== 'home') { drawFormal(ctx); return; }
   wash(ctx, TRAY, C.bamboo, { seed: 790, alpha: .28, edge: false });
   ctx.strokeStyle = C.inkSoft; ctx.globalAlpha = .14; ctx.lineWidth = 1; ctx.beginPath(); for (let y = 38; y < 364; y += 14) { ctx.moveTo(26, y); ctx.lineTo(574, y); } ctx.stroke(); ctx.globalAlpha = 1;
   ink(ctx, TRAY, { seed: 791, w: 1.6, alpha: .7 });
@@ -911,11 +985,82 @@ scene('cvp1', ctx => {
   for (const [a, b, bend] of FLOWS[p1.sel] || []) arrow(ctx, a, b, bend);
   text(ctx, '▲ 你坐在這一邊', 300, 384, { size: 14 });
 });
-function pick1(k) { p1.sel = k; $('p1-items').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === k))); $('rp1').textContent = ITEMS.find(i => i.k === k).say; }
+// P1 (tea ceremony) — Urasenke, ro season, usucha hakobi; host sits at the bottom facing up
+const RO = { x: 196, y: 108, s: 86 }, ROC = [239, 151];
+const NAT = s => s === 'set' ? [412, 158] : [330, 122];
+const FORMAL = [
+  { k: 'ro', n: '炉・釜', r: 44, at: () => ROC, lab: () => [239, 94], say: '炉是挖在地板裡的地爐，冬天（大約 11–4 月）用，上面放「釜」燒水。亭主斜斜地面向炉框靠自己的那個角坐。夏天改用放在榻榻米上的「風炉」，擺法不一樣。' },
+  { k: 'mizusashi', n: '水指', r: 30, at: () => [380, 88], lab: () => [380, 44], say: '水指裝乾淨的冷水，用來補釜裡的水、洗茶筅。放在點前疊的正中間、靠裡面。運び点前會最先把它端進來。' },
+  { k: 'chawan', n: '茶碗', r: 26, at: s => s === 'set' ? [348, 160] : [380, 268], lab: s => s === 'set' ? [348, 198] : [380, 306], say: { set: '一開始，茶碗放在水指前面、棗的左邊。水指、茶碗、棗三個的中心排成一個等腰三角形。茶巾、茶筅放在碗裡，茶杓倒扣在碗上，一起端出來。', temae: '點茶時，茶碗放在膝蓋正前方。' } },
+  { k: 'natsume', n: '棗', r: 17, at: NAT, lab: s => s === 'set' ? [412, 192] : [322, 154], say: { set: '棗是裝薄茶的漆器小罐。一開始放在水指的右斜前方。', temae: '點茶時，棗放在「水指和炉的連線」上、偏左，茶杓架在它上面。' } },
+  { k: 'chashaku', n: '茶杓', r: 14, nest: s => s === 'set', at: s => { const [x, y] = NAT(s); return [x + 14, y + 5]; }, lab: () => [302, 102], say: { set: '茶杓一開始倒扣在茶碗上，跟茶碗一起端出來。', temae: '用帛紗擦乾淨以後，架在棗的蓋子上。' } },
+  { k: 'chasen', n: '茶筅', r: 14, nest: s => s === 'set', at: () => [374, 146], lab: () => [374, 172], say: { set: '茶筅一開始放在茶碗裡。', temae: '從茶碗裡拿出來，放在棗的右邊。' } },
+  { k: 'chakin', n: '茶巾', r: 12, nest: s => s === 'set', at: () => [304, 214], lab: () => [304, 244], say: { set: '茶巾一開始折好，放在茶碗裡。', temae: '點茶時，茶巾放在釜蓋上；釜蓋放在蓋置上。' } },
+  { k: 'futaoki', n: '蓋置', r: 12, at: () => [304, 214], lab: () => [340, 212], say: '蓋置是放釜蓋和柄杓的小座，炉用的是竹子做的。放在炉的右下方、靠近你這邊。' },
+  { k: 'hishaku', n: '柄杓', r: 16, at: s => s === 'set' ? [317, 252] : [262, 176], lab: s => s === 'set' ? [352, 292] : [246, 212], say: { set: '柄杓是竹子做的長柄水杓。一開始，杓頭架在蓋置上。', temae: '要舀熱水的時候，柄杓架在釜口上。' } },
+  { k: 'kensui', n: '建水', r: 24, at: () => [312, 334], lab: () => [312, 368], say: '建水裝廢水，放在你的左手邊，最後才端進來。冬天炉的時候，比夏天風炉放得更後面一點。' },
+  { k: 'host', n: '你（亭主）', r: 30, at: () => [384, 350], lab: () => [384, 391], say: '泡茶的主人叫「亭主」，坐的那張榻榻米叫「點前疊」。冬天的炉點前，膝蓋斜斜對著炉框的內角。' }
+];
+function tatami(ctx, x, y, w, h, heri, seed) {
+  const p = resample([[x, y], [x + w, y], [x + w, y + h], [x, y + h], [x, y]], 6);
+  wash(ctx, p, C.tatami, { seed, edge: false });
+  ctx.strokeStyle = C.inkSoft; ctx.globalAlpha = .13; ctx.lineWidth = 1; ctx.beginPath(); for (let yy = y + 6; yy < y + h; yy += 6) { ctx.moveTo(x + 2, yy); ctx.lineTo(x + w - 2, yy); } ctx.stroke(); ctx.globalAlpha = 1;
+  if (heri) for (const hx of [x, x + w - 8]) wash(ctx, resample([[hx, y], [hx + 8, y], [hx + 8, y + h], [hx, y + h], [hx, y]], 6), C.heri, { seed: seed + hx, edge: false, amp: .5 });
+  ink(ctx, p, { seed: seed + 1, w: 1.4, alpha: .7 });
+}
+function bambooStick(ctx, a, b, w, seed) { const p = line(a[0], a[1], b[0], b[1]); ink(ctx, p, { w: w + 3, seed, pass2: false, amp: .5 }); ink(ctx, p, { color: C.bamboo, w, seed: seed + 1, pass2: false, amp: .5 }); }
+function lidCloth(ctx, x, y, seed) { const p = resample([[x - 10, y - 5], [x + 10, y - 5], [x + 10, y + 5], [x - 10, y + 5], [x - 10, y - 5]], 3); wash(ctx, p, C.cloth, { seed, amp: .4 }); ink(ctx, p, { seed: seed + 1, w: 1.1, closed: true, pass2: false, amp: .4 }); }
+function drawFormal(ctx) {
+  const s = p1.mode, sel = FORMAL.find(i => i.k === p1.sel);
+  tatami(ctx, 110, 14, 180, 180, false, 900); tatami(ctx, 290, 14, 180, 360, true, 910);
+  if (sel) { const nested = sel.nest && sel.nest(s), [x, y] = nested ? FORMAL[2].at(s) : sel.at(s), rr = nested ? 36 : sel.r + 10; wash(ctx, ell(x, y, rr, rr), C.foam, { seed: 920, alpha: .85, edge: false }); }
+  // ro + kama
+  const o = resample([[RO.x, RO.y], [RO.x + RO.s, RO.y], [RO.x + RO.s, RO.y + RO.s], [RO.x, RO.y + RO.s], [RO.x, RO.y]], 5), i = resample([[RO.x + 10, RO.y + 10], [RO.x + RO.s - 10, RO.y + 10], [RO.x + RO.s - 10, RO.y + RO.s - 10], [RO.x + 10, RO.y + RO.s - 10], [RO.x + 10, RO.y + 10]], 5);
+  wash(ctx, o, mix(C.bamboo, C.ink, .45), { seed: 930 }); wash(ctx, i, C.inkSoft, { seed: 931, alpha: .55, edge: false });
+  ink(ctx, o, { seed: 932, w: 1.6, closed: true }); ink(ctx, i, { seed: 933, w: 1.1, closed: true, pass2: false });
+  wash(ctx, ell(ROC[0], ROC[1], 30, 30), C.iron, { seed: 934 }); ink(ctx, ell(ROC[0], ROC[1], 30, 30), { seed: 935, w: 1.6, closed: true });
+  if (s === 'set') { wash(ctx, ell(ROC[0], ROC[1], 16, 16), mix(C.iron, C.shine, .2), { seed: 936 }); ink(ctx, ell(ROC[0], ROC[1], 16, 16), { seed: 937, w: 1.2, closed: true, pass2: false }); ink(ctx, ell(ROC[0], ROC[1], 4, 4, 0, TAU, 8), { seed: 938, w: 1.6, closed: true, pass2: false }); }
+  else { wash(ctx, ell(ROC[0], ROC[1], 13, 13), C.water, { seed: 939, alpha: .9 }); ink(ctx, ell(ROC[0], ROC[1], 13, 13), { seed: 940, w: 1.1, closed: true, pass2: false }); }
+  // futaoki (+ kama lid and chakin while making tea)
+  wash(ctx, ell(304, 214, 9, 9, 0, TAU, 14), C.bamboo, { seed: 941 }); ink(ctx, ell(304, 214, 9, 9, 0, TAU, 14), { seed: 942, w: 1.4, closed: true, pass2: false });
+  if (s === 'temae') { wash(ctx, ell(304, 214, 16, 16), mix(C.iron, C.shine, .2), { seed: 943 }); ink(ctx, ell(304, 214, 16, 16), { seed: 944, w: 1.2, closed: true, pass2: false }); lidCloth(ctx, 304, 214, 945); }
+  // mizusashi
+  ring(ctx, 380, 88, 30, 25, 950); wash(ctx, ell(380, 88, 24, 24), C.lacquer, { seed: 954 }); ink(ctx, ell(380, 88, 24, 24), { seed: 955, w: 1.2, closed: true, pass2: false }); ink(ctx, line(374, 88, 386, 88), { seed: 956, w: 2, color: C.shine, alpha: .7, pass2: false });
+  // natsume (+ chashaku on it while making tea)
+  const [nx, ny] = NAT(s);
+  wash(ctx, ell(nx, ny, 16, 16), C.lacquer, { seed: 960 }); ink(ctx, ell(nx, ny, 16, 16), { seed: 961, w: 1.5, closed: true }); ink(ctx, ell(nx, ny, 12, 12), { seed: 962, w: .9, closed: true, alpha: .5, pass2: false });
+  ctx.strokeStyle = C.shine; ctx.globalAlpha = .7; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(nx, ny, 10, Math.PI * 1.1, Math.PI * 1.45); ctx.stroke(); ctx.globalAlpha = 1;
+  if (s === 'temae') { bambooStick(ctx, [nx - 16, ny - 6], [nx + 22, ny + 8], 3.5, 963); whiskTop(ctx, 374, 146, 1, .62); }
+  // chawan (+ what is packed in it at the start)
+  const [cx, cy] = FORMAL[2].at(s);
+  ring(ctx, cx, cy, 26, 21, 970);
+  if (s === 'set') { lidCloth(ctx, cx - 6, cy + 7, 974); whiskTop(ctx, cx + 6, cy - 4, 1, .5); bambooStick(ctx, [cx - 26, cy - 10], [cx + 24, cy + 8], 3.5, 975); }
+  // hishaku
+  if (s === 'set') { bambooStick(ctx, [308, 222], [330, 292], 3, 980); wash(ctx, ell(304, 212, 8, 8, 0, TAU, 12), C.bamboo, { seed: 982 }); ink(ctx, ell(304, 212, 8, 8, 0, TAU, 12), { seed: 983, w: 1.3, closed: true, pass2: false }); }
+  else { bambooStick(ctx, [247, 159], [284, 200], 3, 984); wash(ctx, ell(ROC[0], ROC[1], 8, 8, 0, TAU, 12), C.bamboo, { seed: 986 }); ink(ctx, ell(ROC[0], ROC[1], 8, 8, 0, TAU, 12), { seed: 987, w: 1.3, closed: true, pass2: false }); }
+  // kensui
+  ring(ctx, 312, 334, 24, 18, 990);
+  // host
+  wash(ctx, ell(384, 352, 36, 18), C.inkSoft, { seed: 995, alpha: .4, edge: false }); wash(ctx, ell(384, 350, 13, 13), C.ink, { seed: 996, alpha: .55, edge: false });
+  ink(ctx, ell(384, 336, 30, 14, Math.PI * 1.1, Math.PI * 1.9, 14), { seed: 997, w: 1.6, pass2: false });
+  // labels
+  for (const it of FORMAL) { if (it.nest && it.nest(s)) continue; const [lx, ly] = it.lab(s); text(ctx, it.n, lx, ly, { size: 13, color: it === sel ? C.ink : C.inkSoft, weight: it === sel ? 700 : 400 }); }
+  text(ctx, '點前疊', 530, 196, { size: 14 }); arrow(ctx, [506, 196], [474, 196], 0);
+  text(ctx, '半疊', 62, 60, { size: 14 }); arrow(ctx, [80, 60], [108, 60], 0);
+  if (p1.sel === 'host' || p1.sel === 'ro') arrow(ctx, [376, 326], [290, 202], .1);
+}
+const list1 = () => p1.mode === 'home' ? ITEMS : FORMAL;
+const sayOf = it => typeof it.say === 'string' ? it.say : it.say[p1.mode];
+function pick1(k) { p1.sel = k; $('p1-items').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === k))); $('rp1').textContent = sayOf(list1().find(i => i.k === k)); }
+function chips1() { $('p1-items').innerHTML = list1().map(it => `<button type="button" data-v="${it.k}" aria-pressed="false">${it.n}</button>`).join(''); }
+function hit1(x, y) {
+  const cands = p1.mode === 'home' ? ITEMS.map(it => ({ it, p: [it.x, it.y] })) : FORMAL.filter(it => !(it.nest && it.nest(p1.mode))).map(it => ({ it, p: it.at(p1.mode) }));
+  let best = null; for (const c of cands) { if (Math.hypot(x - c.p[0], y - c.p[1]) < c.it.r + 8 && (!best || c.it.r < best.it.r)) best = c; }
+  return best && best.it.k;
+}
 $('cvp1').addEventListener('click', e => {
   const r = e.currentTarget.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W, y = (e.clientY - r.top) / r.height * H;
-  let best = null, bd = 1e9; for (const it of ITEMS) { const d = Math.hypot(x - it.x, y - it.y) - it.r; if (d < bd) { bd = d; best = it; } }
-  if (best && bd < 14) pick1(best.k);
+  const k = hit1(x, y); if (k) pick1(k);
 });
 
 // P2 — warm the bowl, soak the whisk, wipe dry
@@ -1013,6 +1158,7 @@ $('s4-replay').addEventListener('click', () => { reset4(); s4.running = true; })
 $('s5-demo').addEventListener('click', () => { if (s5.done) reset5(); s5.demo = 0; });
 $('s5-reset').addEventListener('click', reset5);
 bindSeg('p1-items', pick1);
+bindSeg('p1-mode', v => { p1.mode = v; chips1(); pick1(v === 'home' ? 'whisk' : list1().some(i => i.k === p1.sel) ? p1.sel : 'chawan'); });
 bindSeg('p2-steps', v => { const k = +v; p2.stopAt = SEG[k][1] - .001; p2.t = reduced ? p2.stopAt : SEG[k][0]; });
 $('p2-play').addEventListener('click', () => { p2.t = 0; p2.stopAt = 13; });
 
@@ -1025,7 +1171,7 @@ const refresh = () => { readColors(); scenes.forEach(sc => render(sc, 0)); };
 scenes.forEach(sc => { io.observe(sc.cv); render(sc, 0); });
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', refresh);
 new MutationObserver(refresh).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-if (document.fonts) Promise.all([document.fonts.load(`16px ${FONT}`, '放大看乾粉淡淡的好喝有點苦好苦！泡水計時擦了可以放抹茶粉穗從上面都沒斷建水你坐在這一邊茶碗筅罐＋杓篩網公道杯熱壺巾過▲✓'), document.fonts.load(`14px ${NUMF}`, '0123456789°C')]).then(refresh, () => {});
+if (document.fonts) Promise.all([document.fonts.load(`16px ${FONT}`, '放大看乾粉淡淡的好喝有點苦好苦！泡水計時擦了可以放抹茶粉穗從上面都沒斷建水你坐在這一邊茶碗筅罐＋杓篩網公道杯熱壺巾過▲✓炉・釜水指棗蓋置柄杓建亭主（）點前疊半'), document.fonts.load(`14px ${NUMF}`, '0123456789°C')]).then(refresh, () => {});
 let last = performance.now();
 function loop(now) {
   const dt = Math.min(.05, (now - last) / 1000); last = now;
