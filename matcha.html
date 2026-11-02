@@ -13,7 +13,7 @@
 :root{
   --paper:#EDEFE2; --paper-2:#E2E6D2; --ink:#2B2C25; --ink-soft:#626456; --line:#B8BBA6; --shine:#FFFFFF;
   --matcha:#7C9B3B; --matcha-deep:#4F6A24; --foam:#D0DE98; --water:#9DB6C2;
-  --glaze:#5F7280; --glaze-light:#C3CCCD; --bamboo:#C9B37B;
+  --glaze:#5F7280; --glaze-light:#C3CCCD; --bamboo:#C9B37B; --bamboo-wet:#A08650; --cloth:#FBFAF3;
   --hot:#C2603A; --sweet:#D4AE33; --bitter:#6E4B2E;
   --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   --f-hand:"LXGW WenKai TC","Kaiti TC","BiauKai","DFKai-SB","KaiTi",serif;
@@ -23,7 +23,7 @@
   :root:not([data-theme="light"]){
     --paper:#1A1D17; --paper-2:#23271F; --ink:#E6E5D6; --ink-soft:#A4A695; --line:#4C5044; --shine:#F4F3EA;
     --matcha:#8BAE47; --matcha-deep:#5E7E2B; --foam:#C6D78C; --water:#5E7B89;
-    --glaze:#7C91A0; --glaze-light:#3A454B; --bamboo:#B9A068;
+    --glaze:#7C91A0; --glaze-light:#3A454B; --bamboo:#B9A068; --bamboo-wet:#958049; --cloth:#D9D6CB;
     --hot:#E07C50; --sweet:#E0BF52; --bitter:#B98B62;
     --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
     color-scheme:dark;
@@ -32,7 +32,7 @@
 :root[data-theme="dark"]{
   --paper:#1A1D17; --paper-2:#23271F; --ink:#E6E5D6; --ink-soft:#A4A695; --line:#4C5044; --shine:#F4F3EA;
   --matcha:#8BAE47; --matcha-deep:#5E7E2B; --foam:#C6D78C; --water:#5E7B89;
-  --glaze:#7C91A0; --glaze-light:#3A454B; --bamboo:#B9A068;
+  --glaze:#7C91A0; --glaze-light:#3A454B; --bamboo:#B9A068; --bamboo-wet:#958049; --cloth:#D9D6CB;
   --hot:#E07C50; --sweet:#E0BF52; --bitter:#B98B62;
   --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   color-scheme:dark;
@@ -105,10 +105,18 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .said small,.tip small{font-size:13px;letter-spacing:.12em;color:var(--ink-soft)}
 .said p{max-width:36em}
 .tip{display:flex;flex-direction:column;gap:2px;font-size:15px;color:var(--ink-soft);max-width:36em}
+.step h3{font-size:clamp(20px,3.8vw,24px);margin:14px 0 0;text-wrap:balance}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{font:inherit;font-size:15px;line-height:1.3;color:var(--ink);background:transparent;border:1.6px solid var(--ink-soft);border-radius:14px 18px 12px 16px/16px 12px 18px 14px;padding:5px 12px;min-height:40px;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chips button b{font-family:var(--f-num);margin-right:6px}
+#cvp1{cursor:pointer}
 
 .summary{display:flex;flex-direction:column;gap:18px;padding-top:8px;border-top:1.8px dashed var(--line)}
 .summary h2{font-size:clamp(24px,4.6vw,30px);padding-top:28px}
-.summary ol{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;counter-reset:s}
+.summary ol{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;counter-reset:s -1}
+.summary h3{font-size:20px;margin:14px 0 0}
+.care{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
 .summary li{counter-increment:s;display:flex;gap:14px;align-items:baseline}
 .summary li::before{content:counter(s);font-family:var(--f-num);font-weight:700;font-size:16px;line-height:1;flex:none;width:30px;height:30px;display:inline-grid;place-items:center;border:1.8px solid var(--ink);border-radius:52% 48% 55% 45%/48% 55% 45% 52%;transform:translateY(5px)}
 .note{font-size:14px;color:var(--ink-soft)}
@@ -120,7 +128,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
     <div class="hero-text">
       <p class="kicker">薄茶 · USUCHA</p>
       <h1>刷一碗抹茶</h1>
-      <p class="lede">好喝的抹茶，上面有一層細細綿綿的泡沫，喝起來甘甜、不苦。秘訣是下面五件小事。每一步都能動手試試：按按看、拉拉看、刷刷看。</p>
+      <p class="lede">好喝的抹茶，上面有一層細細綿綿的泡沫，喝起來甘甜、不苦。先把茶具準備好，再照下面五件小事做。每一步都能動手試試：按按看、拉拉看、刷刷看。</p>
       <ul class="recipe" aria-label="一碗的份量">
         <li><b>2 g</b><span>抹茶（茶杓 2 匙）</span></li>
         <li><b>70 ml</b><span>熱水</span></li>
@@ -128,11 +136,56 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
         <li><b>15 秒</b><span>刷的時間</span></li>
       </ul>
       <nav class="toc" aria-label="五個步驟">
-        <a href="#s1">1 篩粉</a><a href="#s2">2 水溫</a><a href="#s3">3 調糊</a><a href="#s4">4 刷法</a><a href="#s5">5 收尾</a>
+        <a href="#s0">0 準備</a><a href="#s1">1 篩粉</a><a href="#s2">2 水溫</a><a href="#s3">3 調糊</a><a href="#s4">4 刷法</a><a href="#s5">5 收尾</a>
       </nav>
     </div>
     <figure class="hero-art"><canvas id="cv0" role="img" aria-label="從上面看一碗刷好的抹茶，表面是淡綠色的細泡沫，旁邊立著一支茶刷。"></canvas></figure>
   </header>
+
+  <section class="step" id="s0" aria-labelledby="h1-0">
+    <div class="step-head"><span class="num" aria-hidden="true">0</span><h2 id="h1-0">開始前：擺好茶具、泡茶筅</h2></div>
+    <p class="lede">先把東西擺好，一伸手就拿得到。再用熱水溫碗、泡茶筅，最後把碗擦乾。</p>
+
+    <h3>茶具怎麼擺</h3>
+    <figure class="stage">
+      <div class="paper"><canvas id="cvp1" role="img" aria-label="從上面看擺好的茶具：中間是茶碗，右邊是茶筅和熱水壺，左邊是抹茶罐、篩網和建水，前面是茶巾。"></canvas></div>
+      <figcaption>從上面往下看，你坐在下方。點畫面裡的東西或下面的按鈕，看它是什麼、為什麼放那裡。</figcaption>
+    </figure>
+    <div class="chips" id="p1-items" role="group" aria-label="茶具">
+      <button type="button" data-v="bowl" aria-pressed="false">茶碗</button>
+      <button type="button" data-v="whisk" aria-pressed="true">茶筅</button>
+      <button type="button" data-v="caddy" aria-pressed="false">抹茶罐＋茶杓</button>
+      <button type="button" data-v="sieve" aria-pressed="false">篩網</button>
+      <button type="button" data-v="pitcher" aria-pressed="false">公道杯</button>
+      <button type="button" data-v="kettle" aria-pressed="false">熱水壺</button>
+      <button type="button" data-v="cloth" aria-pressed="false">茶巾</button>
+      <button type="button" data-v="kensui" aria-pressed="false">建水</button>
+    </div>
+    <div class="said"><small>這是什麼</small><p id="rp1" aria-live="polite">茶筅放在茶碗右邊，插在「茶筅直し」（白色的座）上。右手一伸就拿得到，穗也不會被壓壞。</p></div>
+    <p class="tip"><small>小提醒</small>這是在家喝茶的實用擺法，不是正式茶道的點前。慣用左手的話，左右對調就好。</p>
+
+    <h3>溫碗、泡茶筅、擦乾</h3>
+    <figure class="stage">
+      <div class="paper"><canvas id="cvp2" role="img" aria-label="切開的茶碗。倒熱水進去，把茶筅的穗泡在裡面，輕刷檢查，再把水倒進建水、用茶巾把碗擦乾。"></canvas></div>
+      <figcaption>跟第 1 步一樣，是切開的碗。按小步驟，一次看一段。</figcaption>
+    </figure>
+    <div class="controls">
+      <div class="chips" id="p2-steps" role="group" aria-label="準備的五個小步驟">
+        <button type="button" data-v="0" aria-pressed="false"><b>1</b>溫碗</button>
+        <button type="button" data-v="1" aria-pressed="false"><b>2</b>泡茶筅</button>
+        <button type="button" data-v="2" aria-pressed="false"><b>3</b>輕刷檢查</button>
+        <button type="button" data-v="3" aria-pressed="false"><b>4</b>倒掉水</button>
+        <button type="button" data-v="4" aria-pressed="true"><b>5</b>擦乾碗</button>
+      </div>
+      <button type="button" class="btn" id="p2-play">▶ 全部播一次</button>
+    </div>
+    <div class="meters two">
+      <div class="meter"><span>碗溫</span><i><b id="m-bowl" style="--c:var(--hot)"></b></i></div>
+      <div class="meter"><span>穗的彈性</span><i><b id="m-tine" style="--c:var(--bamboo)"></b></i></div>
+    </div>
+    <div class="said"><small>你看到的</small><p id="rp2" aria-live="polite">用茶巾把碗裡擦乾。碗裡留著水滴，抹茶粉一碰到就會結塊。</p></div>
+    <p class="tip"><small>為什麼要泡茶筅</small>竹子乾的時候又硬又脆，一刷就容易斷穗。泡過熱水會變軟、有彈性。新的茶筅第一次用，可以泡久一點。</p>
+  </section>
 
   <section class="step" id="s1" aria-labelledby="h1-1">
     <div class="step-head"><span class="num" aria-hidden="true">1</span><h2 id="h1-1">先篩粉</h2></div>
@@ -239,14 +292,22 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
   </section>
 
   <section class="summary" aria-labelledby="sum-h">
-    <h2 id="sum-h">記住這五句</h2>
+    <h2 id="sum-h">記住這六句</h2>
     <ol>
+      <li>先溫碗、泡茶筅，再把碗擦乾。</li>
       <li>粉先篩過。</li>
       <li>水溫 70–80°C，不要用剛滾的水。</li>
       <li>先加一點水調成糊，再把水加滿。</li>
       <li>手腕前後快刷，像寫 W，大約 15 秒。</li>
       <li>最後在表面輕刷，在中間寫一個「の」，慢慢提起茶刷。</li>
     </ol>
+    <h3>用完怎麼收</h3>
+    <ul class="care">
+      <li>茶筅用溫水沖乾淨就好，不要用洗碗精。</li>
+      <li>甩掉水，穗朝下插在茶筅直し上晾乾。完全乾了再收，悶在盒子裡會發霉。</li>
+      <li>茶碗用清水洗，擦乾。</li>
+      <li>抹茶開封後封好、放冰箱，大約一個月內喝完。從冰箱拿出來，等罐子回到室溫再打開，才不會受潮。</li>
+    </ul>
     <p class="note">動畫是簡化過的示意圖，用來看懂原理，不是精確的物理模擬。</p>
     <p class="note"><a href="./" style="color:inherit">回首頁</a> · 另一篇：<a id="other-page" href="coffee.html" style="color:inherit">手沖一杯咖啡</a></p>
   </section>
@@ -267,7 +328,7 @@ const hsh = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x 
 const vn = (x, s) => { const i = Math.floor(x), f = x - i, u = f * f * (3 - 2 * f); return lerp(hsh(i + s * 57.31), hsh(i + 1 + s * 57.31), u) * 2 - 1; };
 
 // ---------- colors from the page tokens ----------
-const TOK = { ink: '--ink', inkSoft: '--ink-soft', paper: '--paper', paper2: '--paper-2', shine: '--shine', matcha: '--matcha', matchaDeep: '--matcha-deep', foam: '--foam', water: '--water', glaze: '--glaze', glazeLight: '--glaze-light', bamboo: '--bamboo', hot: '--hot', sweet: '--sweet', bitter: '--bitter' };
+const TOK = { ink: '--ink', inkSoft: '--ink-soft', paper: '--paper', paper2: '--paper-2', shine: '--shine', matcha: '--matcha', matchaDeep: '--matcha-deep', foam: '--foam', water: '--water', glaze: '--glaze', glazeLight: '--glaze-light', bamboo: '--bamboo', bambooWet: '--bamboo-wet', cloth: '--cloth', hot: '--hot', sweet: '--sweet', bitter: '--bitter' };
 const C = {};
 function readColors() { const cs = getComputedStyle(document.documentElement); for (const k in TOK) C[k] = cs.getPropertyValue(TOK[k]).trim() || '#888888'; }
 function rgb(hex) { let h = hex.replace('#', ''); if (h.length === 3) h = h.replace(/./g, c => c + c); const n = parseInt(h.slice(0, 6), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
@@ -364,7 +425,8 @@ function blob(ctx, x, y, r, color, seed, alpha = 1) {
   wash(ctx, p, color, { seed, amp: r * .12, alpha });
   ink(ctx, p, { seed: seed + 1, w: 1.1, amp: r * .1, closed: true, alpha: alpha * .75, pass2: false });
 }
-function drawChasen(ctx, x, tip, a) {
+function drawChasen(ctx, x, tip, a, tc) {
+  tc = tc || C.bamboo;
   const top = tip - 175, neck = tip - 92, hp = line(x, top, x, neck);
   ink(ctx, hp, { w: 15, seed: 90, alpha: a, pass2: false });
   ink(ctx, hp, { color: C.bamboo, w: 11.5, seed: 91, alpha: a, pass2: false });
@@ -372,10 +434,10 @@ function drawChasen(ctx, x, tip, a) {
   for (let i = 0; i < 11; i++) {
     const u = i / 10 * 2 - 1, pts = [];
     for (let j = 0; j <= 12; j++) { const v = j / 12, bulge = Math.sin(v * Math.PI * .85) * 30 * u, curl = v > .85 ? (v - .85) / .15 * -6 * u : 0; pts.push([x + u * 5 + bulge + curl, neck + v * (tip - neck)]); }
-    ink(ctx, pts, { color: C.bamboo, w: 2.6, seed: 93 + i, alpha: a, amp: .4, pass2: false });
+    ink(ctx, pts, { color: tc, w: 2.6, seed: 93 + i, alpha: a, amp: .4, pass2: false });
     ink(ctx, pts, { w: .8, seed: 110 + i, alpha: a * .55, amp: .4, pass2: false });
   }
-  for (let i = 0; i < 6; i++) { const u = i / 5 * 2 - 1; ink(ctx, line(x + u * 3, neck, x + u * 9, neck + 45), { color: C.bamboo, w: 2, seed: 130 + i, alpha: a * .9, pass2: false }); }
+  for (let i = 0; i < 6; i++) { const u = i / 5 * 2 - 1; ink(ctx, line(x + u * 3, neck, x + u * 9, neck + 45), { color: tc, w: 2, seed: 130 + i, alpha: a * .9, pass2: false }); }
 }
 
 // ---------- the bowl seen from above (steps 4, 5, hero) ----------
@@ -783,6 +845,159 @@ cv5.addEventListener('pointerdown', e => { s5.demo = -1; const p = toCanvas(e); 
 cv5.addEventListener('pointermove', e => { const p = toCanvas(e); s5.ptr = p; brushLine(s5.last || p, p); s5.last = p; });
 ['pointerup', 'pointercancel', 'pointerleave'].forEach(n => cv5.addEventListener(n, e => { s5.last = null; if (n !== 'pointerup' || e.pointerType !== 'mouse') s5.ptr = null; }));
 
+// P1 — where the tools go (top view of a tray)
+const ITEMS = [
+  { k: 'bowl', n: '茶碗', x: 300, y: 232, r: 72, say: '茶碗放正中間、靠近你。所有動作都在這裡做。' },
+  { k: 'whisk', n: '茶筅', x: 440, y: 262, r: 30, say: '茶筅放在茶碗右邊，插在「茶筅直し」（白色的座）上。右手一伸就拿得到，穗也不會被壓壞。' },
+  { k: 'caddy', n: '抹茶罐＋茶杓', x: 160, y: 236, r: 40, say: '抹茶罐放左邊，茶杓架在罐子上。茶杓一匙大約 1 g。舀完馬上蓋好，抹茶怕光也怕潮。' },
+  { k: 'sieve', n: '篩網', x: 166, y: 100, r: 42, say: '篩網放左後方。粉先舀進篩網，再篩進茶碗（第 1 步）。' },
+  { k: 'pitcher', n: '公道杯', x: 318, y: 88, r: 28, say: '公道杯用來降溫：熱水先倒進來，再倒進茶碗。每倒一次大約降 10°C（第 2 步）。' },
+  { k: 'kettle', n: '熱水壺', x: 470, y: 104, r: 50, say: '熱水壺放右後方，用右手倒水。' },
+  { k: 'cloth', n: '茶巾', x: 214, y: 340, r: 24, say: '茶巾是擦碗的布，放在茶碗左前方。溫完碗，要用它把碗擦乾。' },
+  { k: 'kensui', n: '建水', x: 68, y: 300, r: 34, say: '建水是裝廢水的碗，放在左邊。溫碗、泡茶筅用過的水都倒這裡。' }
+];
+const FLOWS = {
+  kettle: [[[408, 138], [348, 100], .2], [[290, 112], [294, 164], .25]],
+  pitcher: [[[408, 138], [348, 100], .2], [[290, 112], [294, 164], .25]],
+  kensui: [[[232, 262], [102, 296], -.15]],
+  sieve: [[[198, 126], [252, 176], -.12]],
+  caddy: [[[160, 194], [164, 146], .2]],
+  cloth: [[[226, 326], [262, 292], .2]],
+  whisk: [[[414, 252], [372, 240], .15]]
+};
+const p1 = { sel: 'whisk' };
+const TRAY = resample([[24, 24], [576, 24], [576, 364], [24, 364], [24, 24]], 6);
+function arrow(ctx, a, b, bend) {
+  const mx = (a[0] + b[0]) / 2 - (b[1] - a[1]) * bend, my = (a[1] + b[1]) / 2 + (b[0] - a[0]) * bend, ang = Math.atan2(b[1] - my, b[0] - mx);
+  ctx.strokeStyle = C.ink; ctx.lineWidth = 1.8; ctx.setLineDash([5, 5]); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.quadraticCurveTo(mx, my, b[0], b[1]); ctx.stroke(); ctx.setLineDash([]);
+  ctx.beginPath(); for (const s of [-.45, .45]) { ctx.moveTo(b[0], b[1]); ctx.lineTo(b[0] - 10 * Math.cos(ang + s), b[1] - 10 * Math.sin(ang + s)); } ctx.stroke();
+}
+function ring(ctx, x, y, ro, ri, seed) { const o = ell(x, y, ro, ro), i = ell(x, y, ri, ri); wash(ctx, o.concat(i.slice().reverse()), C.glaze, { seed, edge: false }); wash(ctx, i, C.glazeLight, { seed: seed + 1, edge: false }); ink(ctx, o, { seed: seed + 2, w: 1.9, closed: true }); ink(ctx, i, { seed: seed + 3, w: 1.2, closed: true, alpha: .8, pass2: false }); }
+function drawItem(ctx, it) {
+  const { x, y } = it;
+  if (it.k === 'bowl') { ring(ctx, x, y, 72, 60, 800); ink(ctx, ell(x, y, 22, 22), { seed: 804, w: 1, alpha: .35, closed: true, pass2: false }); }
+  else if (it.k === 'whisk') { wash(ctx, ell(x, y, 26, 26), C.cloth, { seed: 810 }); ink(ctx, ell(x, y, 26, 26), { seed: 811, w: 1.4, closed: true, alpha: .7 }); whiskTop(ctx, x, y, 1, 1.25); }
+  else if (it.k === 'caddy') {
+    wash(ctx, ell(x, y, 34, 34), C.matchaDeep, { seed: 820 }); ink(ctx, ell(x, y, 34, 34), { seed: 821, w: 1.8, closed: true }); ink(ctx, ell(x, y, 29, 29), { seed: 822, w: 1, closed: true, alpha: .5, pass2: false });
+    const s = resample([[x - 40, y - 22], [x + 2, y - 2], [x + 38, y + 16]], 5);
+    ink(ctx, s, { w: 8, seed: 823, pass2: false }); ink(ctx, s, { color: C.bamboo, w: 5, seed: 824, pass2: false });
+    wash(ctx, ell(x - 40, y - 22, 7, 5, 0, TAU, 12), C.bamboo, { seed: 825 }); ink(ctx, ell(x - 40, y - 22, 7, 5, 0, TAU, 12), { seed: 826, w: 1.3, closed: true, pass2: false });
+  }
+  else if (it.k === 'sieve') {
+    wash(ctx, ell(x, y, 42, 42), C.glazeLight, { seed: 830, edge: false });
+    ctx.save(); trace(ctx, ell(x, y, 35, 35), true); ctx.clip(); ctx.strokeStyle = C.ink; ctx.globalAlpha = .4; ctx.lineWidth = .8; ctx.beginPath();
+    for (let k = -40; k <= 40; k += 5) { ctx.moveTo(x + k, y - 40); ctx.lineTo(x + k, y + 40); ctx.moveTo(x - 40, y + k); ctx.lineTo(x + 40, y + k); }
+    ctx.stroke(); ctx.restore(); ctx.globalAlpha = 1;
+    ink(ctx, ell(x, y, 42, 42), { seed: 831, w: 1.8, closed: true }); ink(ctx, ell(x, y, 35, 35), { seed: 832, w: 1.1, closed: true, pass2: false });
+  }
+  else if (it.k === 'pitcher') { wash(ctx, ell(x, y, 26, 26), C.glazeLight, { seed: 840 }); ink(ctx, ell(x, y, 26, 26), { seed: 841, w: 1.8, closed: true }); ink(ctx, ell(x, y, 20, 20), { seed: 842, w: 1, closed: true, alpha: .6, pass2: false }); ink(ctx, [[x - 20, y + 16], [x - 30, y + 26], [x - 14, y + 22]], { seed: 843, w: 1.6, pass2: false }); }
+  else if (it.k === 'kettle') {
+    wash(ctx, ell(x, y, 46, 46), C.glaze, { seed: 850 }); ink(ctx, ell(x, y, 46, 46), { seed: 851, w: 2, closed: true });
+    wash(ctx, ell(x, y, 20, 20), C.glazeLight, { seed: 852, edge: false }); ink(ctx, ell(x, y, 20, 20), { seed: 853, w: 1.4, closed: true }); ink(ctx, ell(x, y, 5, 5, 0, TAU, 8), { seed: 854, w: 2, closed: true, pass2: false });
+    const sp = resample([[x - 38, y + 26], [x - 52, y + 34], [x - 60, y + 36]], 4); ink(ctx, sp, { w: 8, seed: 855, pass2: false }); ink(ctx, sp, { color: C.glaze, w: 5, seed: 856, pass2: false });
+    ink(ctx, ell(x, y - 4, 56, 40, Math.PI * 1.1, Math.PI * 1.9, 20), { seed: 857, w: 2.4, pass2: false });
+  }
+  else if (it.k === 'cloth') { const p = resample([[x - 24, y - 12], [x + 24, y - 12], [x + 24, y + 12], [x - 24, y + 12], [x - 24, y - 12]], 4); wash(ctx, p, C.cloth, { seed: 860 }); ink(ctx, p, { seed: 861, w: 1.5, closed: true }); ink(ctx, line(x - 24, y, x + 24, y), { seed: 862, w: 1, alpha: .5, pass2: false }); }
+  else if (it.k === 'kensui') ring(ctx, x, y, 32, 24, 870);
+}
+scene('cvp1', ctx => {
+  wash(ctx, TRAY, C.bamboo, { seed: 790, alpha: .28, edge: false });
+  ctx.strokeStyle = C.inkSoft; ctx.globalAlpha = .14; ctx.lineWidth = 1; ctx.beginPath(); for (let y = 38; y < 364; y += 14) { ctx.moveTo(26, y); ctx.lineTo(574, y); } ctx.stroke(); ctx.globalAlpha = 1;
+  ink(ctx, TRAY, { seed: 791, w: 1.6, alpha: .7 });
+  const sel = ITEMS.find(i => i.k === p1.sel);
+  if (sel) wash(ctx, ell(sel.x, sel.y, sel.r + 12, sel.r + 12), C.foam, { seed: 792, alpha: .8, edge: false });
+  for (const it of ITEMS) drawItem(ctx, it);
+  for (const it of ITEMS) text(ctx, it.n, it.x, it.y + it.r + (it.k === 'caddy' ? 18 : 14), { size: 14, color: it === sel ? C.ink : C.inkSoft, weight: it === sel ? 700 : 400 });
+  for (const [a, b, bend] of FLOWS[p1.sel] || []) arrow(ctx, a, b, bend);
+  text(ctx, '▲ 你坐在這一邊', 300, 384, { size: 14 });
+});
+function pick1(k) { p1.sel = k; $('p1-items').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === k))); $('rp1').textContent = ITEMS.find(i => i.k === k).say; }
+$('cvp1').addEventListener('click', e => {
+  const r = e.currentTarget.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W, y = (e.clientY - r.top) / r.height * H;
+  let best = null, bd = 1e9; for (const it of ITEMS) { const d = Math.hypot(x - it.x, y - it.y) - it.r; if (d < bd) { bd = d; best = it; } }
+  if (best && bd < 14) pick1(best.k);
+});
+
+// P2 — warm the bowl, soak the whisk, wipe dry
+const p2 = { t: 13, stopAt: 13, time: 0, k: -1 };
+const SEG = [[0, 2.4], [2.4, 6], [6, 8.4], [8.4, 10.4], [10.4, 13]];
+const P2TXT = [
+  '先倒熱水進茶碗，大約半碗。碗溫熱了，等一下刷好的茶才不會很快變涼。',
+  '把茶筅的穗泡進熱水裡，泡 1–2 分鐘。竹子吸了水會變軟、有彈性，刷的時候不容易斷。',
+  '輕輕刷幾下，再把茶筅提起來看看：穗有沒有斷、有沒有折到。',
+  '把水倒進建水，茶筅插回茶筅直し上。',
+  '用茶巾把碗裡擦乾。碗裡留著水滴，抹茶粉一碰到就會結塊。'
+];
+const SPL = 262;
+const WDROPS = [.1, .17, .24, .31, .4, .5, .6, .69, .77, .85, .91].map((f, i) => { const p = INNER[Math.round(f * (INNER.length - 1))]; return { f, x: p[0] + (p[0] < B.cx ? 5 : -5), y: p[1] - 3 - hsh(i + 9900) * 2 }; });
+function clothAt(f) { const n = INNER.length - 1, i = clamp(Math.round(f * n), 1, n - 1), a = INNER[i - 1], b = INNER[i + 1], ang = Math.atan2(b[1] - a[1], b[0] - a[0]), p = INNER[i]; return { x: p[0] + Math.sin(ang) * 9, y: p[1] - Math.cos(ang) * 9, ang }; }
+function tine(ctx, pts, col, a) { ink(ctx, pts, { w: 6, alpha: a, pass2: false, seed: 890, amp: .3 }); ink(ctx, pts, { color: col, w: 3.8, alpha: a, pass2: false, seed: 891, amp: .3 }); }
+function kensuiSide(ctx, a) {
+  const body = resample([[22, 322], [30, 362], [98, 362], [106, 322], [22, 322]], 5);
+  wash(ctx, body, C.glaze, { seed: 880, alpha: a }); ink(ctx, body, { seed: 881, w: 1.8, closed: true, alpha: a });
+  ink(ctx, ell(64, 322, 42, 7), { seed: 882, w: 1.4, closed: true, alpha: a, pass2: false });
+  text(ctx, '建水', 64, 380, { size: 14, alpha: a });
+}
+scene('cvp2', (ctx, dt) => {
+  if (p2.t < p2.stopAt) p2.t = Math.min(p2.stopAt, p2.t + dt);
+  if (!reduced) p2.time += dt;
+  const t = p2.t;
+  const L = t < 8.4 ? lerp(B.inBot, SPL, ss(.3, 2.2, t)) : lerp(SPL, B.inBot, ss(8.6, 10, t));
+  const tineCol = mix(C.bamboo, C.bambooWet, ss(3.3, 5.6, t));
+  let ch = null;
+  if (t > 2.4 && t < 9) {
+    let x = B.cx, tip = 318, a = ss(2.4, 2.6, t);
+    if (t < 3.3) tip = lerp(140, 318, ss(2.5, 3.3, t));
+    else if (t >= 6 && t < 7.3) { x = B.cx + 26 * Math.sin((t - 6) * TAU * 1.2); tip = 312; }
+    else if (t >= 7.3) { tip = lerp(312, 200, ss(7.3, 8.1, t)); x = lerp(B.cx, 470, ss(8.4, 9, t)); a *= 1 - ss(8.7, 9, t); }
+    ch = { x, tip, a };
+  }
+  const cf = t > 10.6 ? lerp(.06, .94, ss(10.6, 12.6, t)) : -1;
+  bowlSide(ctx, { level: L, liquid: C.water, alpha: .75, inside: () => {
+    const da = ss(9.4, 9.9, t);
+    if (da > 0) for (const d of WDROPS) { if (cf >= d.f) continue; ctx.globalAlpha = da; ctx.fillStyle = C.water; ctx.beginPath(); ctx.ellipse(d.x, d.y, 3.2, 4, 0, 0, TAU); ctx.fill(); ctx.globalAlpha = da * .8; ctx.strokeStyle = C.shine; ctx.lineWidth = 1; ctx.stroke(); ctx.globalAlpha = 1; }
+    if (ch && ch.a > 0) { drawChasen(ctx, ch.x, ch.tip, ch.a, tineCol); if (L < ch.tip) { ctx.globalAlpha = .4 * ch.a; ctx.fillStyle = C.water; trace(ctx, liquidPoly(L), true); ctx.fill(); ctx.globalAlpha = 1; } }
+    const ca = ss(10.4, 10.6, t) * (1 - ss(12.6, 12.9, t));
+    if (ca > 0) {
+      const c = clothAt(cf < 0 ? .06 : cf);
+      ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.ang);
+      const p = resample([[-22, -8], [22, -8], [22, 8], [-22, 8], [-22, -8]], 4);
+      wash(ctx, p, C.cloth, { seed: 885, alpha: ca, amp: .6 }); ink(ctx, p, { seed: 886, w: 1.4, closed: true, alpha: ca, amp: .6 }); ink(ctx, line(-22, 0, 22, 0), { seed: 887, w: .9, alpha: ca * .5, pass2: false, amp: .4 });
+      ctx.restore();
+    }
+  } });
+  steam(ctx, Math.min(L, 300), p2.time, t < .8 ? 0 : t < 10 ? .75 * ss(.8, 1.6, t) : .35 * (1 - ss(10, 12.5, t)));
+  pour(ctx, 392, L - 2, 7, ss(.2, .4, t) * (1 - ss(2, 2.3, t)));
+  const ka = ss(8.3, 8.5, t) * (1 - ss(10.2, 10.4, t));
+  if (ka > 0) {
+    kensuiSide(ctx, ka);
+    const sa = ss(8.6, 8.8, t) * (1 - ss(9.8, 10.1, t));
+    if (sa > 0) { const pts = []; for (let i = 0; i <= 16; i++) { const u = i / 16; pts.push([lerp(116, 64, u), lerp(146, 330, u * u)]); } ink(ctx, pts, { color: C.water, w: 6, alpha: sa * .9, pass2: false, seed: 883 }); }
+  }
+  if (t >= 3.3 && t < 6) { const s = Math.round(clamp((t - 3.3) / 2.5, 0, 1) * 60); text(ctx, '泡水計時', 24, 26, { align: 'left' }); text(ctx, s >= 60 ? '1:00' : `0:${String(s).padStart(2, '0')}`, 24, 56, { align: 'left', size: 28, font: NUMF, color: C.ink, weight: 700 }); }
+  if (t >= 12.6) text(ctx, '擦乾了，可以放抹茶粉 ✓', 24, 26, { align: 'left', color: C.ink, weight: 700 });
+  const ma = ss(3.3, 3.7, t) * (1 - ss(8.1, 8.4, t));
+  if (ma > 0) {
+    const mx = 530, my = 80, r = 54;
+    ctx.save(); ctx.beginPath(); ctx.arc(mx, my, r, 0, TAU); ctx.clip();
+    ctx.globalAlpha = ma; ctx.fillStyle = C.paper2; ctx.fillRect(mx - r, my - r, 2 * r, 2 * r); ctx.globalAlpha = 1;
+    if (t < 6) {
+      tine(ctx, [[508, 56], [509, 86]], C.bamboo, ma); tine(ctx, [[513, 93], [522, 121]], C.bamboo, ma);
+      ink(ctx, [[502, 88], [507, 90], [503, 93]], { w: 1.2, alpha: ma, pass2: false, seed: 892 });
+      const b = (reduced ? 8 : 12 * Math.sin(p2.time * 2.6)), wt = []; for (let i = 0; i <= 8; i++) { const u = i / 8; wt.push([552 + b * u * u, 56 + u * 66]); }
+      tine(ctx, wt, C.bambooWet, ma);
+      text(ctx, '乾', 508, 44, { size: 13, color: C.ink, alpha: ma }); text(ctx, '泡過', 552, 44, { size: 13, color: C.ink, alpha: ma });
+    } else { whiskTop(ctx, mx, my - 4, ma, 2.1); text(ctx, '都沒斷', mx, my + 44, { size: 13, color: C.ink, alpha: ma }); }
+    ctx.restore();
+    ink(ctx, ell(mx, my, r, r), { w: 2, closed: true, seed: 893, alpha: ma });
+    text(ctx, t < 6 ? '放大看穗' : '從上面看穗', mx - r - 8, my - r + 16, { align: 'right', alpha: ma });
+  }
+  const kk = SEG.findIndex(([a, b]) => t >= a && t < b), k = kk < 0 ? 4 : kk;
+  if (k !== p2.k) { p2.k = k; $('p2-steps').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.v === k))); $('rp2').textContent = P2TXT[k]; }
+  const bowl = t < 2.4 ? .1 + .5 * ss(.5, 2.4, t) : t < 6 ? .6 + .35 * ss(2.4, 6, t) : .95 - .1 * ss(9, 13, t);
+  $('m-bowl').style.width = Math.round(bowl * 100) + '%'; $('m-tine').style.width = Math.round((.25 + .75 * ss(3.3, 5.6, t)) * 100) + '%';
+}, () => { if (!reduced) { p2.t = 0; p2.stopAt = 13; } });
+
 // ---------- controls ----------
 function bindSeg(id, fn) { const g = $(id); g.addEventListener('click', e => { const b = e.target.closest('button'); if (!b || !g.contains(b)) return; g.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); fn(b.dataset.v); }); }
 const TXT1 = { sift: '篩過的粉鬆鬆的，每一顆都碰得到水，一下就散開，顏色很均勻。', direct: '結塊的粉一碰到水，外面先濕成一層黏黏的膜，把裡面的乾粉包住。水進不去，刷再久也打不散，喝的時候會吃到一顆一顆的粉。' };
@@ -797,6 +1012,9 @@ $('s4-speed').addEventListener('input', e => { s4.N = +e.target.value; ui4text()
 $('s4-replay').addEventListener('click', () => { reset4(); s4.running = true; });
 $('s5-demo').addEventListener('click', () => { if (s5.done) reset5(); s5.demo = 0; });
 $('s5-reset').addEventListener('click', reset5);
+bindSeg('p1-items', pick1);
+bindSeg('p2-steps', v => { const k = +v; p2.stopAt = SEG[k][1] - .001; p2.t = reduced ? p2.stopAt : SEG[k][0]; });
+$('p2-play').addEventListener('click', () => { p2.t = 0; p2.stopAt = 13; });
 
 // ---------- start ----------
 readColors();
@@ -807,7 +1025,7 @@ const refresh = () => { readColors(); scenes.forEach(sc => render(sc, 0)); };
 scenes.forEach(sc => { io.observe(sc.cv); render(sc, 0); });
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', refresh);
 new MutationObserver(refresh).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-if (document.fonts) Promise.all([document.fonts.load(`16px ${FONT}`, '放大看乾粉淡淡的好喝有點苦好苦！'), document.fonts.load(`14px ${NUMF}`, '0123456789°C')]).then(refresh, () => {});
+if (document.fonts) Promise.all([document.fonts.load(`16px ${FONT}`, '放大看乾粉淡淡的好喝有點苦好苦！泡水計時擦了可以放抹茶粉穗從上面都沒斷建水你坐在這一邊茶碗筅罐＋杓篩網公道杯熱壺巾過▲✓'), document.fonts.load(`14px ${NUMF}`, '0123456789°C')]).then(refresh, () => {});
 let last = performance.now();
 function loop(now) {
   const dt = Math.min(.05, (now - last) / 1000); last = now;
